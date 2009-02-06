@@ -206,8 +206,6 @@ class Ean2(Barcode):
     renderer = _Renderer
 
 
-
-
 if __name__=="__main__":
     from doctest import testmod
     testmod()
