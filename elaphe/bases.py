@@ -8,58 +8,96 @@ from PIL.EpsImagePlugin import EpsImageFile
 
 import config, utils
 
-DPI = 72
+DPI = 72.0
+
+def fb_lookup(dic, keys, default):
+    for key in keys:
+        if key in dic:
+            return dic[key]
+    else:
+        return default
+    
 
 class Renderer(object):
     default_options = {}
 
     def __init__(self, codetype, options=None, **kw):
         self.codetype = codetype
-        self.options = dict(self.__class__.default_options)
-        if options:
-            self.options.update(options)
-        if kw:
-            self.options.update(kw)
+        self.options = options
+        self.render_options = kw
 
+    def lookup_option(self, key, default=None):
+        fb_value = self.default_options.get(key, default)
+        if self.options:
+            return self.options.get(key, fb_value)
+        return fb_value
+
+    @property
     def text_bbox(self):
         """
         >>> r = Renderer('ean13')
-        >>> r.text_bbox() == r.code_bbox()
+        >>> r.text_bbox == r.code_bbox
         True
         """
-        return self.code_bbox()
+        return self.code_bbox
 
+    @property
     def code_bbox(self):
         """
         >>> r = Renderer('ean13')
-        >>> r.text_bbox() == [0, 0, DPI, DPI]
+        >>> r.text_bbox == [0, 0, DPI, DPI]
         True
         """
         return [0, 0, DPI, DPI]
 
+    @property
     def left_margin(self):
-        return 0
+        return fb_lookup(self.render_options, ('left_margin', 'margin'), 0)
 
+    @property
     def right_margin(self):
-        return 0
+        return fb_lookup(self.render_options, ('right_margin', 'margin'), 0)
 
+    @property
     def top_margin(self):
-        return 0
+        return fb_lookup(self.render_options, ('top_margin', 'margin'), 0)
 
+    @property
     def bottom_margin(self):
-        return 0
+        return fb_lookup(self.render_options, ('bottom_margin', 'margin'), 0)
 
+    @property
+    def x_scale(self):
+        scale = fb_lookup(self.render_options, ('scale',), 1.0)
+        if isinstance(scale, tuple):
+            scale = scale[0]
+        return scale
+
+    @property
+    def y_scale(self):
+        scale = fb_lookup(self.render_options, ('scale',), 1.0)
+        if isinstance(scale, tuple):
+            scale = scale[1]
+        return scale
+
+    @property
     def boundingbox(self):
-        text_lbx, text_lby, text_rtx, text_rty = self.text_bbox()
-        code_lbx, code_lby, code_rtx, code_rty = self.code_bbox()
-        return (min(text_lbx, code_lbx)-self.left_margin(),
-                min(text_lby, code_lby)-self.bottom_margin(),
-                max(text_rtx, code_rtx)+self.right_margin(),
-                max(text_rty, code_rty)+self.top_margin())
+        text_lbx, text_lby, text_rtx, text_rty = self.text_bbox
+        code_lbx, code_lby, code_rtx, code_rty = self.code_bbox
+        return (self.x_scale*(min(text_lbx, code_lbx)-self.left_margin),
+                self.y_scale*(min(text_lby, code_lby)-self.bottom_margin),
+                self.x_scale*(max(text_rtx, code_rtx)+self.right_margin),
+                self.y_scale*(max(text_rty, code_rty)+self.top_margin))
+
+    def build_codestring(self, codestring):
+        return utils.to_ps(codestring)
+        
+    def build_options_string(self, options):
+        return utils.ps_optstring(options)
         
     def render_ps_code(self, codestring):
         """
-        >>> print Renderer('ean13').render_ps_code('977147396801') # doctest: +ELLIPSIS
+        >>> print Renderer('foo').render_ps_code('977147396801') # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         %%Pages: (attend)
         %%Creator: Elaphe powered by barcode.ps
@@ -77,21 +115,23 @@ class Renderer(object):
         <BLANKLINE>
         gsave
         0 0 moveto
-        (977147396801) () ean13 barcode
+        1.000000 1.000000 scale
+        (977147396801) () foo barcode
         grestore
         showpage
         <BLANKLINE>
         """
         params = {}
-        params['bbox'] = "%d %d %d %d" %self.boundingbox()
-        params['codestring'] = utils.to_ps(codestring)
-        params['options'] = utils.ps_optstring(self.options)
+        params['bbox'] = "%d %d %d %d" %self.boundingbox
+        params['codestring'] = self.build_codestring(codestring)
+        params['options'] = self.build_options_string(self.options)
+        params['xscale'], params['yscale'] = self.x_scale, self.y_scale
         params['codetype'] = self.codetype
         return config.PS_CODE_TEMPLATE %(params)
 
     def render(self, codestring):
         """
-        >>> Renderer('ean13').render('977147396801') # doctest: +ELLIPSIS
+        >>> Renderer('foo').render('977147396801') # doctest: +ELLIPSIS
         <PIL.EpsImagePlugin.EpsImageFile instance at ...>
         """
         ps_code_buf = self.render_ps_code(codestring)
@@ -129,31 +169,39 @@ class LinearCodeRenderer(Renderer):
         guardheight=7,
         )
 
-    @property
-    def boundingbox(self):
-        return (0, 0, DPI, 100)
-    
     
 class MatrixCodeRenderer(object):
     def __init__(self):
-        self.options = dict(
-            
-           )
+        self.options = dict()
 
 
 class Barcode(object):
-    """Base class of barcode renderers. The codetype defaults to ean13.
+    """Base class of barcode renderers.
+
+    >>> print Barcode().render_ps_code('') # doctest: +ELLIPSIS
+    %!PS-Adobe-2.0
+    %%Pages: (attend)
+    %%Creator: Elaphe powered by barcode.ps
+    %%BoundingBox: 0 0 72 72
+    %%LanguageLevel: 2
+    %%EndComments
+    ...
+    gsave
+    0 0 moveto
+    1.000000 1.000000 scale
+    () ()  barcode
+    grestore
+    showpage
+    <BLANKLINE>
     """
-    codetype = 'ean13'
-    aliases = ('EAN-13', 'EAN_13', 'JAN')
+    codetype = ''
+    aliases = ()
     registry = {}
-    default_options = {}
     renderer = Renderer
     @classmethod
     def update_codetype_registry(cls):
         # update registry
-        for subclass in filter(lambda c: getattr(c, '__abstract', False) is False,
-                               cls.__subclasses__()):
+        for subclass in cls.__subclasses__():
             cls.registry.update({subclass.codetype.lower(): subclass})
             if hasattr(subclass, 'aliases'):
                 cls.registry.update(

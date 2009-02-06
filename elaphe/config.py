@@ -37,6 +37,7 @@
 <BLANKLINE>
 gsave
 0 0 moveto
+%(xscale)f %(yscale)f scale
 %(codestring)s%(options)s%(codetype)s barcode
 grestore
 showpage
