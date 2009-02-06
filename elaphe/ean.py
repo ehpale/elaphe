@@ -43,6 +43,34 @@ class Ean13(Barcode):
     renderer = _Renderer
 
 
+class ISBN(Ean13):
+    """
+    >>> bc = ISBN()
+    >>> bc # doctest: +ELLIPSIS
+    <__main__.ISBN object at ...>
+    >>> print bc.render_ps_code('978-1-56592-479') # doctest: +ELLIPSIS
+    %!PS-Adobe-2.0
+    %%Pages: (attend)
+    %%Creator: Elaphe powered by barcode.ps
+    %%BoundingBox: 0 0 95 72
+    %%LanguageLevel: 2
+    %%EndComments
+    ...
+    gsave
+    0 0 moveto
+    1.000000 1.000000 scale
+    (978-1-56592-479) () ean8 barcode
+    grestore
+    showpage
+    <BLANKLINE>
+    >>> bc.render('978-1-56592-479', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    >>> _.show()
+    """
+    codetype = 'isbn'
+    aliases = ()
+    
+
 class Ean8(Barcode):
     """
     >>> bc = Ean8()
@@ -166,6 +194,8 @@ class Ean2(Barcode):
             else:
                 return self.code_bbox
     renderer = _Renderer
+
+
 
 
 if __name__=="__main__":
