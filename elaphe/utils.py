@@ -54,7 +54,9 @@ def ps_optstring(d):
     if d is None:
         return ' '
     else:
-        return ' (' + ' '.join(('%s'%(k)+('' if v is None else '=%s'%v)) for k, v in d.items()) + ') '
+        return ' (' + ' '.join(
+            ('%s'%(k)+{True: '', False: '=%s'%v}[v is None])
+            for k, v in d.items()) + ') '
 
 DEFAULT_EPSF_DSC_TEMPLATE = """%%!PS-Adobe-2.0
 %%%%Pages: (attend)
@@ -79,16 +81,6 @@ def init_ps_code_template(epsf_dsc_template=DEFAULT_EPSF_DSC_TEMPLATE,
     """
     return '\n'.join([epsf_dsc_template, ps_code_distiller(), render_command_template])
 
-def init_plugins(extra_paths=None):
-    """Search for plugins and update barcode type registry
-    """
-    ret = {}
-    import sys, glob
-    from os.path import abspath, join as pathjoin
-    for path in sys.path+(extra_paths or []):
-        for found in glob.glob(pathjoin(abspath(path), 'elaphe?plugins', '*')):
-            pass # TBD
-    return ret
 
 if __name__=="__main__":
     from doctest import testmod

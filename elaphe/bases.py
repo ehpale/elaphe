@@ -8,11 +8,26 @@ from PIL.EpsImagePlugin import EpsImageFile
 
 import config, utils
 
-
 class BarcodeRenderer(object):
-    """
+    """Base class of barcode renderers. The codetype defaults to ean13.
     """
     codetype = 'ean13'
+    aliases = ('EAN-13', 'EAN_13', 'JAN')
+    registry = {}
+    default_options = {}
+    @classmethod
+    def update_renderer_registry(cls):
+        # update registry
+        for subclass in filter(lambda c: getattr(c, '__abstract', False) is False,
+                               cls.__subclasses__()):
+            cls.registry.update({subclass.codetype.lower(): subclass})
+            if hasattr(subclass, 'aliases'):
+                cls.registry.update(
+                    dict((alias.lower(), subclass) for alias in subclass.aliases))
+
+    @classmethod
+    def resolve_renderer(cls, codetype):
+        return cls.registry.get(codetype.lower())
 
     def render_ps_code(self, codestring, bbox=(-20, -20, 164, 92), options=None, **kw):
         """
@@ -42,7 +57,9 @@ class BarcodeRenderer(object):
         params = {}
         params['bbox'] = "%d %d %d %d" %bbox
         params['codestring'] = utils.ps_string(codestring)
-        params['options'] = utils.ps_optstring(options)
+        opts = dict(self.default_options)
+        opts.update(options or {})
+        params['options'] = utils.ps_optstring(opts)
         params['codetype'] = self.codetype
         params.update(kw)
         return config.PS_CODE_TEMPLATE %(params)
@@ -55,6 +72,10 @@ class BarcodeRenderer(object):
         ps_code_buf = self.render_ps_code(codestring, options=options, **kw)
         return EpsImageFile(StringIO.StringIO(ps_code_buf))
 
+
+class LinearBarcode(object):
+    pass
+    
 
 if __name__=="__main__":
     from doctest import testmod

@@ -41,14 +41,13 @@ gsave
 grestore
 showpage
 <BLANKLINE>
->>> BARCODE_TYPE_REGISTRY
+>>> BARCODE_RENDERER_REGISTRY
 {}
 """
 from utils import *
 
 BARCODE_PS_CODE_PATH = distill_ps_code()
 PS_CODE_TEMPLATE = init_ps_code_template()
-BARCODE_TYPE_REGISTRY = init_plugins()
 
 if __name__=="__main__":
     from doctest import testmod
