@@ -1,7 +1,7 @@
 # coding: utf-8
-from bases import BarcodeRenderer, LinearBarcode
+from bases import Barcode, LinearCodeRenderer
 
-class Ean13(BarcodeRenderer, LinearBarcode):
+class Ean13(Barcode):
     """
     >>> bc = Ean13()
     >>> bc # doctest: +ELLIPSIS
@@ -27,6 +27,7 @@ class Ean13(BarcodeRenderer, LinearBarcode):
     codetype = 'ean13'
     aliases = ('ean_13', 'jan')
     default_options = {}
+    renderer = LinearCodeRenderer
 
 
 if __name__=="__main__":

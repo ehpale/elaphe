@@ -8,6 +8,33 @@ DEFAULT_PS_CODE_PATH = pathjoin(
     dirname(abspath(__file__)), 'postscriptbarcode', 'barcode.ps')
 DEFAULT_DISTILL_RE = re.compile(r'% --BEGIN TEMPLATE--(.+)% --END TEMPLATE--', re.S)
 
+def to_ps(obj):
+    """Converts object into postscript literal"""
+    if isinstance(obj, str):
+        return '(%s)' %obj
+    elif isinstance(obj, bool):
+        return {True: 'true', False: 'false'}[obj]
+    else:
+        return str(obj)
+
+
+def ps_optstring(d):
+    """Converts dictionary into ps string in barcode.ps specific format.
+
+    >>> ps_optstring(dict(purpose='seekagrail', color='yellow'))
+    ' (color=yellow purpose=seekagrail) '
+    >>> ps_optstring(dict())
+    ' () '
+    >>> ps_optstring(None)
+    ' '
+    """
+    if d is None:
+        return ' '
+    else:
+        return ' ' + to_ps(' '.join(
+            ('%s'%(k)+{True: '', False: '=%s'%v}[v is None])
+            for k, v in d.items())) + ' '
+
 
 def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
                     distill_regexp=DEFAULT_DISTILL_RE):
@@ -31,32 +58,6 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     return distill_regexp.findall(
         open(path_to_ps_code, 'rb').read())[0].replace('%', '%%')
 
-
-def ps_string(s):
-    """Converts string into ps string. Does not aware non-ascii.
-
-    >>> ps_string('asdf')
-    '(asdf)'
-    """
-    return '(%s)' %s
-
-
-def ps_optstring(d):
-    """Converts dictionary into ps string in barcode.ps specific format.
-
-    >>> ps_optstring(dict(purpose='seekagrail', color='yellow'))
-    ' (color=yellow purpose=seekagrail) '
-    >>> ps_optstring(dict())
-    ' () '
-    >>> ps_optstring(None)
-    ' '
-    """
-    if d is None:
-        return ' '
-    else:
-        return ' (' + ' '.join(
-            ('%s'%(k)+{True: '', False: '=%s'%v}[v is None])
-            for k, v in d.items()) + ') '
 
 DEFAULT_EPSF_DSC_TEMPLATE = """%%!PS-Adobe-2.0
 %%%%Pages: (attend)

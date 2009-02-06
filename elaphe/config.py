@@ -41,8 +41,6 @@ gsave
 grestore
 showpage
 <BLANKLINE>
->>> BARCODE_RENDERER_REGISTRY
-{}
 """
 from utils import *
 

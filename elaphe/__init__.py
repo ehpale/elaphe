@@ -1,7 +1,7 @@
 # coding: utf-8
-from bases import BarcodeRenderer
+from bases import Barcode
 
-DEFAULT_PLUGINS = ('ean',)
+DEFAULT_PLUGINS = ('ean', 'qrcode')
 
 
 def load_plugins():
@@ -11,7 +11,7 @@ def load_plugins():
         except ImportError, e:
             import sys
             sys.stdout.write(u'Warning: %s\n' %e)
-    BarcodeRenderer.update_renderer_registry()
+    Barcode.update_codetype_registry()
 load_plugins()
 
 
@@ -22,8 +22,8 @@ def barcode(codetype, codestring, options=None, **kw):
     ...
     ValueError: No renderer for codetype nonexistent
     """
-    # search for renderer registry
-    renderer = BarcodeRenderer.resolve_renderer(codetype)
+    # search for codetype registry
+    renderer = Barcode.resolve_codetype(codetype)
     if renderer:
         return renderer().render(codestring, options=options, **kw)
     raise ValueError(u'No renderer for codetype %s' %codetype)
