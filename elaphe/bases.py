@@ -27,7 +27,7 @@ class Renderer(object):
         self.render_options = kw
 
     def lookup_option(self, key, default=None):
-        fb_value = self.default_options.get(key, default)
+        fb_value = getattr(self, 'default_options').get(key, default)
         if self.options:
             return self.options.get(key, fb_value)
         return fb_value
@@ -94,7 +94,16 @@ class Renderer(object):
         
     def build_options_string(self, options):
         return utils.ps_optstring(options)
-        
+
+    def build_params(self, codestring):
+        params = {}
+        params['bbox'] = "%d %d %d %d" %self.boundingbox
+        params['codestring'] = self.build_codestring(codestring)
+        params['options'] = self.build_options_string(self.options)
+        params['xscale'], params['yscale'] = self.x_scale, self.y_scale
+        params['codetype'] = self.codetype
+        return params
+
     def render_ps_code(self, codestring):
         """
         >>> print Renderer('foo').render_ps_code('977147396801') # doctest: +ELLIPSIS
@@ -121,13 +130,7 @@ class Renderer(object):
         showpage
         <BLANKLINE>
         """
-        params = {}
-        params['bbox'] = "%d %d %d %d" %self.boundingbox
-        params['codestring'] = self.build_codestring(codestring)
-        params['options'] = self.build_options_string(self.options)
-        params['xscale'], params['yscale'] = self.x_scale, self.y_scale
-        params['codetype'] = self.codetype
-        return config.PS_CODE_TEMPLATE %(params)
+        return config.PS_CODE_TEMPLATE %(self.build_params(codestring))
 
     def render(self, codestring):
         """
@@ -222,6 +225,11 @@ class Barcode(object):
         renderer = self.get_renderer(options, **kw)
         return renderer.render(codestring)
 
+    # for debug
+    def _get_build_params(self, codestring='', options=None, **kw):
+        renderer = self.get_renderer(options, **kw)
+        return renderer.build_params(codestring)
+        
 
 if __name__=="__main__":
     from doctest import testmod
