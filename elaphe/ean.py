@@ -23,7 +23,7 @@ class Ean13(Barcode):
     <BLANKLINE>
     >>> bc.render('977147396801', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> #_.show()
     """
     codetype = 'ean13'
     aliases = ('ean_13', 'ean-13', 'ean 13', 'jan')
@@ -59,16 +59,26 @@ class ISBN(Ean13):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (978-1-56592-479) () ean8 barcode
+    (978-1-56592-479) () isbn barcode
     grestore
     showpage
     <BLANKLINE>
     >>> bc.render('978-1-56592-479', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> #_.show()
     """
     codetype = 'isbn'
     aliases = ()
+    class _Renderer(Ean13._Renderer):
+        def build_codestring(self, codestring):
+            """
+            Allows to accept digit-only notation.
+            >>> ISBN._Renderer({}).build_codestring('978 1 56592 479')
+            '(978-1-56592-479)'
+            """
+            cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in  codestring if c in '0123456789')
+            return super(ISBN._Renderer, self).build_codestring(cs)
+    renderer = _Renderer
     
 
 class Ean8(Barcode):
@@ -93,7 +103,7 @@ class Ean8(Barcode):
     <BLANKLINE>
     >>> bc.render('01335583', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> #_.show()
     """
     codetype = 'ean8'
     aliases = ('ean_8', 'ean-8', 'ean 8')
@@ -134,7 +144,7 @@ class Ean5(Barcode):
     <BLANKLINE>
     >>> bc.render('977147396801', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> #_.show()
     """
     codetype = 'ean5'
     aliases = ('ean_5', 'ean-5', 'ean 5')
@@ -176,7 +186,7 @@ class Ean2(Barcode):
     <BLANKLINE>
     >>> bc.render('05', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> #_.show()
     """
     codetype = 'ean2'
     aliases = ('ean_2', 'ean-2', 'ean 2')
