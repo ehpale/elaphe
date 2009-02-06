@@ -82,8 +82,11 @@ class Renderer(object):
 
     @property
     def boundingbox(self):
-        text_lbx, text_lby, text_rtx, text_rty = self.text_bbox
-        code_lbx, code_lby, code_rtx, code_rty = self.code_bbox
+        return self._boundingbox(self.code_bbox, self.text_bbox)
+
+    def _boundingbox(self, code_bbox, text_bbox):
+        text_lbx, text_lby, text_rtx, text_rty = text_bbox
+        code_lbx, code_lby, code_rtx, code_rty = code_bbox
         return (self.x_scale*(min(text_lbx, code_lbx)-self.left_margin),
                 self.y_scale*(min(text_lby, code_lby)-self.bottom_margin),
                 self.x_scale*(max(text_rtx, code_rtx)+self.right_margin),
