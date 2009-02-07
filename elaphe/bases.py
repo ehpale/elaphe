@@ -176,9 +176,8 @@ class LinearCodeRenderer(Renderer):
         )
 
     
-class MatrixCodeRenderer(object):
-    def __init__(self):
-        self.options = dict()
+class MatrixCodeRenderer(Renderer):
+    pass
 
 
 class Barcode(object):
