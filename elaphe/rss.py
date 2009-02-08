@@ -10,7 +10,7 @@ class Rss14(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 -5 96 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -34,7 +34,7 @@ class Rss14(Barcode):
             """
             >>> r = Rss14._Renderer({})
             >>> r._code_bbox('24012345678905')
-            [0, 0, 256, 72.0]
+            [0, 0, 96, 72.0]
             """
             return [0, 0, 1+1+16+15*4+16+1+1, DPI]
 
@@ -42,7 +42,7 @@ class Rss14(Barcode):
             """
             >>> r = Rss14._Renderer({})
             >>> r._text_bbox('24012345678905')
-            [0, -12.0, 246.0, 3]
+            [0, -5.0, 96, 72.0]
             """
             hidestars = self.lookup_option('hidestars', False)
             textyoffset = self.lookup_option('textyoffset', 0)
@@ -69,7 +69,7 @@ class RssLimited(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 -5 74 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -82,7 +82,7 @@ class RssLimited(Barcode):
     <BLANKLINE>
     >>> bc.render('24012345678905', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'rsslimited'
     aliases = ('rss limited', 'rss_limited', 'rss-limited',
@@ -94,7 +94,7 @@ class RssLimited(Barcode):
             """
             >>> r = RssLimited._Renderer({})
             >>> r._code_bbox('THIS IS CODE39')
-            [0, 0, 256, 72.0]
+            [0, 0, 74, 72.0]
             """
             return [0, 0, 1+1+26+18+26+1+1, DPI]
     renderer = _Renderer
