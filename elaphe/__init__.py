@@ -2,7 +2,7 @@
 from bases import Barcode
 
 DEFAULT_PLUGINS = ('ean', 'upc', 'code128', 'code39', 'code93', 'i2of5',
-                   'rss', 'qrcode', 'pharmacode')
+                   'rss', 'pharmacode', 'qrcode', 'maxicode')
 
 
 def load_plugins():
