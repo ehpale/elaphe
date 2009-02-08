@@ -100,6 +100,49 @@ class RssLimited(Barcode):
     renderer = _Renderer
 
 
+# EXPERIMENTAL
+class RssExpanded(Barcode):
+    """
+    >>> bc = RssExpanded()
+    >>> bc # doctest: +ELLIPSIS
+    <__main__.RssExpanded object at ...>
+    >>> print bc.render_ps_code('000000010011001010100001000000010000') # doctest: +ELLIPSIS
+    %!PS-Adobe-2.0
+    %%Pages: (attend)
+    %%Creator: Elaphe powered by barcode.ps
+    %%BoundingBox: 0 -5 74 72
+    %%LanguageLevel: 2
+    %%EndComments
+    ...
+    gsave
+    0 0 moveto
+    1.000000 1.000000 scale
+    (000000010011001010100001000000010000) () rssexpanded barcode
+    grestore
+    showpage
+    <BLANKLINE>
+    >>> bc.render('000000010011001010100001000000010000', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    >>> _.show()
+    """
+    
+    codetype = 'rssexpanded'
+    aliases = ('rss expanded', 'rss_expanded', 'rss-expanded',
+               'rss14expanded', 'rss14 expanded', 'rss14_expanded', 'rss14-expanded',)
+    class _Renderer(Rss14._Renderer):
+        default_options = dict(textyoffset=-7, textsize=10, height=0.3)
+
+        def _code_bbox(self, codestring):
+            """
+            >>> r = RssExpanded._Renderer({})
+            >>> r._code_bbox('000000010011001010100001000000010000')
+            [0, 0, 74, 72.0]
+            """
+            # TBD this should be wrong!
+            return [0, 0, 15*(len(codestring)/8+3), DPI]
+    renderer = _Renderer
+
+
 if __name__=="__main__":
     from doctest import testmod
     testmod()
