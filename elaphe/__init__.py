@@ -1,7 +1,8 @@
 # coding: utf-8
 from bases import Barcode
 
-DEFAULT_PLUGINS = ('ean', 'upc', 'code128', 'code39', 'code93', 'i2of5', 'qrcode',)
+DEFAULT_PLUGINS = ('ean', 'upc', 'code128', 'code39', 'code93', 'i2of5',
+                   'rss', 'qrcode')
 
 
 def load_plugins():
