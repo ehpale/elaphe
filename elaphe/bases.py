@@ -3,12 +3,11 @@ try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
-    
 from PIL.EpsImagePlugin import EpsImageFile
-
 import config, utils
 
 DPI = 72.0
+
 
 def fb_lookup(dic, keys, default):
     for key in keys:
@@ -145,7 +144,6 @@ class Renderer(object):
 
 
 class LinearCodeRenderer(Renderer):
-
     default_options = dict(
         barcolor=None,
         includetext=False,
@@ -177,7 +175,12 @@ class LinearCodeRenderer(Renderer):
 
     
 class MatrixCodeRenderer(Renderer):
-    pass
+    default_options = dict(
+        width=1,
+        height=1,
+        color=None,
+        backgrroundcolor=None,
+        )
 
 
 class Barcode(object):
@@ -199,8 +202,8 @@ class Barcode(object):
     showpage
     <BLANKLINE>
     """
-    codetype = ''
     aliases = ()
+    codetype = ''
     registry = {}
     renderer = Renderer
     @classmethod
