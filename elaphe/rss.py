@@ -85,9 +85,10 @@ class RssLimited(Barcode):
     >>> _.show()
     """
     codetype = 'rsslimited'
-    aliases = ('rss-14', 'rss_14', 'rss 14')
-    class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+    aliases = ('rss limited', 'rss_limited', 'rss-limited',
+               'rss14limited', 'rss14 limited', 'rss14_limited', 'rss14-limited',)
+    class _Renderer(Rss14._Renderer):
+        default_options = dict(textyoffset=-7, textsize=10, height=0.3)
 
         def _code_bbox(self, codestring):
             """
@@ -96,26 +97,6 @@ class RssLimited(Barcode):
             [0, 0, 256, 72.0]
             """
             return [0, 0, 1+1+26+18+26+1+1, DPI]
-
-        def _text_bbox(self, codestring):
-            """
-            >>> r = RssLimited._Renderer({})
-            >>> r._text_bbox('THIS IS CODE39')
-            [0, -12.0, 246.0, 3]
-            """
-            hidestars = self.lookup_option('hidestars', False)
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 10)
-            textmaxy = textyoffset + textsize
-            textmaxx = 9*len(codestring)+4+0.6*textsize
-            codeminx, codeminy, codemaxx, codemaxy = self._code_bbox(codestring)
-            return [codeminx, codeminy-textsize/2.0, codemaxx, codemaxy]
-        
-        def build_params(self, codestring):
-            params = super(RssLimited._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
-            return params
     renderer = _Renderer
 
 
