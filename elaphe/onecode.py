@@ -40,7 +40,7 @@ class OneCode(Barcode):
             textsize = self.lookup_option('textsize', 12)
             textmaxh = textyoffset + textsize
             if self.lookup_option('includetext', False) is None:
-                return [-10, textyoffset-textsize/2.0, (12-1)*7+8+textsize*0.6, textmaxh]
+                return [0, textyoffset-textsize/2.0, (12-1)*7+8+textsize*0.6, textmaxh]
             else:
                 return self.code_bbox
     renderer = _Renderer
