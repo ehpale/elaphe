@@ -37,7 +37,7 @@ class PostNet(Barcode):
             [0, 0, 190.22400000000002, 9.0]
             """
             codelen = 7+len(codestring)*5
-            return [0, 0, codelen*(1.44+1.872)+1.44, 0.125*DPI] # self.lookup_option('height', 0.125)*5]
+            return [0, 0, codelen*(1.44+1.872)+1.44, self.lookup_option('height', 0.125)*DPI]
 
         def _text_bbox(self, codestring):
             """
