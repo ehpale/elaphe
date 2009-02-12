@@ -2,6 +2,7 @@
 import re
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 CODE39_ESCAPE_RE = re.compile(r'\^\d{3}')
 CODE39_CHARS ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
 class Code39(Barcode):
@@ -27,7 +28,7 @@ class Code39(Barcode):
     <BLANKLINE>
     >>> bc.render('THIS IS CODE39', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'code39'
     aliases = ('code_39', 'code-39', 'code 39')

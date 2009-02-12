@@ -1,6 +1,7 @@
 # coding: utf-8
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 class Code2of5(Barcode):
     """
     >>> bc = Code2of5()
@@ -10,7 +11,7 @@ class Code2of5(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 -5 162 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -23,7 +24,7 @@ class Code2of5(Barcode):
     <BLANKLINE>
     >>> bc.render('0123456789', options=dict(includetext=None, includecheck=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'code2of5'
     aliases = ('code_2_of_5', 'code 2of5', 'code_2of5',
@@ -36,7 +37,7 @@ class Code2of5(Barcode):
             """
             >>> r = Code2of5._Renderer({})
             >>> r._code_bbox('0123456789')
-            [0, 0, 256, 72.0]
+            [0, 0, 162, 72.0]
             """
             if self.lookup_option('includecheck', False)==None:
                 return [0, 0, 6+len(codestring)*14+26, DPI]
@@ -47,7 +48,7 @@ class Code2of5(Barcode):
             """
             >>> r = Code2of5._Renderer({})
             >>> r._text_bbox('0123456789')
-            [0, -12.0, 246.0, 3]
+            [0, -5.0, 162, 72.0]
             """
             textyoffset = self.lookup_option('textyoffset', 0)
             textsize = self.lookup_option('textsize', 10)

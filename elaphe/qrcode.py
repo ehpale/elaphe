@@ -34,7 +34,7 @@ def decode_n_base(s, digits=1, mode='digits'):
   >>> list(decode_n_base('300', mode='digits'))
   [(10, 300)]
   >>> list(decode_n_base('FF', mode='8bits'))
-  [(8, 255)]
+  [(8, 70), (8, 70)]
   """
   while True:
       if mode=='alnum':
@@ -120,7 +120,7 @@ class QrCode(Barcode):
     <BLANKLINE>
     >>> bc.render('Kansai Python Users DevCamp 2009 Kyoto', options=dict(version=9, eclevel='M'), margin=10, data_mode='8bits') # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'qrcode'
     aliases = ('qr', 'qr_code', 'qr-code', 'qrcode')

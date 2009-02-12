@@ -10,7 +10,7 @@ class UpcA(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 0 88 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -23,7 +23,7 @@ class UpcA(Barcode):
     <BLANKLINE>
     >>> bc.render('78858101497', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'upca'
     aliases = ('upc_a', 'upc-a', 'upc a')
@@ -52,20 +52,20 @@ class UpcE(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 0 39 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456) () upca barcode
+    (0123456) () upce barcode
     grestore
     showpage
     <BLANKLINE>
     >>> bc.render('0123456', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'upce'
     aliases = ('upc_e', 'upc-e', 'upc e')

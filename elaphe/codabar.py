@@ -1,6 +1,7 @@
 # coding: utf-8
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 class RationalizedCodabar(Barcode):
     """
     >>> bc = RationalizedCodabar()

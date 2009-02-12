@@ -1,6 +1,7 @@
 # coding: utf-8
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 class Ean13(Barcode):
     """
     >>> bc = Ean13()

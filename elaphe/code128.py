@@ -2,6 +2,7 @@
 import re
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 CODE128_ESCAPE_RE = re.compile(r'\^\d{3}')
 CODE128_CHARS =" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 class Code128(Barcode):
@@ -27,7 +28,7 @@ class Code128(Barcode):
     <BLANKLINE>
     >>> bc.render('^104^102Count^0990123456789^101!', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'code128'
     aliases = ('code_128', 'code-128', 'code 128')

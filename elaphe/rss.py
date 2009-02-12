@@ -110,7 +110,7 @@ class RssExpanded(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -5 74 72
+    %%BoundingBox: 0 -5 105 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -123,7 +123,7 @@ class RssExpanded(Barcode):
     <BLANKLINE>
     >>> bc.render('000000010011001010100001000000010000', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     
     codetype = 'rssexpanded'
@@ -136,7 +136,7 @@ class RssExpanded(Barcode):
             """
             >>> r = RssExpanded._Renderer({})
             >>> r._code_bbox('000000010011001010100001000000010000')
-            [0, 0, 74, 72.0]
+            [0, 0, 105, 72.0]
             """
             # TBD this should be wrong!
             return [0, 0, 15*(len(codestring)/8+3), DPI]

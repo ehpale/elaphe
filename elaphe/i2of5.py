@@ -1,6 +1,7 @@
 # coding: utf-8
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 class Interleaved2of5(Barcode):
     """
     >>> bc = Interleaved2of5()
@@ -10,7 +11,7 @@ class Interleaved2of5(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 -12 136 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -23,7 +24,7 @@ class Interleaved2of5(Barcode):
     <BLANKLINE>
     >>> bc.render('24012345678905', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'interleaved2of5'
     aliases = ('interleaved_2_of_5', 'interleaved 2of5', 'interleaved_2of5',
@@ -35,7 +36,7 @@ class Interleaved2of5(Barcode):
             """
             >>> r = Interleaved2of5._Renderer({})
             >>> r._code_bbox('THIS IS CODE39')
-            [0, 0, 256, 72.0]
+            [0, 0, 130, 72.0]
             """
             return [0, 0, len(codestring)*9+4, DPI]
 
@@ -43,7 +44,7 @@ class Interleaved2of5(Barcode):
             """
             >>> r = Interleaved2of5._Renderer({})
             >>> r._text_bbox('THIS IS CODE39')
-            [0, -12.0, 246.0, 3]
+            [0, -12.0, 136.0, 3]
             """
             hidestars = self.lookup_option('hidestars', False)
             textyoffset = self.lookup_option('textyoffset', 0)

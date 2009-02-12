@@ -2,6 +2,7 @@
 import re
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 CODE93_ESCAPE_RE = re.compile(r'\^\d{3}')
 CODE93_CHARS ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
 class Code93(Barcode):

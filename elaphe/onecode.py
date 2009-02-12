@@ -10,7 +10,7 @@ class OneCode(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 95 72
+    %%BoundingBox: 0 0 213 0
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -23,7 +23,7 @@ class OneCode(Barcode):
     <BLANKLINE>
     >>> bc.render('0123456709498765432101234567891', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'onecode'
     aliases = ()

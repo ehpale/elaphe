@@ -2,64 +2,61 @@
 from bases import Barcode, LinearCodeRenderer, DPI
 
 
-class Code11(Barcode):
+class Kix(Barcode):
     """
-    >>> bc = Code11()
+    >>> bc = Kix()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Code11 object at ...>
-    >>> print bc.render_ps_code('0123456789') # doctest: +ELLIPSIS
+    <__main__.Kix object at ...>
+    >>> print bc.render_ps_code('1231FZ13XHS') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -5 110 72
+    %%BoundingBox: 0 -5 147 9
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789) () code11 barcode
+    (1231FZ13XHS) () kix barcode
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('0123456789', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('1231FZ13XHS', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
-    codetype = 'code11'
-    aliases = ('code 11', 'code_11', 'code-11')
+    codetype = 'kix'
+    aliases = ()
+    default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
 
         def _code_bbox(self, codestring):
             """
-            >>> r = Code11._Renderer({})
-            >>> r._code_bbox('0123456789')
-            [0, 0, 110, 72.0]
+            >>> r = Kix._Renderer({})
+            >>> r._code_bbox('5956439111ABA 9')
+            [0, 0, 200.16000000000003, 9.0]
             """
-            if self.lookup_option('includecheck', False)==None:
-                return [0, 0, 10+len(codestring)*10+10+10, DPI]
-            else:
-                return [0, 0, 10+len(codestring)*10, DPI]
+            return [0, 0, 4*len(codestring)*(1.44+1.872)+1.44,
+                    self.lookup_option('height', 0.125)*DPI]
 
         def _text_bbox(self, codestring):
             """
-            >>> r = Code11._Renderer({})
-            >>> r._text_bbox('0123456789')
-            [0, -5.0, 110, 72.0]
+            >>> r = Kix._Renderer({})
+            >>> r._text_bbox('LE28HS9Z')
+            [0, -5.0, 107.42400000000001, 9.0]
             """
             textyoffset = self.lookup_option('textyoffset', 0)
             textsize = self.lookup_option('textsize', 10)
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             return [cminx, cminy-textsize/2.0, cmaxx, cmaxy]
-        
+
         def build_params(self, codestring):
-            params = super(Code11._Renderer, self).build_params(codestring)
+            params = super(Kix._Renderer, self).build_params(codestring)
             params['bbox'] = "%d %d %d %d" %self._boundingbox(
                 self._code_bbox(codestring), self._text_bbox(codestring))
             return params
     renderer = _Renderer
-
 
 if __name__=="__main__":
     from doctest import testmod

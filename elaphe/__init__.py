@@ -3,7 +3,9 @@ from bases import Barcode
 
 DEFAULT_PLUGINS = ('ean', 'upc', 'code128', 'code39', 'code93', 'i2of5',
                    'rss', 'pharmacode', 'code25', 'code11', 'codabar',
-                   'onecode', 'postnet', 'qrcode', 'maxicode')
+                   'onecode', 'postnet', 'royalmail', 'auspost', 'kix',
+                   'japanpost', 'msi', 'plessey', 'raw', 'symbol',
+                   'pdf417', 'datamatrix', 'qrcode', 'maxicode', 'azteccode')
 
 
 def load_plugins():
