@@ -44,7 +44,7 @@ class Ean13(Barcode):
     renderer = _Renderer
 
 
-class ISBN(Ean13):
+class ISBN(Barcode):
     """
     >>> bc = ISBN()
     >>> bc # doctest: +ELLIPSIS
@@ -70,7 +70,19 @@ class ISBN(Ean13):
     """
     codetype = 'isbn'
     aliases = ()
-    class _Renderer(Ean13._Renderer):
+    default_options = dict(textyoffset=-4)
+    class _Renderer(LinearCodeRenderer):
+        code_bbox = [0, 0, 13*7+4, DPI]
+
+        @property
+        def text_bbox(self):
+            textyoffset = self.lookup_option('textyoffset', 0)
+            textsize = self.lookup_option('textsize', 12)
+            textmaxh = textyoffset + textsize
+            if self.lookup_option('includetext', False) is None:
+                return [-10, textyoffset-textsize/2.0, (12-1)*7+8+textsize*0.6, textmaxh]
+            else:
+                return self.code_bbox
         def build_codestring(self, codestring):
             """
             Allows to accept digit-only notation.
@@ -80,7 +92,7 @@ class ISBN(Ean13):
             cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in  codestring if c in '0123456789')
             return super(ISBN._Renderer, self).build_codestring(cs)
     renderer = _Renderer
-    
+
 
 class Ean8(Barcode):
     """
