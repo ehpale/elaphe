@@ -1,11 +1,14 @@
 # coding: utf-8
 from bases import Barcode
 
-DEFAULT_PLUGINS = ('ean', 'upc', 'code128', 'code39', 'code93', 'i2of5',
+DEFAULT_PLUGINS = ['ean', 'upc', 'code128', 'code39', 'code93', 'i2of5',
                    'rss', 'pharmacode', 'code25', 'code11', 'codabar',
                    'onecode', 'postnet', 'royalmail', 'auspost', 'kix',
                    'japanpost', 'msi', 'plessey', 'raw', 'symbol',
-                   'pdf417', 'datamatrix', 'qrcode', 'maxicode', 'azteccode')
+                   'pdf417', 'datamatrix', 'qrcode', 'maxicode', 'azteccode']
+
+if __name__!="__main__":
+    DEFAULT_PLUGINS = ['elaphe.'+s for s in DEFAULT_PLUGINS]
 
 
 def load_plugins():
@@ -40,3 +43,4 @@ def barcode(codetype, codestring, options=None, **kw):
 if __name__=="__main__":
     from doctest import testmod
     testmod()
+
