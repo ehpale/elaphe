@@ -123,7 +123,7 @@ class QrCode(Barcode):
     >>> # _.show()
     """
     codetype = 'qrcode'
-    aliases = ('qr', 'qr_code', 'qr-code', 'qrcode')
+    aliases = ('qr', 'qr_code', 'qr-code', 'qr code')
     class _Renderer(MatrixCodeRenderer):
         """
         >>> print QrCode._Renderer({}, data_mode='digits').render_ps_code('01234567') # doctest: +ELLIPSIS

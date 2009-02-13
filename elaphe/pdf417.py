@@ -27,7 +27,7 @@ class Pdf417(Barcode):
     >>> # _.show()
     """
     codetype = 'pdf417'
-    aliases = ()
+    aliases = ('pdf-417', 'pdf_417', 'pdf 417')
     class _Renderer(MatrixCodeRenderer):
             
         def _code_bbox(self, codestring):

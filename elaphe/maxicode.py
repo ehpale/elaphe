@@ -28,7 +28,7 @@ class MaxiCode(Barcode):
     >>> # _.show()
     """
     codetype = 'maxicode'
-    aliases = ()
+    aliases = ('maxi-code', 'maxi code', 'maxi_code', 'maxi')
     
 
 if __name__=="__main__":

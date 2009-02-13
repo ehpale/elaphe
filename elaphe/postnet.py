@@ -26,7 +26,7 @@ class PostNet(Barcode):
     >>> # _.show()
     """
     codetype = 'postnet'
-    aliases = ()
+    aliases = ('post net', 'post-net', 'post_net', 'us-postnet', 'us postnet', 'us_postnet')
     default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
 

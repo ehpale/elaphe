@@ -26,7 +26,7 @@ class Plessey(Barcode):
     >>> # _.show()
     """
     codetype = 'plessey'
-    aliases = ('rationalized codabar')
+    aliases = ()
     class _Renderer(LinearCodeRenderer):
         default_options = dict(textyoffset=-7, textsize=10)
 

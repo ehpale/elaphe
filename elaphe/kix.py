@@ -27,7 +27,7 @@ class Kix(Barcode):
     >>> # _.show()
     """
     codetype = 'kix'
-    aliases = ()
+    aliases = ('dutch kix', 'dutch-kix', 'dutch_kix')
     default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
 

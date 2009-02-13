@@ -26,7 +26,7 @@ class RoyalMail(Barcode):
     >>> # _.show()
     """
     codetype = 'royalmail'
-    aliases = ()
+    aliases = ('royal mail', 'royal-mail', 'royal_mail', 'rm4scc')
     default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
 

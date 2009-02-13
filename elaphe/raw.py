@@ -26,7 +26,7 @@ class Raw(Barcode):
     >>> # _.show()
     """
     codetype = 'raw'
-    aliases = ('rationalized codabar')
+    aliases = ()
     class _Renderer(LinearCodeRenderer):
         default_options = dict(textyoffset=-7, textsize=10)
 

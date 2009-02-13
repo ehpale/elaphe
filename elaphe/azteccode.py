@@ -68,7 +68,7 @@ class AztecCode(Barcode):
     >>> # _.show()
     """
     codetype = 'azteccode'
-    aliases = ()
+    aliases = ('aztec code', 'aztec-code', 'aztec_code', 'aztec')
     class _Renderer(MatrixCodeRenderer):
             
         def _code_bbox(self, codestring):

@@ -26,7 +26,7 @@ class MsiModifiedPlessey(Barcode):
     >>> # _.show()
     """
     codetype = 'msi'
-    aliases = ('rationalized codabar')
+    aliases = ('msi-plessey', 'msi plessey', 'msi_plessey', 'msiplessey')
     class _Renderer(LinearCodeRenderer):
         default_options = dict(textyoffset=-7, textsize=10)
 

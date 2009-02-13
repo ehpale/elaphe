@@ -26,7 +26,7 @@ class Symbol(Barcode):
     >>> # _.show()
     """
     codetype = 'symbol'
-    aliases = ('rationalized codabar')
+    aliases = ('symbols', 'fimsymbols', 'fim symbols', 'fim-symbols', 'fim_symbols')
     class _Renderer(LinearCodeRenderer):
         default_options = dict(textyoffset=-7, textsize=10)
         _widths = dict(

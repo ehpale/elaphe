@@ -203,8 +203,8 @@ class Barcode(object):
     showpage
     <BLANKLINE>
     """
-    aliases = ()
     codetype = ''
+    aliases = ()
     registry = {}
     renderer = Renderer
     @classmethod

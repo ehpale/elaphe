@@ -26,7 +26,7 @@ class OneCode(Barcode):
     >>> # _.show()
     """
     codetype = 'onecode'
-    aliases = ()
+    aliases = ('usps onecode', 'uspsonecode', 'usps-onecode', 'usps_onecode')
     default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
 

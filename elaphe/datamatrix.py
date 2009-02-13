@@ -55,7 +55,7 @@ class DataMatrix(Barcode):
     >>> # _.show()
     """
     codetype = 'datamatrix'
-    aliases = ()
+    aliases = ('data matrix', 'data-matrix', 'data_matrix')
     class _Renderer(MatrixCodeRenderer):
             
         def _code_bbox(self, codestring):
