@@ -3,17 +3,15 @@ import os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
 
-version = '0.5'
+version = '0.5.1'
 
 install_requires = ['setuptools', 'PIL']
 test_requires = []
 extra_requires = {}
 long_description = '\n'.join([
-    open(pathjoin(dirname(abspath(__file__)), 'README.txt')).read(),
+    open(pathjoin(dirname(abspath(__file__)), 'README')).read(),
     open(pathjoin(dirname(abspath(__file__)), 'LICENSE')).read(),
     ])
-print long_description
-raise SystemExit
 
 setup_params = dict(
     name="elaphe",
