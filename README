@@ -3,8 +3,8 @@ Elaphe
 ======
 
 Elaphe is a python binding for the Barcode Writer In Pure PostScript
-(http://postscriptbarcode.googlecode.com). It is a thin-wrapper which
-employs Python Imaging Library as PostScript rendering interface.
+(http://www.terryburton.co.uk/barcodewriter/). It is a thin-wrapper
+which employs Python Imaging Library as PostScript rendering interface.
 
 Requirements
 ============

@@ -2,6 +2,9 @@
 Copyright and license notices
 ==============================
 
+Elaphe
+http://elaphe.googlecode.com/
+
 Copyright (c) 2009 by the Yasushi Masuda.
 All rights reserved.
 
@@ -37,7 +40,7 @@ Licenses for incorporated software
 
 The postscriptbarcode, included in this distribution under the name
 postscriptbarcode, is available at the Barcode Writer In Pure 
-PostScript Project (http://postscriptbarcode.googlecode.com/) under 
+PostScript Project (http://www.terryburton.co.uk/barcodewriter/) under 
 the MIT/X license agreement:
 
 ---------------------------------------------------------------------------
