@@ -3,7 +3,7 @@ import os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
 
-version = '0.5.2'
+version = '0.5.3'
 
 install_requires = ['setuptools', 'PIL']
 test_requires = []
@@ -17,7 +17,8 @@ setup_params = dict(
     name="elaphe",
     version=version,
     packages=['elaphe'],
-    package_data = {'elaphe': ['postscriptbarcode/barcode.ps', 'postscriptbarcode/LICENSE']},
+    exclude_package_data={'elaphe': ['postscriptbarcode']},
+    package_data={'elaphe': ['postscriptbarcode/barcode.ps', 'postscriptbarcode/LICENSE']},
     zip_safe=False,
     dependency_links = ["http://dist.repoze.org"], #PIL as egg
     install_requires = install_requires,
