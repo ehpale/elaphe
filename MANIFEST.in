@@ -1,0 +1,4 @@
+recursive-include *.txt *.py README LICENSE
+prune elaphe/postscriptbarcode
+include elaphe/postscriptbarcode/LICENSE
+include elaphe/postscriptbarcode/barcode.ps
