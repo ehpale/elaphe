@@ -1,6 +1,7 @@
 # coding: utf-8
 from bases import Barcode, LinearCodeRenderer, DPI
 
+
 class UpcA(Barcode):
     """
     >>> bc = UpcA()
@@ -10,7 +11,7 @@ class UpcA(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 88 72
+    %%BoundingBox: 0 0 95 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -21,23 +22,29 @@ class UpcA(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('78858101497', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
+    >>> bc.render('78858101497', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'upca'
     aliases = ('upc_a', 'upc-a', 'upc a')
-    default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
-        code_bbox = [0, 0, 12*7+4, DPI]
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            includetext=False, textsize=12, textyoffset=-4, height=1)
+
+        @property
+        def code_bbox(self):
+            height = self.lookup_option('height')
+            return [0, 0, 3+12*7+3+5, DPI*height]
 
         @property
         def text_bbox(self):
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 12)
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
             textmaxh = textyoffset + textsize
-            if self.lookup_option('includetext', False) is None:
-                return [-7, textyoffset-textsize/2.0, 96+textsize*0.6, textmaxh]
+            if self.lookup_option('includetext'):
+                return [-7, textyoffset, 96+textsize*0.5, textmaxh]
             else:
                 return self.code_bbox
     renderer = _Renderer
@@ -52,7 +59,7 @@ class UpcE(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 39 72
+    %%BoundingBox: 0 0 53 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -63,23 +70,29 @@ class UpcE(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('0123456', options=dict(includetext=None), scale=2, margin=0) # doctest: +ELLIPSIS
+    >>> bc.render('0123456', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'upce'
     aliases = ('upc_e', 'upc-e', 'upc e')
-    default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
-        code_bbox = [0, 0, 5*7+4, DPI]
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            textsize=12, textyoffset=-4, height=1)
+
+        @property
+        def code_bbox(self):
+            height = self.lookup_option('height')
+            return [0, 0, 4+6*7+7, DPI*height]
 
         @property
         def text_bbox(self):
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 12)
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
             textmaxh = textyoffset + textsize
-            if self.lookup_option('includetext', False) is None:
-                return [-7, textyoffset-textsize/2.0, 6*7+11+textsize*0.6, textmaxh]
+            if self.lookup_option('includetext'):
+                return [-7, textyoffset, 6*7+11+textsize*0.6, textmaxh]
             else:
                 return self.code_bbox
     renderer = _Renderer

@@ -10,7 +10,7 @@ class OneCode(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 213 0
+    %%BoundingBox: 0 0 213 12
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -21,26 +21,29 @@ class OneCode(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('0123456709498765432101234567891', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('0123456709498765432101234567891', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'onecode'
     aliases = ('usps onecode', 'uspsonecode', 'usps-onecode', 'usps_onecode')
-    default_options = dict(textyoffset=-4)
     class _Renderer(LinearCodeRenderer):
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            height=0.175, textyoffset=-7, textsize=12)
 
         @property
         def code_bbox(self):
-            return [0, 0, 64*(1.44+1.872)+1.44, self.lookup_option('height', 0.175)]
+            height = self.lookup_option('height')
+            return [0, 0, 64*(1.44+1.872)+1.44, height*DPI]
 
         @property
         def text_bbox(self):
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 12)
-            textmaxh = textyoffset + textsize
-            if self.lookup_option('includetext', False) is None:
-                return [0, textyoffset-textsize/2.0, (12-1)*7+8+textsize*0.6, textmaxh]
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
+            
+            if self.lookup_option('includetext'):
+                return [0, textyoffset, (12-1)*7+8+textsize*0.6, textyoffset+textsize]
             else:
                 return self.code_bbox
     renderer = _Renderer

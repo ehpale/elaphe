@@ -15,7 +15,7 @@ class Code39(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -12 256 72
+    %%BoundingBox: 0 0 256 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -26,14 +26,19 @@ class Code39(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('THIS IS CODE39', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('THIS IS CODE39', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'code39'
     aliases = ('code_39', 'code-39', 'code 39')
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            height=1, hidestars=False,
+            includecheck=False, includetext=False,
+            includecheckintext=False,
+            textyoffset=-7, textsize=10)
 
         def _codelen(self, codestring):
             if self.lookup_option('includecheck', False)==True:
@@ -48,28 +53,33 @@ class Code39(Barcode):
             >>> r._code_bbox('THIS IS CODE39')
             [0, 0, 256, 72.0]
             """
-            return [0, 0, self._codelen(codestring)*16, DPI]
+            height = self.lookup_option('height')
+            return [0, 0, self._codelen(codestring)*16, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = Code39._Renderer({})
             >>> r._text_bbox('THIS IS CODE39')
-            [0, -12.0, 246.0, 3]
+            [0, -7, 246.0, 3]
             """
-            hidestars = self.lookup_option('hidestars', False)
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 10)
+            hidestars = self.lookup_option('hidestars')
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
             textmaxy = textyoffset + textsize
             textminx = 0
             textmaxx = 16*(len(codestring)+1)+0.6*textsize
             if hidestars:
                 textminx, textmaxx = 16, textmaxx-16
-            return [0, textyoffset-textsize/2.0, textmaxx, textmaxy]
+            return [0, textyoffset, textmaxx, textmaxy]
         
         def build_params(self, codestring):
             params = super(Code39._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+            cbbox = self._code_bbox(codestring)
+            if self.lookup_option('includetext'):
+                tbbox = self._text_bbox(codestring)
+            else:
+                tbbox = cbbox
+            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
             return params
 
     renderer = _Renderer

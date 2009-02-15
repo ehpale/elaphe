@@ -43,6 +43,7 @@ AZTEC_CODE_METRICS = [
     ["full",    31,  0,   1570, 12],
     ["full",    32,  0,   1664, 12]]
 
+
 class AztecCode(Barcode):
     """
     >>> bc = AztecCode()
@@ -63,29 +64,28 @@ class AztecCode(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('00100111001000000101001101111000010100111100101000000110', margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('00100111001000000101001101111000010100111100101000000110', margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'azteccode'
     aliases = ('aztec code', 'aztec-code', 'aztec_code', 'aztec')
     class _Renderer(MatrixCodeRenderer):
-            
+        default_options = dict(
+            MatrixCodeRenderer.default_options,
+            readerinit=False, layers=-1, eclevel=23, ecaddchars=3, format=None)
         def _code_bbox(self, codestring):
-            format = self.lookup_option('format', 'unset')
+            format = self.lookup_option('format')
             if format!='rune':
                 codelen = 0
             else:
                 codelen = len(codestring)
-            readerinit = self.lookup_option('readerinit', False)
-            layers = self.lookup_option('layers', -1)
-            eclevel = self.lookup_option('eclevel', 23)
-            ecaddchars = self.lookup_option('ecaddchars', 3)
-            ucols = self.lookup_option('columns', 2)
-            urows = self.lookup_option('rows', 10)
-            
+            readerinit = self.lookup_option('readerinit')
+            layers = self.lookup_option('layers')
+            eclevel = self.lookup_option('eclevel')
+            ecaddchars = self.lookup_option('ecaddchars')
             for frmt, mlyr, icap, ncws, bpcw in AZTEC_CODE_METRICS:
-                if format!='unset' and format!=frmt:
+                if format and format!=frmt:
                     continue
                 if readerinit and icap!=1:
                     continue
@@ -95,8 +95,9 @@ class AztecCode(Barcode):
                 numdcw = ncws-numecw
                 if math.ceil(codelen/bpcw)>numdcw:
                     continue
-
                 break
+            else:
+                raise ValueError(u'No appropreate mode.')
             layers = mlyr
             format = frmt
             
@@ -111,8 +112,8 @@ class AztecCode(Barcode):
             {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': ' () '}
             """
             params = super(AztecCode._Renderer, self).build_params(codestring)
-            params['bbox'] = '%d %d %d %d' %(self._boundingbox(
-                self._code_bbox(codestring), self._code_bbox(codestring)))
+            cbbox = self._code_bbox(codestring)
+            params['bbox'] = '%d %d %d %d' %(self._boundingbox(cbbox, cbbox))
             return params
     renderer = _Renderer
 

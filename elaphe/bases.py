@@ -5,12 +5,15 @@ try:
 except ImportError:
     import StringIO
 from PIL.EpsImagePlugin import EpsImageFile
-import config, utils
+import utils
+
+__all__=['DPI', 'Renderer', 'LinearCodeRenderer', 'MatrixCodeRenderer', 'Barcode']
 
 DPI = 72.0
 
-
 def fb_lookup(dic, keys, default):
+    """Dictionary lookup falls back over keys.
+    """
     for key in keys:
         if key in dic:
             return dic[key]
@@ -19,7 +22,12 @@ def fb_lookup(dic, keys, default):
     
 
 class Renderer(object):
-    default_options = {}
+    """Base renderer implementation.
+    """
+    # Values in default_options are used as a fallback of renderer option.
+    # Abstract subclass should override, substational renderers not.
+    # To instant override, do as new = dict(superclass.default_options, **kwargs).
+    default_options = dict()
 
     def __init__(self, codetype, options=None, **kw):
         self.codetype = codetype
@@ -93,10 +101,10 @@ class Renderer(object):
                 self.y_scale*(max(text_rty, code_rty)+self.top_margin))
 
     def build_codestring(self, codestring):
-        return utils.to_ps(codestring)
+        return utils.to_ps(codestring, parlen=True)
         
     def build_options_string(self, options):
-        return utils.ps_optstring(options)
+        return utils.dict_to_optstring(options)
 
     def build_params(self, codestring):
         params = {}
@@ -133,7 +141,7 @@ class Renderer(object):
         showpage
         <BLANKLINE>
         """
-        return config.PS_CODE_TEMPLATE %(self.build_params(codestring))
+        return utils.PS_CODE_TEMPLATE %(self.build_params(codestring))
 
     def render(self, codestring):
         """
@@ -146,6 +154,7 @@ class Renderer(object):
 
 class LinearCodeRenderer(Renderer):
     default_options = dict(
+        Renderer.default_options,
         barcolor=None,
         includetext=False,
         textcolor=None,
@@ -177,10 +186,11 @@ class LinearCodeRenderer(Renderer):
     
 class MatrixCodeRenderer(Renderer):
     default_options = dict(
-        width=1,
-        height=1,
+        Renderer.default_options,
         color=None,
         backgrroundcolor=None,
+        height=1,
+        width=1,
         )
 
 

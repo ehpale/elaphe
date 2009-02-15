@@ -22,20 +22,23 @@ class Pdf417(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^453^178^121^239', options=dict(columns=2, rows=10), margin=10, scale=1.0) # doctest: +ELLIPSIS
+    >>> bc.render('^453^178^121^239', options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'pdf417'
     aliases = ('pdf-417', 'pdf_417', 'pdf 417')
     class _Renderer(MatrixCodeRenderer):
+        default_options = dict(
+            MatrixCodeRenderer.default_options,
+            compact=False, eclevel=-1, columns=2, rowmult=3, rows=10)
             
         def _code_bbox(self, codestring):
-            compact = self.lookup_option('compact', False)
-            columns = self.lookup_option('columns', 2)
-            rowmult = self.lookup_option('rowmult', 3)
-            rows = self.lookup_option('rows', 10)
-            eclevel = self.lookup_option('eclevel', -1)
+            compact = self.lookup_option('compact')
+            columns = self.lookup_option('columns')
+            rowmult = self.lookup_option('rowmult')
+            rows = self.lookup_option('rows')
+            eclevel = self.lookup_option('eclevel')
             m = len(codestring)/4
             if eclevel==-1:
                 if m<=40:
@@ -53,7 +56,7 @@ class Pdf417(Barcode):
             if 1<=columns<=30:
                 c = columns
             else:
-                raise ValueError
+                raise ValueError(u'Column out of bound: %d.' %(columns))
             r = int(math.ceil((m+k+1)/(1.0*columns)))
             if r<rows and rows<=90:
                 r = rows
@@ -75,8 +78,8 @@ class Pdf417(Barcode):
             {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 103 30', 'codetype': {}, 'xscale': 1.0, 'options': ' () '}
             """
             params = super(Pdf417._Renderer, self).build_params(codestring)
-            params['bbox'] = '%d %d %d %d' %(self._boundingbox(
-                self._code_bbox(codestring), self._code_bbox(codestring)))
+            cbbox = self._code_bbox(codestring)
+            params['bbox'] = '%d %d %d %d' %self._boundingbox(cbbox, cbbox)
             return params
     renderer = _Renderer
     

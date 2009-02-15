@@ -26,14 +26,18 @@ class Code128(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^104^102Count^0990123456789^101!', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('^104^102Count^0990123456789^101!', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'code128'
     aliases = ('code_128', 'code-128', 'code 128')
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            height=1, includetext=False, 
+            textyoffset=-7, textsize=10)
+
         def _count_chars(self, codestring):
             """
             >>> r = Code128._Renderer({})
@@ -69,24 +73,29 @@ class Code128(Barcode):
             >>> r._code_bbox('^104^102Count^0990123456789^101!')
             [0, 0, 189, 72.0]
             """
-            return [0, 0, self._count_chars(codestring)*11+11+13, DPI]
+            height = self.lookup_option('height')
+            return [0, 0, self._count_chars(codestring)*11+11+13, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = Code128._Renderer({})
             >>> r._text_bbox('^104^102Count^0990123456789^101!')
-            [0, -12.0, 171.0, 3]
+            [0, -7, 171.0, 3]
             """
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 10)
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
             textmaxy = textyoffset + textsize
             textmaxx = 11*self._count_chars(codestring)+0.6*textsize
-            return [0, textyoffset-textsize/2.0, textmaxx, textmaxy]
+            return [0, textyoffset, textmaxx, textmaxy]
         
         def build_params(self, codestring):
             params = super(Code128._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+            cbbox = self._code_bbox(codestring)
+            if self.lookup_option('includetext'):
+                tbbox = self._text_bbox(codestring)
+            else:
+                tbbox = cbbox
+            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
             return params
 
     renderer = _Renderer

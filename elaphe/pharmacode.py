@@ -12,7 +12,7 @@ class Phamacode(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -5 90 22
+    %%BoundingBox: 0 0 90 22
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -23,14 +23,18 @@ class Phamacode(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('117480', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('117480', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'pharmacode'
     aliases = ()
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10, height=8*2.835)
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            height=8*2.835, nwidth=0.5*2.835,
+            wwidth=1.5*2.835, swidth=1.0*2.835,
+            textyoffset=-7, textsize=10)
 
         def _code_bbox(self, codestring):
             """
@@ -45,16 +49,21 @@ class Phamacode(Barcode):
             """
             >>> r = Phamacode._Renderer({})
             >>> r._text_bbox('117480')
-            [0, -5.0, 90.719999999999999, 22.68]
+            [0, -7, 90.719999999999999, 3]
             """
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
-            textsize = self.lookup_option('textsize', 10)
-            return [cminx, cminy-textsize/2.0, cmaxx, cmaxy]
+            textsize = self.lookup_option('textsize')
+            textyoffset = self.lookup_option('textyoffset')
+            return [cminx, textyoffset, cmaxx, textyoffset+textsize]
         
         def build_params(self, codestring):
             params = super(Phamacode._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+            cbbox = self._code_bbox(codestring)
+            if self.lookup_option('includetext'):
+                tbbox = self._text_bbox(codestring)
+            else:
+                tbbox = cbbox
+            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
             return params
 
     renderer = _Renderer

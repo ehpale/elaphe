@@ -10,7 +10,7 @@ class Raw(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -5 90 72
+    %%BoundingBox: 0 0 90 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -21,14 +21,16 @@ class Raw(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('331132131313411122131311333213114131131221323', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('331132131313411122131311333213114131131221323', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'raw'
     aliases = ()
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            textyoffset=-7, textsize=10, height=1)
 
         def _code_bbox(self, codestring):
             """
@@ -36,23 +38,13 @@ class Raw(Barcode):
             >>> r._code_bbox('331132131313411122131311333213114131131221323')
             [0, 0, 90, 72.0]
             """
-            return [0, 0, sum(int(c) for c in list(codestring)), DPI]
+            height = self.lookup_option('height')
+            return [0, 0, sum(int(c) for c in list(codestring)), height*DPI]
 
-        def _text_bbox(self, codestring):
-            """
-            >>> r = Raw._Renderer({})
-            >>> r._text_bbox('331132131313411122131311333213114131131221323')
-            [0, -5.0, 90, 72.0]
-            """
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 10)
-            cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
-            return [cminx, cminy-textsize/2.0, cmaxx, cmaxy]
-        
         def build_params(self, codestring):
             params = super(Raw._Renderer, self).build_params(codestring)
             params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+                self._code_bbox(codestring), self._code_bbox(codestring))
             return params
     renderer = _Renderer
 

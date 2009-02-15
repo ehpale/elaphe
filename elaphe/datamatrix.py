@@ -39,7 +39,7 @@ class DataMatrix(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 216 216
+    %%BoundingBox: 0 0 24 24
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -50,16 +50,18 @@ class DataMatrix(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^142^164^186', options=dict(columns=32, rows=32), margin=10, scale=5.0) # doctest: +ELLIPSIS
+    >>> bc.render('^142^164^186', options=dict(columns=32, rows=32), margin=1, scale=2.0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
-    >>> # _.show()
+    >>> #_.show()
     """
     codetype = 'datamatrix'
     aliases = ('data matrix', 'data-matrix', 'data_matrix')
     class _Renderer(MatrixCodeRenderer):
-            
-        def _code_bbox(self, codestring):
+        default_options = dict(
+            MatrixCodeRenderer.default_options,
+            rows=0, columns=0)
 
+        def _code_bbox(self, codestring):
             ucols = self.lookup_option('columns', 2)
             urows = self.lookup_option('rows', 10)
             for rows, cols, regh, regv, rscw in metrics:
@@ -80,7 +82,7 @@ class DataMatrix(Barcode):
         def build_params(self, codestring):
             """
             >>> DataMatrix._Renderer(()).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 216 216', 'codetype': (), 'xscale': 1.0, 'options': ' () '}
+            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 18 18', 'codetype': (), 'xscale': 1.0, 'options': ' () '}
             """
             params = super(DataMatrix._Renderer, self).build_params(codestring)
             params['bbox'] = '%d %d %d %d' %(self._boundingbox(

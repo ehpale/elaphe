@@ -11,7 +11,7 @@ class Kix(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -5 147 9
+    %%BoundingBox: 0 0 147 12
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -22,40 +22,49 @@ class Kix(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('1231FZ13XHS', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('1231FZ13XHS', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'kix'
     aliases = ('dutch kix', 'dutch-kix', 'dutch_kix')
-    default_options = dict(textyoffset=-4)
+
     class _Renderer(LinearCodeRenderer):
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            height=0.175, includetext=False, includecheckintext=False,
+            textsize=10, textyoffset=-7)
 
         def _code_bbox(self, codestring):
             """
             >>> r = Kix._Renderer({})
             >>> r._code_bbox('5956439111ABA 9')
-            [0, 0, 200.16000000000003, 9.0]
+            [0, 0, 200.16000000000003, 12.6]
             """
-            return [0, 0, 4*len(codestring)*(1.44+1.872)+1.44,
-                    self.lookup_option('height', 0.125)*DPI]
+            height = self.lookup_option('height')
+            return [0, 0, 4*len(codestring)*(1.44+1.872)+1.44, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = Kix._Renderer({})
             >>> r._text_bbox('LE28HS9Z')
-            [0, -5.0, 107.42400000000001, 9.0]
+            [0, -7, 107.42400000000001, 3]
             """
-            textyoffset = self.lookup_option('textyoffset', 0)
-            textsize = self.lookup_option('textsize', 10)
+            textyoffset = self.lookup_option('textyoffset')
+            textsize = self.lookup_option('textsize')
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
-            return [cminx, cminy-textsize/2.0, cmaxx, cmaxy]
+            return [cminx, textyoffset, cmaxx, textyoffset+textsize]
 
         def build_params(self, codestring):
             params = super(Kix._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+            cbbox = self._code_bbox(codestring)
+            if self.lookup_option('includetext'):
+                tbbox = self._text_bbox(codestring)
+            else:
+                tbbox = cbbox
+            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
             return params
+        
     renderer = _Renderer
 
 if __name__=="__main__":

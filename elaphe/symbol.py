@@ -21,14 +21,14 @@ class Symbol(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('fimd', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('fimd', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
     codetype = 'symbol'
     aliases = ('symbols', 'fimsymbols', 'fim symbols', 'fim-symbols', 'fim_symbols')
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+        default_options = dict(LinearCodeRenderer.default_options)
         _widths = dict(
             fima=sum([2.25, 2.25, 2.25, 11.25, 2.25, 11.25, 2.25, 2.25, 2.25]),
             fimb=sum([2.25, 6.75, 2.25, 2.25, 2.25, 6.25, 2.25, 2.25, 2.25, 6.75, 2.25]),

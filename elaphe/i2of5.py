@@ -11,7 +11,7 @@ class Interleaved2of5(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -12 136 72
+    %%BoundingBox: 0 -7 136 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -22,7 +22,7 @@ class Interleaved2of5(Barcode):
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('24012345678905', options=dict(includetext=None), scale=2, margin=10) # doctest: +ELLIPSIS
+    >>> bc.render('24012345678905', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile instance at ...>
     >>> # _.show()
     """
@@ -30,28 +30,31 @@ class Interleaved2of5(Barcode):
     aliases = ('interleaved_2_of_5', 'interleaved 2of5', 'interleaved_2of5',
                'interleaved 2 of 5', 'interleaved-2of5', 'i2of5', 'i-2of5')
     class _Renderer(LinearCodeRenderer):
-        default_options = dict(textyoffset=-7, textsize=10)
+        default_options = dict(
+            LinearCodeRenderer.default_options,
+            includecheck=False, includetext=False, textsize=10, textyoffset=-7, height=1)
 
         def _code_bbox(self, codestring):
             """
             >>> r = Interleaved2of5._Renderer({})
             >>> r._code_bbox('THIS IS CODE39')
-            [0, 0, 130, 72.0]
+            [0, 0, 136, 72.0]
             """
-            return [0, 0, len(codestring)*9+4, DPI]
+            height = self.lookup_option('height')
+            return [0, 0, len(codestring)*9+4+6, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = Interleaved2of5._Renderer({})
             >>> r._text_bbox('THIS IS CODE39')
-            [0, -12.0, 136.0, 3]
+            [0, -7, 136.0, 3]
             """
             hidestars = self.lookup_option('hidestars', False)
             textyoffset = self.lookup_option('textyoffset', 0)
             textsize = self.lookup_option('textsize', 10)
             textmaxy = textyoffset + textsize
             textmaxx = 9*len(codestring)+4+0.6*textsize
-            return [0, textyoffset-textsize/2.0, textmaxx, textmaxy]
+            return [0, textyoffset, textmaxx, textmaxy]
         
         def build_params(self, codestring):
             params = super(Interleaved2of5._Renderer, self).build_params(codestring)
