@@ -1,0 +1,2 @@
+This version of postscriptbarcode is taken from r244 of
+http://postscriptbarcode.googlecode.com
