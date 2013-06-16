@@ -146,7 +146,7 @@ class Renderer(object):
     def render(self, codestring):
         """
         >>> Renderer('foo').render('977147396801') # doctest: +ELLIPSIS
-        <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+        <PIL.EpsImagePlugin.EpsImageFile ... at ...>
         """
         ps_code_buf = self.render_ps_code(codestring)
         return EpsImageFile(StringIO.StringIO(ps_code_buf))

@@ -5,7 +5,7 @@ class Symbol(Barcode):
     """
     >>> bc = Symbol()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Symbol object at ...>
+    <....Symbol object at ...>
     >>> print bc.render_ps_code('fima') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -22,7 +22,7 @@ class Symbol(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('fimd', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'symbol'

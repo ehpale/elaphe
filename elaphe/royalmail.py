@@ -5,7 +5,7 @@ class RoyalMail(Barcode):
     """
     >>> bc = RoyalMail()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.RoyalMail object at ...>
+    <....RoyalMail object at ...>
     >>> print bc.render_ps_code('LE28HS9Z') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -22,7 +22,7 @@ class RoyalMail(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('LE28HS9Z', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> #_.show()
     """
     codetype = 'royalmail'
@@ -37,7 +37,7 @@ class RoyalMail(Barcode):
             """
             >>> r = RoyalMail._Renderer({})
             >>> r._code_bbox('LE28HS9Z')
-            [0, 0, 127.29600000000001, 12.6]
+            [0, 0, 127.296, 12.6]
             """
             height = self.lookup_option('height')
             codelen = len(codestring)*4+6
@@ -47,7 +47,7 @@ class RoyalMail(Barcode):
             """
             >>> r = RoyalMail._Renderer({})
             >>> r._text_bbox('LE28HS9Z')
-            [0, 0, 127.29600000000001, 12.6]
+            [0, 0, 127.296, 12.6]
             """
             if self.lookup_option('includetext'):
                 textyoffset = self.lookup_option('textyoffset')

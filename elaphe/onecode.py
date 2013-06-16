@@ -5,7 +5,7 @@ class OneCode(Barcode):
     """
     >>> bc = OneCode()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.OneCode object at ...>
+    <....OneCode object at ...>
     >>> print bc.render_ps_code('0123456709498765432101234567891') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -22,7 +22,7 @@ class OneCode(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('0123456709498765432101234567891', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'onecode'

@@ -6,7 +6,7 @@ class AusPost(Barcode):
     """
     >>> bc = AusPost()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.AusPost object at ...>
+    <....AusPost object at ...>
     >>> print bc.render_ps_code('5956439111ABA 9') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class AusPost(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('5956439111ABA 9', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'auspost'

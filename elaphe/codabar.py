@@ -6,7 +6,7 @@ class RationalizedCodabar(Barcode):
     """
     >>> bc = RationalizedCodabar()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.RationalizedCodabar object at ...>
+    <....RationalizedCodabar object at ...>
     >>> print bc.render_ps_code('A0123456789B') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class RationalizedCodabar(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('A0123456789B', options=dict(includetext=None, includecheck=None), scale=2, margin=10) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'rationalizedCodabar'

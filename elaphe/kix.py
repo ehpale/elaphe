@@ -6,7 +6,7 @@ class Kix(Barcode):
     """
     >>> bc = Kix()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Kix object at ...>
+    <....Kix object at ...>
     >>> print bc.render_ps_code('1231FZ13XHS') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class Kix(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('1231FZ13XHS', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'kix'
@@ -48,7 +48,7 @@ class Kix(Barcode):
             """
             >>> r = Kix._Renderer({})
             >>> r._text_bbox('LE28HS9Z')
-            [0, -7, 107.42400000000001, 3]
+            [0, -7, 107.424, 3]
             """
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')

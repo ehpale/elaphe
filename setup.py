@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-import os
+import sys, os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
 
 version = '0.5.3'
+
+sys.path.insert(0, abspath('./tests'))
 
 install_requires = ['setuptools', 'PIL']
 test_requires = []
@@ -42,6 +44,7 @@ setup_params = dict(
     url = "http://elaphe.googlecode.com",
     download_url = "http://code.google.com/p/elaphe/downloads/list",
     # entry_points = {'console_scripts': ['elaphe = elaphe.:main']},
+    test_suite = 'runner',
 )
 
 setup(**setup_params)

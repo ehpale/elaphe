@@ -9,7 +9,7 @@ class Code128(Barcode):
     """
     >>> bc = Code128()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Code128 object at ...>
+    <....Code128 object at ...>
     >>>
     # >>> print bc.render_ps_code('^104^102Count^0990123456789^101!') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
@@ -27,7 +27,7 @@ class Code128(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('^104^102Count^0990123456789^101!', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'code128'

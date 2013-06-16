@@ -9,7 +9,7 @@ class Code39(Barcode):
     """
     >>> bc = Code39()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Code39 object at ...>
+    <....Code39 object at ...>
     >>>
     >>> print bc.render_ps_code('THIS IS CODE39') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
@@ -27,7 +27,7 @@ class Code39(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('THIS IS CODE39', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'code39'

@@ -48,7 +48,7 @@ class AztecCode(Barcode):
     """
     >>> bc = AztecCode()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.AztecCode object at ...>
+    <....AztecCode object at ...>
     >>> print bc.render_ps_code('00100111001000000101001101111000010100111100101000000110') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -65,7 +65,7 @@ class AztecCode(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('00100111001000000101001101111000010100111100101000000110', margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'azteccode'

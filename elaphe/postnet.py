@@ -5,7 +5,7 @@ class PostNet(Barcode):
     """
     >>> bc = PostNet()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.PostNet object at ...>
+    <....PostNet object at ...>
     >>> print bc.render_ps_code('012345') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -22,7 +22,7 @@ class PostNet(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('012345', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'postnet'

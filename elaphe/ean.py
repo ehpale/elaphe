@@ -6,7 +6,7 @@ class Ean13(Barcode):
     """
     >>> bc = Ean13()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Ean13 object at ...>
+    <....Ean13 object at ...>
     >>> print bc.render_ps_code('977147396801') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class Ean13(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('977147396801', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'ean13'
@@ -51,7 +51,7 @@ class ISBN(Barcode):
     """
     >>> bc = ISBN()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.ISBN object at ...>
+    <....ISBN object at ...>
     >>> print bc.render_ps_code('978-1-56592-479') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -68,7 +68,7 @@ class ISBN(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('978-1-56592-479', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'isbn'
@@ -101,7 +101,7 @@ class Ean8(Barcode):
     """
     >>> bc = Ean8()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Ean8 object at ...>
+    <....Ean8 object at ...>
     >>> print bc.render_ps_code('01335583') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -118,7 +118,7 @@ class Ean8(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('01335583', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'ean8'
@@ -144,7 +144,7 @@ class Ean5(Barcode):
     """
     >>> bc = Ean5()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Ean5 object at ...>
+    <....Ean5 object at ...>
     >>> print bc.render_ps_code('90200') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -161,7 +161,7 @@ class Ean5(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('977147396801', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'ean5'
@@ -195,7 +195,7 @@ class Ean2(Barcode):
     """
     >>> bc = Ean2()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Ean2 object at ...>
+    <....Ean2 object at ...>
     >>> print bc.render_ps_code('05') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -212,7 +212,7 @@ class Ean2(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('05', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'ean2'

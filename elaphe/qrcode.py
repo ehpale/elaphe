@@ -179,7 +179,7 @@ class QrCode(Barcode):
     """
     >>> bc = QrCode()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.QrCode object at ...>
+    <....QrCode object at ...>
     >>> print bc.render_ps_code('000100000010000000001100010101100110000110000') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -196,7 +196,7 @@ class QrCode(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('Kansai Python Users DevCamp 2009 Kyoto', options=dict(version=9, eclevel='M'), scale=1, margin=1, data_mode='8bits') # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'qrcode'

@@ -6,7 +6,7 @@ class Code2of5(Barcode):
     """
     >>> bc = Code2of5()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Code2of5 object at ...>
+    <....Code2of5 object at ...>
     >>> print bc.render_ps_code('0123456789') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class Code2of5(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('0123456789', options=dict(includetext=False, includecheck=False), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'code2of5'

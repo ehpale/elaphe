@@ -6,7 +6,7 @@ class UpcA(Barcode):
     """
     >>> bc = UpcA()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.UpcA object at ...>
+    <....UpcA object at ...>
     >>> print bc.render_ps_code('78858101497') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class UpcA(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('78858101497', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'upca'
@@ -54,7 +54,7 @@ class UpcE(Barcode):
     """
     >>> bc = UpcE()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.UpcE object at ...>
+    <....UpcE object at ...>
     >>> print bc.render_ps_code('0123456') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -71,7 +71,7 @@ class UpcE(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('0123456', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'upce'

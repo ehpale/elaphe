@@ -6,7 +6,7 @@ class Phamacode(Barcode):
     """
     >>> bc = Phamacode()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.Phamacode object at ...>
+    <....Phamacode object at ...>
     >>>
     >>> print bc.render_ps_code('117480') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
@@ -24,7 +24,7 @@ class Phamacode(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('117480', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
     codetype = 'pharmacode'
@@ -40,7 +40,7 @@ class Phamacode(Barcode):
             """
             >>> r = Phamacode._Renderer({})
             >>> r._code_bbox('117480')
-            [0, 0, 90.719999999999999, 22.68]
+            [0, 0, 90.72, 22.68]
             """
             return [0, 0, int(math.log(int(codestring), 2))*2*2.835,
                     self.lookup_option('height')]
@@ -49,7 +49,7 @@ class Phamacode(Barcode):
             """
             >>> r = Phamacode._Renderer({})
             >>> r._text_bbox('117480')
-            [0, -7, 90.719999999999999, 3]
+            [0, -7, 90.72, 3]
             """
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             textsize = self.lookup_option('textsize')

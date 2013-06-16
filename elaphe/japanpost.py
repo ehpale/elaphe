@@ -6,7 +6,7 @@ class JapanPost(Barcode):
     """
     >>> bc = JapanPost()
     >>> bc # doctest: +ELLIPSIS
-    <__main__.JapanPost object at ...>
+    <....JapanPost object at ...>
     >>> print bc.render_ps_code('1231FZ13XHS') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
@@ -23,7 +23,7 @@ class JapanPost(Barcode):
     showpage
     <BLANKLINE>
     >>> bc.render('1231FZ13XHS', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> #_.show()
     """
     codetype = 'japanpost'
