@@ -2,23 +2,31 @@
 Elaphe
 ======
 
-Elaphe is a python binding for the Barcode Writer In Pure PostScript
-(http://www.terryburton.co.uk/barcodewriter/). It is a thin-wrapper
-which employs Python Imaging Library as PostScript rendering interface.
+Elaphe is a python binding of Barcode Writer In Pure PostScript
+(http://www.terryburton.co.uk/barcodewriter/).
+It generates barcode symbol as PostScript code fragment using
+BWIPP. The generated code is then embedded in encapsulated
+PostScript image which can be handled by PIL.
 
-Requirements
-============
 
-* Python 2.5 or later (functional decorators, ternary operator, and 
+Prerequisites
+==============
+
+* Python 2.7 or later (functional decorators, ternary operator, and 
   generator expressions are used).
 
-* If you want to render the generated barcode, Python Imaging Library
-  (http://www.pythonware.com/products/pil) is required under the
-  condition that EpsImagePlugin is enabled (i.e. at least you must
-  have Ghostscript is installed and callable from PIL).
+  .. note::
+
+    Except ``setup.py test``, code may still work on 2.5-2.6.
+    
+* If you want to render the generated barcode, EpsImagePlugin of
+  Python Imaging Library (http://www.pythonware.com/products/pil)
+  is required. Note that EpsImagePlugin requires Ghostscript is
+  collectly installed.
+
 
 Simple Usage
-============
+=============
 
 The following example::
 
@@ -27,9 +35,9 @@ The following example::
   ...         'Hello Barcode Writer In Pure PostScript.',
   ...         options=dict(version=9, eclevel='M'), 
   ...         margin=10, data_mode='8bits'))   # Generates PIL.EpsImageFile instance
-  <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+  <PIL.EpsImagePlugin.EpsImageFile ... at ...>
   >>> _.show()            # Show the image
 
-should invoke default viewer which shows a QRcode symbol with 10px margin.
+will invoke some viewer which shows a QRcode symbol with 10px margin.
 
 Remember, barcode() returns PIL image object.

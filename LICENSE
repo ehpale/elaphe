@@ -1,15 +1,15 @@
-==============================
-Copyright and license notices
-==============================
+=================
+License notices
+=================
 
 Elaphe
-http://elaphe.googlecode.com/
+https://bitbucket.org/whosaysni/elaphe
 
-Copyright (c) 2009 by the Yasushi Masuda.
-All rights reserved.
 
-License for Elaphe
+License of elaphe
 ==================
+
+Copyright (c) 2009-2013 Yasushi Masuda whosaysni@gmail.com
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -35,7 +35,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-Licenses for incorporated software
+License of bundled software
 ==================================
 
 The postscriptbarcode, included in this distribution under the name
@@ -74,8 +74,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 ---------------------------------------------------------------------------
 
-The Python Imaging Library, which is bound from this software, is
-is available at PythonWare (http://www.pythonware.com/products/pil) 
+
+License of bundled software
+==================================
+
+The Python Imaging Library, which works with this software, is
+available from PythonWare (http://www.pythonware.com/products/pil)
 under the following license agreement:
 
 --------------------------------------------------------------------
