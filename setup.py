@@ -3,9 +3,12 @@ import sys, os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
 
-version = '0.5.3'
-
 sys.path.insert(0, abspath('./tests'))
+sys.path.insert(0, abspath('./elaphe'))
+
+import elaphe
+
+version = '.'.join(map(str, elaphe.__version__))
 
 install_requires = ['setuptools', 'PIL']
 test_requires = []
