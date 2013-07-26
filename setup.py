@@ -15,7 +15,7 @@ test_requires = []
 extra_requires = {}
 long_description = '\n'.join([
     open(pathjoin(dirname(abspath(__file__)), 'README')).read(),
-    open(pathjoin(dirname(abspath(__file__)), 'LICENSE')).read(),
+    # open(pathjoin(dirname(abspath(__file__)), 'LICENSE')).read(),
     ])
 
 setup_params = dict(
