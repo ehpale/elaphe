@@ -34,7 +34,7 @@ def barcode(codetype, codestring, options=None, **kw):
     ValueError: No renderer for codetype nonexistent
     >>> barcode('qrcode', 'Hello Barcode Writer In Pure PostScript.',
     ...         options=dict(version=9, eclevel='M'), margin=10, data_mode='8bits') # doctest: +ELLIPSIS
-    <PIL.EpsImagePlugin.EpsImageFile instance at ...>
+    <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
     """
     # search for codetype registry
@@ -50,4 +50,4 @@ if __name__=="__main__":
 
 """elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
 """
-__version__=(0, 5, 5)
+__version__=(0, 5, 6)
