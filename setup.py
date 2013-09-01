@@ -10,7 +10,7 @@ import elaphe
 
 version = '.'.join(map(str, elaphe.__version__))
 
-install_requires = ['setuptools', 'PIL']
+install_requires = ['setuptools', 'Pillow']
 test_requires = []
 extra_requires = {}
 long_description = '\n'.join([

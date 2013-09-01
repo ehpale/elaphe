@@ -1,4 +1,7 @@
 # coding: utf-8
+"""elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
+"""
+__version__=(0, 5, 6)
 
 from bases import Barcode
 
@@ -151,6 +154,3 @@ if __name__=="__main__":
     from doctest import testmod
     testmod()
 
-"""elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
-"""
-__version__=(0, 5, 6)
