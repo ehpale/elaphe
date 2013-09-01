@@ -44,7 +44,10 @@ def barcode(codetype, codestring, options=None, **kw):
     ...         options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('upc', '78858101497', 
+    >>> barcode('upca', '78858101497', 
+    ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ...>
+    >>> barcode('upce', '0123456', 
     ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
