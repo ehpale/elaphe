@@ -7,4 +7,8 @@ def suite():
     return unittest.TestSuite([
         module_doctests.suite()])
 
-unittest.TextTestRunner(verbosity=2).run(suite())
+def run():
+    unittest.TextTestRunner(verbosity=2).run(suite())
+
+if __name__=='__main__':
+    run()
