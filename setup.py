@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-import sys, os
+import imp, sys, os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
 
-from elaphe import __version__
-
-version = '.'.join(map(str, __version__))
-install_requires = [] # 'setuptools', 'Pillow']
+version = imp.load_source('_mod', abspath('elaphe/__version__.py')).VERSION
+version = '.'.join(map(str, version))
+install_requires = ['setuptools', 'Pillow']
 test_requires = []
 extra_requires = {}
 long_description = '\n'.join([
