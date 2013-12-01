@@ -35,24 +35,24 @@ class DataMatrix(Barcode):
     >>> bc = DataMatrix()
     >>> bc # doctest: +ELLIPSIS
     <....DataMatrix object at ...>
-    >>> print bc.render_ps_code('^142^164^186') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('(01)95012345678903(3103)000123') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 24 24
+    %%BoundingBox: 0 0 33 33
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (^142^164^186) () datamatrix barcode
+    ((01)95012345678903(3103)000123) () /datamatrix /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^142^164^186', options=dict(columns=32, rows=32), margin=1, scale=2.0) # doctest: +ELLIPSIS
+    >>> bc.render('(01)95012345678903(3103)000123', margin=1, scale=2.0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-    >>> #_.show()
+    >>> # _.show()
     """
     codetype = 'datamatrix'
     aliases = ('data matrix', 'data-matrix', 'data_matrix')

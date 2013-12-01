@@ -6,22 +6,22 @@ class PostNet(Barcode):
     >>> bc = PostNet()
     >>> bc # doctest: +ELLIPSIS
     <....PostNet object at ...>
-    >>> print bc.render_ps_code('012345') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('123451234122') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 123 9
+    %%BoundingBox: 0 0 223 9
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (012345) () postnet barcode
+    (123451234122) () /postnet /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('012345', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('123451234122', scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

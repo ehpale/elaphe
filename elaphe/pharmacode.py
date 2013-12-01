@@ -19,7 +19,7 @@ class Phamacode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (117480) () pharmacode barcode
+    (117480) () /pharmacode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

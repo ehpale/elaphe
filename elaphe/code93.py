@@ -11,22 +11,22 @@ class Code93(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code93 object at ...>
     >>>
-    >>> print bc.render_ps_code('THIS IS CODE93') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('CODE93') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 145 72
+    %%BoundingBox: 0 0 73 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (THIS IS CODE93) () code93 barcode
+    (CODE93) () /code93 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('THIS IS CODE93', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('CODE93', options=dict(includetext=True, includecheck=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

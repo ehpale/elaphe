@@ -18,13 +18,13 @@ class Code11(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789) () code11 barcode
+    (0123456789) () /code11 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
     >>> bc.render('0123456789', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-    >>> # _.show()
+    >>> _.show()
     """
     codetype = 'code11'
     aliases = ('code 11', 'code_11', 'code-11')

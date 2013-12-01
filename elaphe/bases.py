@@ -124,19 +124,11 @@ class Renderer(object):
         %%BoundingBox: 0 0 72 72
         %%LanguageLevel: 2
         %%EndComments
-        <BLANKLINE>
-        <BLANKLINE>
-        <BLANKLINE>
-        % --BEGIN ENCODER ean13--
         ...
-        % --END DISPATCHER--
-        <BLANKLINE>
-        <BLANKLINE>
-        <BLANKLINE>
         gsave
         0 0 moveto
         1.000000 1.000000 scale
-        (977147396801) () foo barcode
+        (977147396801) () /foo /uk.co.terryburton.bwipp findresource exec
         grestore
         showpage
         <BLANKLINE>
@@ -208,7 +200,7 @@ class Barcode(object):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    () ()  barcode
+    () () / /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

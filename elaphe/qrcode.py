@@ -191,7 +191,7 @@ class QrCode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (000100000010000000001100010101100110000110000) () qrcode barcode
+    (000100000010000000001100010101100110000110000) () /qrcode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -203,10 +203,10 @@ class QrCode(Barcode):
     aliases = ('qr', 'qr_code', 'qr-code', 'qr code')
     class _Renderer(MatrixCodeRenderer):
         """
-        >>> print QrCode._Renderer({}, data_mode='digits').render_ps_code('01234567') # doctest: +ELLIPSIS
+        >>> print QrCode._Renderer('qrcode', data_mode='digits').render_ps_code('01234567') # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         ...
-        (000100000010000000001100010101100110000110000) () {} barcode
+        (000100000010000000001100010101100110000110000) () /qrcode /uk.co.terryburton.bwipp findresource exec
         ...
         >>>
         """

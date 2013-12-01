@@ -17,7 +17,7 @@ class RoyalMail(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (LE28HS9Z) () royalmail barcode
+    (LE28HS9Z) () /royalmail /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

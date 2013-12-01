@@ -11,22 +11,22 @@ class Code128(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code128 object at ...>
     >>>
-    # >>> print bc.render_ps_code('^104^102Count^0990123456789^101!') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('Count0123456789!', options=dict(includetext=True)) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 136 72
+    %%BoundingBox: 0 -7 200 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (^104^102Count^0990123456789^101!) () upca barcode
+    (Count0123456789!) (includetext) /code128 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^104^102Count^0990123456789^101!', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('Count0123456789!', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

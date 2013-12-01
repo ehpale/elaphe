@@ -30,6 +30,7 @@ load_plugins()
 
 def barcode(codetype, codestring, options=None, **kw):
     """
+
     >>> barcode('nonexistent', '977147396801')
     Traceback (most recent call last):
     ...

@@ -17,13 +17,13 @@ class Plessey(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (012345ABCD) () plessey barcode
+    (012345ABCD) () /plessey /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
     >>> bc.render('012345ABCD', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-    >>> # _.show()
+    >>> _.show()
     """
     codetype = 'plessey'
     aliases = ()

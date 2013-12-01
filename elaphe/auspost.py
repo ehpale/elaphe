@@ -7,22 +7,28 @@ class AusPost(Barcode):
     >>> bc = AusPost()
     >>> bc # doctest: +ELLIPSIS
     <....AusPost object at ...>
-    >>> print bc.render_ps_code('5956439111ABA 9') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('6279438541AaaB 155') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 173 12
+    %%BoundingBox: 0 0 223 12
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (5956439111ABA 9) () auspost barcode
+    (6279438541AaaB 155) () /auspost /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('5956439111ABA 9', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('6279438541AaaB 155', options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('6279438541AaaB 155', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('593221132401234567', options=dict(includetext=True, custinfoenc='numeric'), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

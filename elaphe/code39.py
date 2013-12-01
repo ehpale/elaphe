@@ -11,22 +11,22 @@ class Code39(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code39 object at ...>
     >>>
-    >>> print bc.render_ps_code('THIS IS CODE39') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('CODE39') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 256 72
+    %%BoundingBox: 0 0 128 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (THIS IS CODE39) () code39 barcode
+    (CODE39) () /code39 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('THIS IS CODE39', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('CODE39', options=dict(includecheck=True, includetext=True, includecheckintext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

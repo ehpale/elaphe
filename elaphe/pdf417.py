@@ -18,7 +18,7 @@ class Pdf417(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (^453^178^121^239) () pdf417 barcode
+    (^453^178^121^239) () /pdf417 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

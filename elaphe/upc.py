@@ -18,7 +18,7 @@ class UpcA(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (78858101497) () upca barcode
+    (78858101497) () /upca /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -66,7 +66,7 @@ class UpcE(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456) () upce barcode
+    (0123456) () /upce /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

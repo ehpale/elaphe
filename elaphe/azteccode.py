@@ -1,6 +1,24 @@
 # coding: utf-8
-import itertools, math
+import itertools, math, re
 from bases import Barcode, MatrixCodeRenderer, DPI
+        
+
+_cap_escape_re = re.compile(r'^\^\d\d\d')
+def _unescape(msg):
+    """
+    >>> _unescape('This is ^065ztec Code')
+    'This is Aztec Code'
+    
+    """
+    bits = []
+    while msg:
+        if _cap_escape_re.search(msg):
+            oct_ord, msg = msg[1:4], msg[4:]
+            bits.append(chr(int(oct_ord, 10)))
+        else:
+            bits.append(msg[0])
+            msg = msg[1:]
+    return ''.join(bits)
 
 
 AZTEC_CODE_METRICS = [
@@ -49,7 +67,7 @@ class AztecCode(Barcode):
     >>> bc = AztecCode()
     >>> bc # doctest: +ELLIPSIS
     <....AztecCode object at ...>
-    >>> print bc.render_ps_code('00100111001000000101001101111000010100111100101000000110') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('00100111001000000101001101111000010100111100101000000110', options=dict(raw=True)) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -60,11 +78,14 @@ class AztecCode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (00100111001000000101001101111000010100111100101000000110) () azteccode barcode
+    (00100111001000000101001101111000010100111100101000000110) (raw) /azteccode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('00100111001000000101001101111000010100111100101000000110', margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('00100111001000000101001101111000010100111100101000000110', options=dict(raw=True)) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('This is Aztec Code') # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
@@ -76,9 +97,16 @@ class AztecCode(Barcode):
             readerinit=False, layers=-1, eclevel=23, ecaddchars=3, format=None)
         def _code_bbox(self, codestring):
             format = self.lookup_option('format')
+            codestring = _unescape(codestring)
             if format!='rune':
                 codelen = 0
             else:
+                barlen = len(codestring)
+                if barlen<32:
+                    s = '00000'
+                    s1 = str(s)
+                    
+                    
                 codelen = len(codestring)
             readerinit = self.lookup_option('readerinit')
             layers = self.lookup_option('layers')

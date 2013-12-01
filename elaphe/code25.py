@@ -7,22 +7,22 @@ class Code2of5(Barcode):
     >>> bc = Code2of5()
     >>> bc # doctest: +ELLIPSIS
     <....Code2of5 object at ...>
-    >>> print bc.render_ps_code('0123456789') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('01234567') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 160 72
+    %%BoundingBox: 0 0 132 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789) () code2of5 barcode
+    (01234567) () /code2of5 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('0123456789', options=dict(includetext=False, includecheck=False), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('01234567', options=dict(version='iata', includetext=True, includecheck=True, includecheckintext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """

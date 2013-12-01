@@ -7,6 +7,16 @@ __all__ = ['DEFAULT_PS_CODE_PATH', 'DEFAULT_DISTILL_RE',
            'DEFAULT_EPSF_DSC_TEMPLATE', 'DEFAULT_RENDER_COMMAND_TEMPLATE',
            'init_ps_code_template', 'BARCODE_PS_CODE_PATH', 'PS_CODE_TEMPLATE']
 
+def _bin(n):
+    """
+    >>> _bin(0), _bin(1), _bin(63), _bin(4096)
+    ('0', '1', '111111', '1000000000000')
+    """
+    return str(n) if n<=1 else _bin(n>>1) + str(n&1)
+try:
+    bin
+except NameError:
+    bin = lambda n: '0b'+_bin(n)
 
 # default barcode.ps path and distiller regexp.
 DEFAULT_PS_CODE_PATH = pathjoin(
@@ -53,14 +63,13 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     >>> print distill_ps_code() # doctest: +ELLIPSIS
     <BLANKLINE>
     <BLANKLINE>
-    %% --BEGIN ENCODER ean13--
-    %% --DESC: EAN-13
-    %% --EXAM: 977147396801
-    %% --EXOP: includetext guardwhitespace
-    %% --RNDR: renlinear
+    %% --BEGIN RESOURCE preamble--
+    %%%%BeginResource: Category uk.co.terryburton.bwipp 0.0 0 0 0
+    %%%%BeginData:          5 ASCII Lines
     ...
-    /barcode load 0 1 dict put
-    %% --END DISPATCHER--
+    %%%%EndData
+    %%%%EndResource
+    %% --END ENCODER hibccodablockf--
     <BLANKLINE>
     <BLANKLINE>
     """
@@ -79,7 +88,7 @@ DEFAULT_RENDER_COMMAND_TEMPLATE = """
 gsave
 0 0 moveto
 %(xscale)f %(yscale)f scale
-%(codestring)s%(options)s%(codetype)s barcode
+%(codestring)s%(options)s/%(codetype)s /uk.co.terryburton.bwipp findresource exec
 grestore
 showpage
 """
