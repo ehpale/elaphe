@@ -18,6 +18,18 @@ try:
 except NameError:
     bin = lambda n: '0b'+_bin(n)
 
+def zf_bin(n, width):
+    """Zero-filled bin() of specified width.
+
+    >>> zf_bin(1, 8)
+    '00000001'
+    >>> zf_bin(255, 8)
+    '11111111'
+    >>> zf_bin(256, 8)
+    '00000000'
+    """
+    return bin(n)[2:].zfill(width)[0-width:]
+
 # default barcode.ps path and distiller regexp.
 DEFAULT_PS_CODE_PATH = pathjoin(
     dirname(abspath(__file__)), 'postscriptbarcode', 'barcode.ps')

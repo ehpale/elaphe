@@ -1,6 +1,7 @@
 # coding: utf-8
 import itertools, math, re
 from bases import Barcode, MatrixCodeRenderer, DPI
+from utils import zf_bin
         
 
 _cap_escape_re = re.compile(r'^\^\d\d\d')
@@ -85,6 +86,18 @@ class AztecCode(Barcode):
     >>> bc.render('00100111001000000101001101111000010100111100101000000110', options=dict(raw=True)) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
+    >>> bc.render('25', options=dict(format='rune')) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('ABC123', options=dict(format='compact')) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('ABC123', options=dict(layers=3, format='full')) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('This is ^065ztec Code', options=dict(parse=True, eclevel=50, ecaddchars=0)) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
     >>> bc.render('This is Aztec Code') # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
@@ -94,44 +107,58 @@ class AztecCode(Barcode):
     class _Renderer(MatrixCodeRenderer):
         default_options = dict(
             MatrixCodeRenderer.default_options,
-            readerinit=False, layers=-1, eclevel=23, ecaddchars=3, format=None)
+            readerinit=False, layers=-1, eclevel=23, ecaddchars=3,
+            format=None, parse=False, raw=False, dontdraw=False)
         def _code_bbox(self, codestring):
-            format = self.lookup_option('format')
-            codestring = _unescape(codestring)
-            if format!='rune':
-                codelen = 0
-            else:
-                barlen = len(codestring)
-                if barlen<32:
-                    s = '00000'
-                    s1 = str(s)
-                    
-                    
-                codelen = len(codestring)
+            format_ = self.lookup_option('format')
+            raw = self.lookup_option('raw')
+            parse = self.lookup_option('parse')
+            if parse==True:
+                codestring = _unescape(codestring)
+            msgbits = ''
+            if format_!='rune':
+                if raw==True:
+                    msgbits = codestring
+                else:
+                    barlen = len(codestring)
+                    if barlen<32:
+                        cc = zf_bin(barlen, 5)
+                    else:
+                        cc = zf_bin(barlen-31, 16)
+                    msgbits = '11111'
+                    msgbits += cc
+                    for ch in codestring:
+                        msgbits+=zf_bin(ord(ch), 8)
             readerinit = self.lookup_option('readerinit')
             layers = self.lookup_option('layers')
             eclevel = self.lookup_option('eclevel')
             ecaddchars = self.lookup_option('ecaddchars')
             for frmt, mlyr, icap, ncws, bpcw in AZTEC_CODE_METRICS:
-                if format and format!=frmt:
-                    continue
-                if readerinit and icap!=1:
-                    continue
-                if layers!=-1 and layers!=mlyr:
-                    continue
-                numecw = int(math.ceil(ncws*eclevel/100+ecaddchars))
+                ok = True
+                numecw = int(math.ceil(ncws*eclevel/100.0+ecaddchars))
+                if len(msgbits)==0:
+                    numecw = 0
                 numdcw = ncws-numecw
-                if math.ceil(codelen/bpcw)>numdcw:
-                    continue
-                break
+                if format_ and format_!=frmt:
+                    ok = False
+                if readerinit and icap!=1:
+                    ok = False
+                if layers!=-1 and layers!=mlyr:
+                    ok = False
+                if math.ceil(len(msgbits)/bpcw)>numdcw:
+                    ok = False
+                if ok:
+                    break
             else:
                 raise ValueError(u'No appropreate mode.')
             layers = mlyr
-            format = frmt
+            format_ = frmt
+            size = 0
             
-            size = 9+layers*4+2
-            if format=='full':
+            if format_=='full':
                 size = ((13+layers*4)+2)+int((layers+10.5)/7.5-1)*2
+            else:
+                size = ((9+layers*4)+2)
             return (0, 0, DPI*size*2/72.0, DPI*size*2/72.0)
 
         def build_params(self, codestring):
