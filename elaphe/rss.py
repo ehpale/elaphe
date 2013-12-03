@@ -18,7 +18,9 @@ class Rss14(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (24012345678905) () /rss14 /uk.co.terryburton.bwipp findresource exec
+    (24012345678905)
+    ()
+    /rss14 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -88,7 +90,9 @@ class RssLimited(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (00978186074271) () /rsslimited /uk.co.terryburton.bwipp findresource exec
+    (00978186074271)
+    ()
+    /rsslimited /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -125,7 +129,9 @@ class RssExpanded(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (000000010011001010100001000000010000) () /rssexpanded /uk.co.terryburton.bwipp findresource exec
+    (000000010011001010100001000000010000)
+    ()
+    /rssexpanded /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

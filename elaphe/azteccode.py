@@ -79,7 +79,9 @@ class AztecCode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (00100111001000000101001101111000010100111100101000000110) (raw) /azteccode /uk.co.terryburton.bwipp findresource exec
+    (00100111001000000101001101111000010100111100101000000110)
+    (raw)
+    /azteccode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -164,7 +166,7 @@ class AztecCode(Barcode):
         def build_params(self, codestring):
             """
             >>> AztecCode._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': ' () '}
+            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': '()'}
             """
             params = super(AztecCode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

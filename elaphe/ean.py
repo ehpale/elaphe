@@ -18,7 +18,9 @@ class Ean13(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (977147396801) () /ean13 /uk.co.terryburton.bwipp findresource exec
+    (977147396801)
+    ()
+    /ean13 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -63,7 +65,9 @@ class ISBN(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (978-1-56592-479) () /isbn /uk.co.terryburton.bwipp findresource exec
+    (978-1-56592-479)
+    ()
+    /isbn /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -113,7 +117,9 @@ class Ean8(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (01335583) () /ean8 /uk.co.terryburton.bwipp findresource exec
+    (01335583)
+    ()
+    /ean8 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -156,7 +162,9 @@ class Ean5(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (90200) () /ean5 /uk.co.terryburton.bwipp findresource exec
+    (90200)
+    ()
+    /ean5 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -207,7 +215,9 @@ class Ean2(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (05) () /ean2 /uk.co.terryburton.bwipp findresource exec
+    (05)
+    ()
+    /ean2 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

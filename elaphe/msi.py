@@ -17,7 +17,9 @@ class MsiModifiedPlessey(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789) () /msi /uk.co.terryburton.bwipp findresource exec
+    (0123456789)
+    ()
+    /msi /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

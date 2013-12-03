@@ -18,7 +18,9 @@ class Pdf417(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (^453^178^121^239) () /pdf417 /uk.co.terryburton.bwipp findresource exec
+    (^453^178^121^239)
+    ()
+    /pdf417 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
@@ -78,7 +80,7 @@ class Pdf417(Barcode):
         def build_params(self, codestring):
             """
             >>> Pdf417._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 103 30', 'codetype': {}, 'xscale': 1.0, 'options': ' () '}
+            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 103 30', 'codetype': {}, 'xscale': 1.0, 'options': '()'}
             """
             params = super(Pdf417._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

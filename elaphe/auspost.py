@@ -18,7 +18,9 @@ class AusPost(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (6279438541AaaB 155) () /auspost /uk.co.terryburton.bwipp findresource exec
+    (6279438541AaaB 155)
+    ()
+    /auspost /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

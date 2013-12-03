@@ -22,7 +22,9 @@ class Code128(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (Count0123456789!) (includetext) /code128 /uk.co.terryburton.bwipp findresource exec
+    (Count0123456789!)
+    (includetext)
+    /code128 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

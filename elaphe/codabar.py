@@ -18,7 +18,9 @@ class RationalizedCodabar(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (A0123456789B) () /rationalizedCodabar /uk.co.terryburton.bwipp findresource exec
+    (A0123456789B)
+    ()
+    /rationalizedCodabar /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

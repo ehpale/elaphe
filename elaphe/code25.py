@@ -18,7 +18,9 @@ class Code2of5(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (01234567) () /code2of5 /uk.co.terryburton.bwipp findresource exec
+    (01234567)
+    ()
+    /code2of5 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

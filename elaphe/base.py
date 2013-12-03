@@ -114,7 +114,7 @@ class Renderer(object):
         return util.to_ps(codestring, parlen=True)
         
     def build_options_string(self, options):
-        return util.dict_to_optstring(options)
+        return util.dict_to_optstring(options, raw=True)
 
     def build_params(self, codestring):
         params = {}
@@ -138,7 +138,9 @@ class Renderer(object):
         gsave
         0 0 moveto
         1.000000 1.000000 scale
-        (BAR) () /foo /uk.co.terryburton.bwipp findresource exec
+        (BAR)
+        ()
+        /foo /uk.co.terryburton.bwipp findresource exec
         grestore
         showpage
         <BLANKLINE>
@@ -226,7 +228,9 @@ class Barcode(object):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    () () / /uk.co.terryburton.bwipp findresource exec
+    ()
+    ()
+    / /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

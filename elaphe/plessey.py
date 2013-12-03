@@ -17,7 +17,9 @@ class Plessey(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (012345ABCD) () /plessey /uk.co.terryburton.bwipp findresource exec
+    (012345ABCD)
+    ()
+    /plessey /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

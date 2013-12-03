@@ -18,7 +18,9 @@ class JapanPost(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (1231FZ13XHS) () /japanpost /uk.co.terryburton.bwipp findresource exec
+    (1231FZ13XHS)
+    ()
+    /japanpost /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>

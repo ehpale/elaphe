@@ -1,5 +1,7 @@
 # coding: utf-8
 from os.path import abspath, dirname, join as pathjoin
+from binascii import hexlify
+from textwrap import TextWrapper
 import re
 
 __all__ = ['DEFAULT_PS_CODE_PATH', 'DEFAULT_DISTILL_RE',
@@ -37,34 +39,82 @@ DEFAULT_DISTILL_RE = re.compile(r'% --BEGIN TEMPLATE--(.+)% --END TEMPLATE--', r
 
 
 def to_ps(obj, parlen=False):
-    """Converts object into postscript literal"""
-    if isinstance(obj, str) and parlen:
-        return '(%s)' %obj
+    """Converts object into postscript literal
+
+    >>> to_ps(None)
+    'null'
+    >>> to_ps(123)
+    '123'
+    >>> to_ps(456.78)
+    '456.78'
+    >>> to_ps(True), to_ps(False)
+    ('true', 'false')
+    >>> to_ps('foo bar baz')
+    'foo bar baz'
+    >>> to_ps('foo bar baz', parlen=True)
+    '(foo bar baz)'
+    
+    """
+    if isinstance(obj, str):
+        ret = '%s' %obj
+        if parlen:
+            ret = '(%s)' % ret
     elif isinstance(obj, bool):
-        return {True: 'true', False: 'false'}[obj]
+        ret = {True: 'true', False: 'false'}[obj]
+    elif isinstance(obj, type(None)):
+        ret = 'null'
     else:
-        return str(obj)
+        ret = str(obj)
+    return ret
 
 
-def dict_to_optstring(d, none=lambda x: ' () ', empty=lambda x: ' () '):
+def ps_hex_str(s):
+    """
+    
+    >>> print ps_hex_str('test testtesttesttest test test testtesttest test \\n'
+    ...                  ' sdfojsodfj oij 3240987u098rusipdjf948325u test')
+    <74657374207465737474657374746573747465737420746573742074657374207465737
+     474657374746573742074657374200a207364666f6a736f64666a206f696a2033323430
+     393837753039387275736970646a66393438333235752074657374>
+    """
+    return TextWrapper(subsequent_indent=' ', width=72).fill('<'+hexlify(s)+'>')
+
+
+def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',
+                      raw_none=lambda x: '()', raw_empty=lambda x: '()',
+                      raw=True):
     """Converts dictionary into ps string in barcode.ps specific format.
 
-    >>> dict_to_optstring(dict(purpose='seekagrail', color='yellow', spam=True, egg=False))
-    ' (color=yellow purpose=seekagrail spam) '
-    >>> dict_to_optstring(dict())
-    ' () '
-    >>> dict_to_optstring(None)
-    ' () '
+    >>> dict_to_optstring(dict(purpose='seekagrail', color='yellow', spam=True, egg=False), raw=True)
+    '(color=yellow purpose=seekagrail spam)'
+    >>> dict_to_optstring(dict(), raw=True)
+    '()'
+    >>> dict_to_optstring(None, raw=True)
+    '()'
+    >>> dict_to_optstring(dict(purpose='seekagrail', color='yellow', spam=True, egg=False), raw=False)
+    '<636f6c6f723d79656c6c6f7720707572706f73653d7365656b61677261696c207370616\\n d>'
+    >>> dict_to_optstring(dict(), raw=False)
+    '<>'
+    >>> dict_to_optstring(None, raw=False)
+    '<>'
     """
+    none_ = none
+    empty_ = empty
+    if raw:
+        none_ = raw_none
+        empty_ = raw_empty
     if d is None:
-        return none(d)
+        return none_(d)
     elif d:
-        return ' ' + to_ps(
-            ' '.join((key + {True: '', False:'=%s' % to_ps(value)}[value is True])
-                     for key, value in d.items() if not value is False),
-            parlen=True) + ' '
+        ret = ' '.join(
+            (key + {True: '', False:'=%s' % to_ps(value)}[value is True])
+            for key, value in d.items() if not value is False)
+        if raw:
+            return '('+ret+')'
+        else:
+            return ps_hex_str(ret)
     else:
-        return empty(d)
+        return empty_(d)
 
 
 def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
@@ -100,7 +150,9 @@ DEFAULT_RENDER_COMMAND_TEMPLATE = """
 gsave
 0 0 moveto
 %(xscale)f %(yscale)f scale
-%(codestring)s%(options)s/%(codetype)s /uk.co.terryburton.bwipp findresource exec
+%(codestring)s
+%(options)s
+/%(codetype)s /uk.co.terryburton.bwipp findresource exec
 grestore
 showpage
 """
