@@ -23,7 +23,7 @@ class Plessey(Barcode):
     <BLANKLINE>
     >>> bc.render('012345ABCD', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'plessey'
     aliases = ()

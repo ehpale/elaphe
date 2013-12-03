@@ -24,7 +24,7 @@ class Code11(Barcode):
     <BLANKLINE>
     >>> bc.render('0123456789', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-    >>> _.show()
+    >>> # _.show()
     """
     codetype = 'code11'
     aliases = ('code 11', 'code_11', 'code-11')

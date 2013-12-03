@@ -25,6 +25,9 @@ class Pdf417(Barcode):
     >>> bc.render('^453^178^121^239', options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
+    >>> bc.render('1234', options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
     """
     codetype = 'pdf417'
     aliases = ('pdf-417', 'pdf_417', 'pdf 417')
