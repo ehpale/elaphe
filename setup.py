@@ -2,15 +2,26 @@
 import imp, sys, os
 from os.path import abspath, dirname, join as pathjoin
 from setuptools import setup
+from setuptools.command.test import test as TestCommand
 
 version = imp.load_source('_mod', abspath('elaphe/__version__.py')).VERSION
 version = '.'.join(map(str, version))
 install_requires = ['setuptools', 'Pillow']
-test_requires = []
+tests_require = ['pytest']
 extra_requires = {}
 long_description = '\n'.join([
     open(pathjoin(dirname(abspath(__file__)), 'README')).read(),
     ])
+
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = ['--doctest-modules', 'elaphe']
+        self.test_suite = True
+    def run_tests(self):
+        import pytest
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
 
 setup_params = dict(
     name="elaphe",
@@ -23,7 +34,6 @@ setup_params = dict(
                    'postscriptbarcode/LICENSE']},
     zip_safe=False,
     install_requires = install_requires,
-    tests_require=test_requires,
     extras_require=extra_requires,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -41,8 +51,7 @@ setup_params = dict(
     license = "New BSD",
     keywords = "barcode convert postscript image graphics",
     url = "http://bitbucket.org/whosaysni/elaphe/",
-    test_suite = 'runner',
+    cmdclass = {'test': PyTest},
 )
 
-sys.path.insert(0, abspath('./tests'))
 setup(**setup_params)
