@@ -1,6 +1,6 @@
 # coding: utf-8
 import re
-from bases import Barcode, LinearCodeRenderer, DPI
+from base import Barcode, LinearCodeRenderer, DPI
 
 
 CODE93_ESCAPE_RE = re.compile(r'\^\d{3}')

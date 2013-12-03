@@ -1,6 +1,6 @@
 # coding: utf-8
 import itertools, math, re
-from bases import Barcode, MatrixCodeRenderer, DPI
+from base import Barcode, MatrixCodeRenderer, DPI
 from util import zf_bin
         
 

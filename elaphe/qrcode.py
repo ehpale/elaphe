@@ -1,6 +1,6 @@
 # coding: utf-8
 import itertools
-from bases import Barcode, MatrixCodeRenderer, DPI
+from base import Barcode, MatrixCodeRenderer, DPI
 
 QRCODE_METRIC = [
     ["micro", "M1", 11, 98, 99, 36, [2, 99, 99, 99], [1, 0, 99, 99, 99, 99, 99, 99]],

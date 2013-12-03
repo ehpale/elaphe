@@ -1,5 +1,5 @@
 # coding: utf-8
-from bases import *
+from base import *
 
 
 class Ean13(Barcode):

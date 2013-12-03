@@ -1,6 +1,6 @@
 # coding: utf-8
 import itertools, math
-from bases import Barcode, MatrixCodeRenderer, DPI
+from base import Barcode, MatrixCodeRenderer, DPI
 
 class Pdf417(Barcode):
     """

@@ -1,7 +1,7 @@
 # coding: utf-8
 """elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
 """
-from bases import Barcode
+from base import Barcode
 from __version__ import VERSION
 
 DEFAULT_PLUGINS = [

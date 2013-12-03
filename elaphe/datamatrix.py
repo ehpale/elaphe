@@ -1,6 +1,6 @@
 # coding: utf-8
 import itertools
-from bases import Barcode, MatrixCodeRenderer, DPI
+from base import Barcode, MatrixCodeRenderer, DPI
 
 metrics = (
     # rows cols regh regv rscw rsbl
