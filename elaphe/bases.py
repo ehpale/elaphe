@@ -5,14 +5,16 @@ try:
 except ImportError:
     import StringIO
 from PIL.EpsImagePlugin import EpsImageFile
-import utils
+import util
 
-__all__=['DPI', 'Renderer', 'LinearCodeRenderer', 'MatrixCodeRenderer', 'Barcode']
+__all__=['DPI', 'Renderer', 'LinearCodeRenderer',
+         'MatrixCodeRenderer', 'Barcode']
 
 DPI = 72.0
 
+
 def fb_lookup(dic, keys, default):
-    """Dictionary lookup falls back over keys.
+    """Do dict-lookup for multiple key, returning the first hit.
     """
     for key in keys:
         if key in dic:
@@ -24,10 +26,18 @@ def fb_lookup(dic, keys, default):
 class Renderer(object):
     """Base renderer implementation.
     """
-    # Values in default_options are used as a fallback of renderer option.
-    # Abstract subclass should override, substational renderers not.
-    # To instant override, do as new = dict(superclass.default_options, **kwargs).
-    default_options = dict()
+    # The default_options is used as a fallback of renderer options.
+    # 'Abstract' subclass such as LinearRenderer may override this as::
+    #     default_options = dict(superclass.default_options, **kwargs)
+    default_options = dict(
+        # input processing
+        parse=False,
+        parsefnc=False,
+        raw=False,
+        # symbol dimensions
+        height=0,
+        width=0,
+        )
 
     def __init__(self, codetype, options=None, **kw):
         self.codetype = codetype
@@ -101,10 +111,10 @@ class Renderer(object):
                 self.y_scale*(max(text_rty, code_rty)+self.top_margin))
 
     def build_codestring(self, codestring):
-        return utils.to_ps(codestring, parlen=True)
+        return util.to_ps(codestring, parlen=True)
         
     def build_options_string(self, options):
-        return utils.dict_to_optstring(options)
+        return util.dict_to_optstring(options)
 
     def build_params(self, codestring):
         params = {}
@@ -117,7 +127,7 @@ class Renderer(object):
 
     def render_ps_code(self, codestring):
         """
-        >>> print Renderer('foo').render_ps_code('977147396801') # doctest: +ELLIPSIS
+        >>> print Renderer('foo').render_ps_code('BAR') # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         %%Pages: (attend)
         %%Creator: Elaphe powered by barcode.ps
@@ -128,12 +138,12 @@ class Renderer(object):
         gsave
         0 0 moveto
         1.000000 1.000000 scale
-        (977147396801) () /foo /uk.co.terryburton.bwipp findresource exec
+        (BAR) () /foo /uk.co.terryburton.bwipp findresource exec
         grestore
         showpage
         <BLANKLINE>
         """
-        return utils.PS_CODE_TEMPLATE %(self.build_params(codestring))
+        return util.PS_CODE_TEMPLATE %(self.build_params(codestring))
 
     def render(self, codestring):
         """
@@ -147,42 +157,58 @@ class Renderer(object):
 class LinearCodeRenderer(Renderer):
     default_options = dict(
         Renderer.default_options,
-        barcolor=None,
+        # check digits
+        includecheck=False,
+        includecheckintext=False,
+        # bar properties
+        inkspread=0.15,
+        # text properties
         includetext=False,
-        textcolor=None,
-        textxalign=None,
-        textyalign=None,
         textfont='Courier',
         textsize=10,
+        textgaps=0,
+        # text positioning
+        textxalign=None,
+        textyalign=None,
         textxoffset=0,
         textyoffset=0,
-        bordercolor=None,
-        backgroundcolor=None,
-        inkspread=0.15,
-        width=0,
-        barratio=1,
-        spaceratio=1,
+        # border properties
         showborder=False,
+        borderwidth=0.5,
         borderleft=10,
         borderright=10,
         bordertop=1,
         borderbottom=1,
-        borderwidth=0.5,
+        # symbol colors
+        barcolor=None,
+        backgroundcolor=None,
+        textcolor=None,
+        bordercolor=None,
+        # EAN/UPC add-on
+        addontextfont='Courier',
+        addontextsize=10,
+        addontextxoffset=0,
+        addontextyoffset=0,
+        # EAN/UPC guards
         guardwhitespace=False,
-        guardleftpos=0,
-        guardrightpos=0,
         guardwidth=6,
         guardheight=7,
+        guardleftpos=0,
+        guardrightpos=0,
+        guardleftypos=0,
+        guardrightypos=0,
+        # attic
+        barratio=1,
+        spaceratio=1,
         )
 
     
 class MatrixCodeRenderer(Renderer):
     default_options = dict(
         Renderer.default_options,
+        # symbol colors
         color=None,
         backgrroundcolor=None,
-        height=1,
-        width=1,
         )
 
 

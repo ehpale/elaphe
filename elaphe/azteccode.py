@@ -1,7 +1,7 @@
 # coding: utf-8
 import itertools, math, re
 from bases import Barcode, MatrixCodeRenderer, DPI
-from utils import zf_bin
+from util import zf_bin
         
 
 _cap_escape_re = re.compile(r'^\^\d\d\d')
