@@ -111,10 +111,10 @@ class Renderer(object):
                 self.y_scale*(max(text_rty, code_rty)+self.top_margin))
 
     def build_codestring(self, codestring):
-        return util.to_ps(codestring, parlen=True)
+        return util.ps_hex_str(codestring)
         
     def build_options_string(self, options):
-        return util.dict_to_optstring(options, raw=True)
+        return util.dict_to_optstring(options, raw=False)
 
     def build_params(self, codestring):
         params = {}
@@ -138,8 +138,8 @@ class Renderer(object):
         gsave
         0 0 moveto
         1.000000 1.000000 scale
-        (BAR)
-        ()
+        <424152>
+        <>
         /foo /uk.co.terryburton.bwipp findresource exec
         grestore
         showpage
@@ -228,8 +228,8 @@ class Barcode(object):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    ()
-    ()
+    <>
+    <>
     / /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

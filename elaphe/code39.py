@@ -22,8 +22,8 @@ class Code39(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (CODE39)
-    ()
+    <434f44453339>
+    <>
     /code39 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

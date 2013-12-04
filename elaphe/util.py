@@ -5,9 +5,16 @@ from textwrap import TextWrapper
 import re
 
 __all__ = ['DEFAULT_PS_CODE_PATH', 'DEFAULT_DISTILL_RE',
-           'to_ps', 'dict_to_optstring', 'distill_ps_code',
+           'to_ps', 'cap_unescape', 'dict_to_optstring', 'distill_ps_code',
            'DEFAULT_EPSF_DSC_TEMPLATE', 'DEFAULT_RENDER_COMMAND_TEMPLATE',
            'init_ps_code_template', 'BARCODE_PS_CODE_PATH', 'PS_CODE_TEMPLATE']
+
+
+# default barcode.ps path and distiller regexp.
+DEFAULT_PS_CODE_PATH = pathjoin(
+    dirname(abspath(__file__)), 'postscriptbarcode', 'barcode.ps')
+DEFAULT_DISTILL_RE = re.compile(r'% --BEGIN TEMPLATE--(.+)% --END TEMPLATE--', re.S)
+
 
 def _bin(n):
     """
@@ -32,10 +39,23 @@ def zf_bin(n, width):
     """
     return bin(n)[2:].zfill(width)[0-width:]
 
-# default barcode.ps path and distiller regexp.
-DEFAULT_PS_CODE_PATH = pathjoin(
-    dirname(abspath(__file__)), 'postscriptbarcode', 'barcode.ps')
-DEFAULT_DISTILL_RE = re.compile(r'% --BEGIN TEMPLATE--(.+)% --END TEMPLATE--', re.S)
+
+_cap_escape_re = re.compile(r'^\^\d\d\d')
+def cap_unescape(msg):
+    """
+    >>> cap_unescape('This is ^065ztec Code')
+    'This is Aztec Code'
+    
+    """
+    bits = []
+    while msg:
+        if _cap_escape_re.search(msg):
+            oct_ord, msg = msg[1:4], msg[4:]
+            bits.append(chr(int(oct_ord, 10)%256))
+        else:
+            bits.append(msg[0])
+            msg = msg[1:]
+    return ''.join(bits)
 
 
 def to_ps(obj, parlen=False):

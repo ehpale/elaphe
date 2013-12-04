@@ -46,8 +46,8 @@ class DataMatrix(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    ((01)95012345678903(3103)000123)
-    ()
+    <283031293935303132333435363738393033283331303329303030313233>
+    <>
     /datamatrix /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -84,7 +84,7 @@ class DataMatrix(Barcode):
         def build_params(self, codestring):
             """
             >>> DataMatrix._Renderer(()).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 18 18', 'codetype': (), 'xscale': 1.0, 'options': '()'}
+            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 18 18', 'codetype': (), 'xscale': 1.0, 'options': '<>'}
             """
             params = super(DataMatrix._Renderer, self).build_params(codestring)
             params['bbox'] = '%d %d %d %d' %(self._boundingbox(

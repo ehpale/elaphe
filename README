@@ -19,9 +19,9 @@ Prerequisites
 
     Except ``setup.py test``, code may still work on 2.5-2.6.
     
-* If you want to render the generated barcode, EpsImagePlugin of
-  Python Imaging Library (http://www.pythonware.com/products/pil)
-  is required. Note that EpsImagePlugin requires Ghostscript is
+* If you want to render barcode into bitmap image, EpsImagePlugin of
+  Python Imaging Library (http://www.pythonware.com/products/pil) or
+  Pillow is required. Note that EpsImagePlugin requires Ghostscript is
   collectly installed.
 
 
@@ -36,7 +36,7 @@ The following example::
   ...         options=dict(version=9, eclevel='M'), 
   ...         margin=10, data_mode='8bits'))   # Generates PIL.EpsImageFile instance
   <PIL.EpsImagePlugin.EpsImageFile ... at ...>
-  >>> _.show()            # Show the image
+  >>> _.show() # Show rendered bitmap
 
 will invoke some viewer which shows a QRcode symbol with 10px margin.
 

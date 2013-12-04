@@ -17,8 +17,9 @@ class Raw(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (331132131313411122131311333213114131131221323)
-    ()
+    <33333131333231333133313334313131323231333133313133333332313331313431333
+     1313331323231333233>
+    <>
     /raw /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

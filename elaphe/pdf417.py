@@ -1,42 +1,57 @@
 # coding: utf-8
 import itertools, math
 from base import Barcode, MatrixCodeRenderer, DPI
+from util import cap_unescape
 
 class Pdf417(Barcode):
     """
     >>> bc = Pdf417()
     >>> bc # doctest: +ELLIPSIS
     <....Pdf417 object at ...>
-    >>> print bc.render_ps_code('^453^178^121^239') # doctest: +ELLIPSIS
+    >>> print bc.render_ps_code('PDF417') # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 103 30
+    %%BoundingBox: 0 0 103 24
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (^453^178^121^239)
-    ()
+    <504446343137>
+    <>
     /pdf417 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('^453^178^121^239', options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
+    >>> bc.render('PDF417', options=dict()) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
-    >>> bc.render('1234', options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
+    >>> bc.render('P^068F417', options=dict(parse=True, columns=2, rows=15), scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
+    >>> bc.render('1234', options=dict(columns=2, rows=10), scale=2) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('A truncated PDF417', options=dict(columns=4, compact=True), scale=2) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('String error correction', options=dict(columns=2, eclevel=5), scale=2) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    >>> bc.render('^453^178^121^239', options=dict(raw=True, columns=2), scale=2) # doctest: +ELLIPSIS
+    <PIL.EpsImagePlugin.EpsImageFile ... at ...>
+    >>> # _.show()
+    
     """
     codetype = 'pdf417'
     aliases = ('pdf-417', 'pdf_417', 'pdf 417')
     class _Renderer(MatrixCodeRenderer):
         default_options = dict(
             MatrixCodeRenderer.default_options,
-            compact=False, eclevel=-1, columns=2, rowmult=3, rows=10)
+            dontdraw=False, compact=False, eclevel=-1, columns=2, rows=0, rowmult=3,
+            ccc=False, raw=False, parse=False)
             
         def _code_bbox(self, codestring):
             compact = self.lookup_option('compact')
@@ -44,7 +59,17 @@ class Pdf417(Barcode):
             rowmult = self.lookup_option('rowmult')
             rows = self.lookup_option('rows')
             eclevel = self.lookup_option('eclevel')
-            m = len(codestring)/4
+            raw = self.lookup_option('raw')
+            codestring = cap_unescape(codestring)
+            m = 0
+            if raw==False:
+                blen = len(codestring)
+                if blen%6==0:
+                    m = (blen/6)*5+1
+                else:
+                    m = ((blen-blen%6)/6)*5+blen%6+1
+            else:
+                m = len(codestring)
             if eclevel==-1:
                 if m<=40:
                     eclevel = 2
@@ -58,6 +83,8 @@ class Pdf417(Barcode):
             if eclevel>maxeclevel:
                 eclevel = maxeclevel
             k = 2**(eclevel+1)
+            if columns==0:
+                columns = int(round(math.sqrt((m+k)/3)))
             if 1<=columns<=30:
                 c = columns
             else:
@@ -80,7 +107,7 @@ class Pdf417(Barcode):
         def build_params(self, codestring):
             """
             >>> Pdf417._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 103 30', 'codetype': {}, 'xscale': 1.0, 'options': '()'}
+            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 103 21', 'codetype': {}, 'xscale': 1.0, 'options': '<>'}
             """
             params = super(Pdf417._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

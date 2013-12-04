@@ -18,8 +18,8 @@ class Ean13(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (977147396801)
-    ()
+    <393737313437333936383031>
+    <>
     /ean13 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -65,8 +65,8 @@ class ISBN(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (978-1-56592-479)
-    ()
+    <3937382d312d35363539322d343739>
+    <>
     /isbn /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -93,8 +93,8 @@ class ISBN(Barcode):
         def build_codestring(self, codestring):
             """
             Allows to accept digit-only notation.
-            >>> ISBN._Renderer({}).build_codestring('978 1 56592 479')
-            '(978-1-56592-479)'
+            >>> ISBN._Renderer({}).build_codestring('978 1 56592 479') # '(978-1-56592-479)'
+            '<3937382d312d35363539322d343739>'
             """
             cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in  codestring if c in '0123456789')
             return super(ISBN._Renderer, self).build_codestring(cs)
@@ -117,8 +117,8 @@ class Ean8(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (01335583)
-    ()
+    <3031333335353833>
+    <>
     /ean8 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -162,8 +162,8 @@ class Ean5(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (90200)
-    ()
+    <3930323030>
+    <>
     /ean5 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -215,8 +215,8 @@ class Ean2(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (05)
-    ()
+    <3035>
+    <>
     /ean2 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

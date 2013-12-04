@@ -18,8 +18,8 @@ class Code11(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789)
-    ()
+    <30313233343536373839>
+    <>
     /code11 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

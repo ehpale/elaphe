@@ -22,8 +22,8 @@ class Code93(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (CODE93)
-    ()
+    <434f44453933>
+    <>
     /code93 /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

@@ -17,8 +17,8 @@ class PostNet(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (12345123412)
-    ()
+    <3132333435313233343132>
+    <>
     /postnet /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

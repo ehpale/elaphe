@@ -17,8 +17,8 @@ class OneCode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456709498765432101234567891)
-    ()
+    <30313233343536373039343938373635343332313031323334353637383931>
+    <>
     /onecode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage

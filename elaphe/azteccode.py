@@ -1,26 +1,8 @@
 # coding: utf-8
-import itertools, math, re
+import itertools, math
 from base import Barcode, MatrixCodeRenderer, DPI
-from util import zf_bin
+from util import zf_bin, cap_unescape
         
-
-_cap_escape_re = re.compile(r'^\^\d\d\d')
-def _unescape(msg):
-    """
-    >>> _unescape('This is ^065ztec Code')
-    'This is Aztec Code'
-    
-    """
-    bits = []
-    while msg:
-        if _cap_escape_re.search(msg):
-            oct_ord, msg = msg[1:4], msg[4:]
-            bits.append(chr(int(oct_ord, 10)))
-        else:
-            bits.append(msg[0])
-            msg = msg[1:]
-    return ''.join(bits)
-
 
 AZTEC_CODE_METRICS = [
     # frmt      mlyr icap ncws  bpcw
@@ -79,8 +61,9 @@ class AztecCode(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (00100111001000000101001101111000010100111100101000000110)
-    (raw)
+    <30303130303131313030313030303030303130313030313130313131313030303031303
+     13030313131313030313031303030303030313130>
+    <726177>
     /azteccode /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
@@ -116,7 +99,7 @@ class AztecCode(Barcode):
             raw = self.lookup_option('raw')
             parse = self.lookup_option('parse')
             if parse==True:
-                codestring = _unescape(codestring)
+                codestring = cap_unescape(codestring)
             msgbits = ''
             if format_!='rune':
                 if raw==True:
@@ -166,7 +149,7 @@ class AztecCode(Barcode):
         def build_params(self, codestring):
             """
             >>> AztecCode._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '(abcd)', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': '()'}
+            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': '<>'}
             """
             params = super(AztecCode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

@@ -10,20 +10,20 @@ class MsiModifiedPlessey(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 169 72
+    %%BoundingBox: 0 0 127 72
     %%LanguageLevel: 2
     %%EndComments
     ...
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (0123456789)
-    ()
+    <30313233343536373839>
+    <>
     /msi /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
     <BLANKLINE>
-    >>> bc.render('0123456789', options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
+    >>> bc.render('0123456789', options=dict(includecheck=True, includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
     """
@@ -40,19 +40,19 @@ class MsiModifiedPlessey(Barcode):
             """
             >>> r = MsiModifiedPlessey._Renderer({})
             >>> r._code_bbox('A0123456789B')
-            [0, 0, 201, 72.0]
+            [0, 0, 151, 72.0]
             """
             height = self.lookup_option('height')
             if self.lookup_option('includecheck'):
-                return [0, 0, 4+(len(codestring)+1)*16+5, height*DPI]
+                return [0, 0, 3+(len(codestring)+1)*12+4, height*DPI]
             else:
-                return [0, 0, 4+(len(codestring))*16+5, height*DPI]
+                return [0, 0, 3+(len(codestring))*12+4, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = MsiModifiedPlessey._Renderer({})
             >>> r._text_bbox('A0123456789B')
-            [0, -7, 201, 3]
+            [0, -7, 151, 3]
             """
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')

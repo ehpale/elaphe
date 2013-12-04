@@ -18,8 +18,8 @@ class Kix(Barcode):
     gsave
     0 0 moveto
     1.000000 1.000000 scale
-    (1231FZ13XHS)
-    ()
+    <31323331465a3133584853>
+    <>
     /kix /uk.co.terryburton.bwipp findresource exec
     grestore
     showpage
