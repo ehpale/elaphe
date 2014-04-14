@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 import re
 from .base import Barcode, LinearCodeRenderer, DPI
 
@@ -11,7 +12,7 @@ class Code93(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code93 object at ...>
     >>>
-    >>> print bc.render_ps_code('CODE93') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('CODE93')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

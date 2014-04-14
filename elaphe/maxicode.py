@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 import itertools
 from .base import Barcode, MatrixCodeRenderer, DPI
 
@@ -7,7 +8,7 @@ class MaxiCode(Barcode):
     >>> bc = MaxiCode()
     >>> bc # doctest: +ELLIPSIS
     <....MaxiCode object at ...>
-    >>> print bc.render_ps_code('This is MaxiCode') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('This is MaxiCode')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

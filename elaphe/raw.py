@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
 class Raw(Barcode):
@@ -6,7 +7,7 @@ class Raw(Barcode):
     >>> bc = Raw()
     >>> bc # doctest: +ELLIPSIS
     <....Raw object at ...>
-    >>> print bc.render_ps_code('331132131313411122131311333213114131131221323') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('331132131313411122131311333213114131131221323')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

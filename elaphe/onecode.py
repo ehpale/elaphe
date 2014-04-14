@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
 class OneCode(Barcode):
@@ -6,7 +7,7 @@ class OneCode(Barcode):
     >>> bc = OneCode()
     >>> bc # doctest: +ELLIPSIS
     <....OneCode object at ...>
-    >>> print bc.render_ps_code('0123456709498765432101234567891') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('0123456709498765432101234567891')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

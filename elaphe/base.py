@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import print_function
 try:
     # 2.7
     import cStringIO as io
@@ -132,7 +133,7 @@ class Renderer(object):
 
     def render_ps_code(self, codestring):
         """
-        >>> print Renderer('foo').render_ps_code('BAR') # doctest: +ELLIPSIS
+        >>> print(Renderer('foo').render_ps_code('BAR')) # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         %%Pages: (attend)
         %%Creator: Elaphe powered by barcode.ps
@@ -222,7 +223,7 @@ class MatrixCodeRenderer(Renderer):
 class Barcode(object):
     """Base class of barcode renderers.
 
-    >>> print Barcode().render_ps_code('') # doctest: +ELLIPSIS
+    >>> print(Barcode().render_ps_code('')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

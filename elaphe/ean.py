@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from .base import *
 
 
@@ -7,7 +8,7 @@ class Ean13(Barcode):
     >>> bc = Ean13()
     >>> bc # doctest: +ELLIPSIS
     <....Ean13 object at ...>
-    >>> print bc.render_ps_code('977147396801') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('977147396801')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -54,7 +55,7 @@ class ISBN(Barcode):
     >>> bc = ISBN()
     >>> bc # doctest: +ELLIPSIS
     <....ISBN object at ...>
-    >>> print bc.render_ps_code('978-1-56592-479') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('978-1-56592-479')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -106,7 +107,7 @@ class Ean8(Barcode):
     >>> bc = Ean8()
     >>> bc # doctest: +ELLIPSIS
     <....Ean8 object at ...>
-    >>> print bc.render_ps_code('01335583') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('01335583')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -151,7 +152,7 @@ class Ean5(Barcode):
     >>> bc = Ean5()
     >>> bc # doctest: +ELLIPSIS
     <....Ean5 object at ...>
-    >>> print bc.render_ps_code('90200') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('90200')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -204,7 +205,7 @@ class Ean2(Barcode):
     >>> bc = Ean2()
     >>> bc # doctest: +ELLIPSIS
     <....Ean2 object at ...>
-    >>> print bc.render_ps_code('05') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('05')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

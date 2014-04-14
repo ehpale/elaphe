@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
 class Symbol(Barcode):
@@ -6,7 +7,7 @@ class Symbol(Barcode):
     >>> bc = Symbol()
     >>> bc # doctest: +ELLIPSIS
     <....Symbol object at ...>
-    >>> print bc.render_ps_code('fima') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('fima')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

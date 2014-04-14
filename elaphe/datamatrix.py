@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 import itertools
 from .base import Barcode, MatrixCodeRenderer, DPI
 from .util import cap_unescape
@@ -43,7 +44,7 @@ class DataMatrix(Barcode):
     >>> bc = DataMatrix()
     >>> bc # doctest: +ELLIPSIS
     <....DataMatrix object at ...>
-    >>> print bc.render_ps_code('This is Data Matrix') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('This is Data Matrix')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

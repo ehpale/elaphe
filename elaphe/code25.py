@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
 
@@ -7,7 +8,7 @@ class Code2of5(Barcode):
     >>> bc = Code2of5()
     >>> bc # doctest: +ELLIPSIS
     <....Code2of5 object at ...>
-    >>> print bc.render_ps_code('01234567') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('01234567')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
