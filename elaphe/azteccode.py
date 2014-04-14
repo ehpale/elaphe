@@ -1,7 +1,7 @@
 # coding: utf-8
 import itertools, math
-from base import Barcode, MatrixCodeRenderer, DPI
-from util import zf_bin, cap_unescape
+from .base import Barcode, MatrixCodeRenderer, DPI
+from .util import zf_bin, cap_unescape
         
 
 AZTEC_CODE_METRICS = [

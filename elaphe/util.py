@@ -128,7 +128,7 @@ def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',
     elif d:
         ret = ' '.join(
             (key + {True: '', False:'=%s' % to_ps(value)}[value is True])
-            for key, value in d.items() if not value is False)
+            for key, value in list(d.items()) if not value is False)
         if raw:
             return '('+ret+')'
         else:

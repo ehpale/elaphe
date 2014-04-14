@@ -1,5 +1,5 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 class Rss14(Barcode):

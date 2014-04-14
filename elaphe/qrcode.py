@@ -1,6 +1,6 @@
 # coding: utf-8
 import codecs, itertools
-from base import Barcode, MatrixCodeRenderer, DPI
+from .base import Barcode, MatrixCodeRenderer, DPI
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 

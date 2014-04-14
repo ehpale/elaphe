@@ -1,6 +1,6 @@
 # coding: utf-8
 import itertools
-from base import Barcode, MatrixCodeRenderer, DPI
+from .base import Barcode, MatrixCodeRenderer, DPI
 
 class MaxiCode(Barcode):
     """

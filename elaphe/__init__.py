@@ -1,8 +1,8 @@
 # coding: utf-8
 """elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
 """
-from base import Barcode
-from __version__ import VERSION
+from .base import Barcode
+from .__version__ import VERSION
 
 DEFAULT_PLUGINS = [
     'elaphe.ean', 'elaphe.upc', 'elaphe.code128', 'elaphe.code39',
@@ -21,7 +21,7 @@ def load_plugins():
     for PL in DEFAULT_PLUGINS:
         try:
             __import__(PL, fromlist=[PL])
-        except ImportError, e:
+        except ImportError as e:
             import sys
             sys.stdout.write(u'Warning: %s\n' %e)
     Barcode.update_codetype_registry()

@@ -1,6 +1,6 @@
 # coding: utf-8
 import re, math
-from base import Barcode, LinearCodeRenderer, DPI
+from .base import Barcode, LinearCodeRenderer, DPI
 
 class Phamacode(Barcode):
     """

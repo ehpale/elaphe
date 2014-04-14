@@ -1,7 +1,7 @@
 # coding: utf-8
 import itertools, math
-from base import Barcode, MatrixCodeRenderer, DPI
-from util import cap_unescape
+from .base import Barcode, MatrixCodeRenderer, DPI
+from .util import cap_unescape
 
 class Pdf417(Barcode):
     """
