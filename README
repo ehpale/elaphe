@@ -22,7 +22,7 @@ Prerequisites
 * If you want to render barcode into bitmap image, EpsImagePlugin of
   Python Imaging Library (http://www.pythonware.com/products/pil) or
   Pillow is required. Note that EpsImagePlugin requires Ghostscript is
-  collectly installed.
+  correctly installed.
 
 
 Simple Usage
