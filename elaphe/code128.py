@@ -1,6 +1,7 @@
 # coding: utf-8
+from __future__ import print_function
 import re
-from base import Barcode, LinearCodeRenderer, DPI
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 CODE128_ESCAPE_RE = re.compile(r'\^\d{3}')
@@ -11,7 +12,7 @@ class Code128(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code128 object at ...>
     >>>
-    >>> print bc.render_ps_code('Count0123456789!', options=dict(includetext=True)) # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('Count0123456789!', options=dict(includetext=True))) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

@@ -1,14 +1,15 @@
 # coding: utf-8
+from __future__ import print_function
 import itertools, math
-from base import Barcode, MatrixCodeRenderer, DPI
-from util import cap_unescape
+from .base import Barcode, MatrixCodeRenderer, DPI
+from .util import cap_unescape
 
 class Pdf417(Barcode):
     """
     >>> bc = Pdf417()
     >>> bc # doctest: +ELLIPSIS
     <....Pdf417 object at ...>
-    >>> print bc.render_ps_code('PDF417') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('PDF417')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

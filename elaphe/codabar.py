@@ -1,5 +1,6 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from __future__ import print_function
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 class RationalizedCodabar(Barcode):
@@ -7,7 +8,7 @@ class RationalizedCodabar(Barcode):
     >>> bc = RationalizedCodabar()
     >>> bc # doctest: +ELLIPSIS
     <....RationalizedCodabar object at ...>
-    >>> print bc.render_ps_code('A0123456789B') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('A0123456789B')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

@@ -1,11 +1,17 @@
 # coding: utf-8
 
+from __future__ import print_function
 try:
-    import cStringIO as StringIO
+    # 2.7
+    import cStringIO as io
 except ImportError:
-    import StringIO
+    # 3.x
+    try:
+        import io as StringIO
+    except ImportError:
+        import io
 from PIL.EpsImagePlugin import EpsImageFile
-import util
+from . import util
 
 __all__=['DPI', 'Renderer', 'LinearCodeRenderer',
          'MatrixCodeRenderer', 'Barcode']
@@ -127,7 +133,7 @@ class Renderer(object):
 
     def render_ps_code(self, codestring):
         """
-        >>> print Renderer('foo').render_ps_code('BAR') # doctest: +ELLIPSIS
+        >>> print(Renderer('foo').render_ps_code('BAR')) # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         %%Pages: (attend)
         %%Creator: Elaphe powered by barcode.ps
@@ -153,7 +159,7 @@ class Renderer(object):
         <PIL.EpsImagePlugin.EpsImageFile ... at ...>
         """
         ps_code_buf = self.render_ps_code(codestring)
-        return EpsImageFile(StringIO.StringIO(ps_code_buf))
+        return EpsImageFile(io.StringIO(ps_code_buf))
 
 
 class LinearCodeRenderer(Renderer):
@@ -217,7 +223,7 @@ class MatrixCodeRenderer(Renderer):
 class Barcode(object):
     """Base class of barcode renderers.
 
-    >>> print Barcode().render_ps_code('') # doctest: +ELLIPSIS
+    >>> print(Barcode().render_ps_code('')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

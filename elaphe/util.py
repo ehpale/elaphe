@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import print_function
 from os.path import abspath, dirname, join as pathjoin
 from binascii import hexlify
 from textwrap import TextWrapper
@@ -91,8 +92,8 @@ def to_ps(obj, parlen=False):
 def ps_hex_str(s):
     """
     
-    >>> print ps_hex_str('test testtesttesttest test test testtesttest test \\n'
-    ...                  ' sdfojsodfj oij 3240987u098rusipdjf948325u test')
+    >>> print(ps_hex_str('test testtesttesttest test test testtesttest test \\n'
+    ...                  ' sdfojsodfj oij 3240987u098rusipdjf948325u test'))
     <74657374207465737474657374746573747465737420746573742074657374207465737
      474657374746573742074657374200a207364666f6a736f64666a206f696a2033323430
      393837753039387275736970646a66393438333235752074657374>
@@ -128,7 +129,7 @@ def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',
     elif d:
         ret = ' '.join(
             (key + {True: '', False:'=%s' % to_ps(value)}[value is True])
-            for key, value in d.items() if not value is False)
+            for key, value in list(d.items()) if not value is False)
         if raw:
             return '('+ret+')'
         else:
@@ -142,7 +143,7 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     """
     Distills barcode procedure code blocks with given path and regexp.
 
-    >>> print distill_ps_code() # doctest: +ELLIPSIS
+    >>> print(distill_ps_code()) # doctest: +ELLIPSIS
     <BLANKLINE>
     <BLANKLINE>
     %% --BEGIN RESOURCE preamble--
@@ -156,7 +157,7 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     <BLANKLINE>
     """
     return distill_regexp.findall(
-        open(path_to_ps_code, 'rb').read())[0].replace('%', '%%')
+        open(path_to_ps_code, 'r').read())[0].replace('%', '%%')
 
 
 DEFAULT_EPSF_DSC_TEMPLATE = """%%!PS-Adobe-2.0

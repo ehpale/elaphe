@@ -1,6 +1,7 @@
 # coding: utf-8
+from __future__ import print_function
 import re
-from base import Barcode, LinearCodeRenderer, DPI
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 CODE39_ESCAPE_RE = re.compile(r'\^\d{3}')
@@ -11,7 +12,7 @@ class Code39(Barcode):
     >>> bc # doctest: +ELLIPSIS
     <....Code39 object at ...>
     >>>
-    >>> print bc.render_ps_code('CODE39') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('CODE39')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

@@ -1,6 +1,7 @@
 # coding: utf-8
+from __future__ import print_function
 import codecs, itertools
-from base import Barcode, MatrixCodeRenderer, DPI
+from .base import Barcode, MatrixCodeRenderer, DPI
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -324,7 +325,7 @@ class QrCode(Barcode):
     >>> bc = QrCode()
     >>> bc # doctest: +ELLIPSIS
     <....QrCode object at ...>
-    >>> print bc.render_ps_code('000100000010000000001100010101100110000110000', options=dict(encoding='raw')) # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('000100000010000000001100010101100110000110000', options=dict(encoding='raw'))) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -363,7 +364,7 @@ class QrCode(Barcode):
     aliases = ('qr', 'qr_code', 'qr-code', 'qr code')
     class _Renderer(MatrixCodeRenderer):
         """
-        >>> print QrCode._Renderer('qrcode', data_mode='digits').render_ps_code('01234567') # doctest: +ELLIPSIS
+        >>> print(QrCode._Renderer('qrcode', data_mode='digits').render_ps_code('01234567')) # doctest: +ELLIPSIS
         %!PS-Adobe-2.0
         ...
         <3031323334353637>

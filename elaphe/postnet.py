@@ -1,12 +1,13 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from __future__ import print_function
+from .base import Barcode, LinearCodeRenderer, DPI
 
 class PostNet(Barcode):
     """
     >>> bc = PostNet()
     >>> bc # doctest: +ELLIPSIS
     <....PostNet object at ...>
-    >>> print bc.render_ps_code('12345123412') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('12345123412')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

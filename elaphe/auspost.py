@@ -1,5 +1,6 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from __future__ import print_function
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 class AusPost(Barcode):
@@ -7,7 +8,7 @@ class AusPost(Barcode):
     >>> bc = AusPost()
     >>> bc # doctest: +ELLIPSIS
     <....AusPost object at ...>
-    >>> print bc.render_ps_code('6279438541AaaB 155') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('6279438541AaaB 155')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

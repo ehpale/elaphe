@@ -1,5 +1,6 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from __future__ import print_function
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 class UpcA(Barcode):
@@ -7,7 +8,7 @@ class UpcA(Barcode):
     >>> bc = UpcA()
     >>> bc # doctest: +ELLIPSIS
     <....UpcA object at ...>
-    >>> print bc.render_ps_code('78858101497') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('78858101497')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
@@ -57,7 +58,7 @@ class UpcE(Barcode):
     >>> bc = UpcE()
     >>> bc # doctest: +ELLIPSIS
     <....UpcE object at ...>
-    >>> print bc.render_ps_code('0123456') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('0123456')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

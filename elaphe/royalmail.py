@@ -1,12 +1,13 @@
 # coding: utf-8
-from base import Barcode, LinearCodeRenderer, DPI
+from __future__ import print_function
+from .base import Barcode, LinearCodeRenderer, DPI
 
 class RoyalMail(Barcode):
     """
     >>> bc = RoyalMail()
     >>> bc # doctest: +ELLIPSIS
     <....RoyalMail object at ...>
-    >>> print bc.render_ps_code('LE28HS9Z') # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('LE28HS9Z')) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
