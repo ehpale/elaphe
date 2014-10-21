@@ -34,9 +34,9 @@ def gen_render_test_case(symbology):
     return test_case
 
 symbologies = [
+    'auspost', 
     ]
 _unsupported = [
-    'auspost', 
     'azteccode', 
     'codabar', 
     'code11', 
