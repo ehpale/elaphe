@@ -40,6 +40,7 @@ class RenderTestCaseBase(TestCase):
                 diag.paste(loaded, (0, 0, lw, lh))
                 diag.paste(generated, (0, lh, gw, lh+gh))
                 diag.paste(diff, (0, lh+gh, max(lw, gw), (lh+gh+max(lh, gh))))
+                diag.save(join(img_prefix, 'diff.png'))
                 diag.show()
                 raise
                 
