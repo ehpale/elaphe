@@ -51,10 +51,8 @@ class Renderer(object):
         self.render_options = kw
 
     def lookup_option(self, key, default=None):
-        fb_value = getattr(self, 'default_options').get(key, default)
-        if self.options:
-            return self.options.get(key, fb_value)
-        return fb_value
+        return (self.options or {}).get(
+            key, getattr(self, 'default_options').get(key, default))
 
     @property
     def text_bbox(self):
