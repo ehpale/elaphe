@@ -5,6 +5,9 @@ from imp import find_module, load_module
 from unittest import TestCase, TestSuite
 from elaphe import barcode
 from os.path import abspath, dirname, join
+from StringIO import StringIO
+from gzip import GzipFile
+from uu import encode as uuencode
 
 
 MOD_FILEPATH = dirname(abspath(__file__))
@@ -27,22 +30,36 @@ class RenderTestCaseBase(TestCase):
             render_options = args[3] if len(args)>3 else {}
             generated = barcode(symbology, codestring, options, **render_options).convert('1')
             loaded = Image.open(join(img_prefix, img_filename)).convert('1')
-            diff = ImageChops.difference(generated, loaded)
-            diff_bbox = diff.getbbox()
-            fail_msg = 'Difference found in bbox: %s' %(diff_bbox,)
+            diff = None
             try:
-                self.assertIsNone(diff_bbox, msg=fail_msg)
-            except AssertionError:
+                # image size comparison
+                self.assertEqual(generated.size, loaded.size)
+                # pixel-wize comparison
+                diff = ImageChops.difference(generated, loaded).convert('1')
+                diff_bbox = diff.getbbox()
+                self.assertIsNone(diff_bbox)
+            except AssertionError as exc:
                 # generate and show diagnostics image
-                lw, lh = loaded.size
-                gw, gh = generated.size
-                diag = Image.new('1', (max(lw, gw), (lh+gh+max(lh, gh))))
-                diag.paste(loaded, (0, 0, lw, lh))
-                diag.paste(generated, (0, lh, gw, lh+gh))
-                diag.paste(diff, (0, lh+gh, max(lw, gw), (lh+gh+max(lh, gh))))
-                diag.save(join(img_prefix, 'diff.png'))
-                diag.show()
-                raise
+                if diff:
+                    # if diff exists, generate 3-row diagnostics image
+                    lw, lh = loaded.size
+                    gw, gh = generated.size
+                    diag = Image.new('1', (max(lw, gw), (lh+gh+max(lh, gh))))
+                    diag.paste(loaded, (0, 0, lw, lh))
+                    diag.paste(generated, (0, lh, gw, lh+gh))
+                    diag.paste(diff, (0, lh+gh, max(lw, gw), (lh+gh+max(lh, gh))))
+                else:
+                    # else, just write generated image
+                    diag = generated
+                sio_img = StringIO()
+                diag.save(sio_img, 'PNG')
+                # reopen sio_img
+                sio_img = StringIO(sio_img.getvalue())
+                sio_uu = StringIO()
+                uuencode(sio_img, sio_uu, name='diff.png')
+                raise AssertionError(
+                    'Image difference detected, uu of generated image:\n----\n%s----\n'
+                    %sio_uu.getvalue())
                 
 
 
