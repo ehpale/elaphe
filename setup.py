@@ -7,7 +7,6 @@ from setuptools.command.test import test as TestCommand
 version = imp.load_source('_mod', abspath('elaphe/__version__.py')).VERSION
 version = '.'.join(map(str, version))
 install_requires = ['setuptools', 'Pillow']
-# tests_require = ['pytest']
 extra_requires = {}
 long_description = '\n'.join([
     open(pathjoin(dirname(abspath(__file__)), 'README')).read(),
@@ -15,31 +14,6 @@ long_description = '\n'.join([
 
 sys.path.extend(['./elaphe', './test'])
                 
-# class PyTest(TestCommand):
-
-#     def finalize_options(self):
-#         TestCommand.finalize_options(self)
-#         self.test_args = ['--doctest-modules', 'elaphe']
-#         self.test_suite = True
-
-#     def run_tests(self):
-#         import pytest
-#         errno = pytest.main(self.test_args)
-#         sys.exit(errno)
-
-
-# class PyTestRender(TestCommand):
-
-#     def finalize_options(self):
-#         TestCommand.finalize_options(self)
-#         self.test_args = ['--doctest-modules', 'render_tests']
-#         self.test_suite = True
-    
-#     def run_tests(self):
-#         import pytest
-#         errno = pytest.main(self.test_args)
-#         sys.exit(errno)
-
 setup_params = dict(
     name="elaphe",
     version=version,
@@ -69,7 +43,6 @@ setup_params = dict(
     keywords = "barcode convert postscript image graphics",
     url = "http://bitbucket.org/whosaysni/elaphe/",
     test_suite = 'test.suite',
-    # cmdclass = {'test': PyTest, 'render_test': PyTestRender},
 )
 
 setup(**setup_params)
