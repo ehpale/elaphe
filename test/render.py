@@ -35,12 +35,12 @@ class RenderTestCaseBase(TestCase):
                 # image size comparison
                 self.assertEqual(generated.size, loaded.size)
                 # pixel-wize comparison
-                diff = ImageChops.difference(generated, loaded).convert('1')
+                diff = ImageChops.difference(generated, loaded)
                 diff_bbox = diff.getbbox()
                 self.assertIsNone(diff_bbox)
             except AssertionError as exc:
                 # generate and show diagnostics image
-                if diff:
+                if diff_bbox:
                     # if diff exists, generate 3-row diagnostics image
                     lw, lh = loaded.size
                     gw, gh = generated.size
@@ -52,13 +52,13 @@ class RenderTestCaseBase(TestCase):
                     # else, just write generated image
                     diag = generated
                 sio_img = StringIO()
-                diag.save(sio_img, 'PNG')
+                diag.convert('1').save(sio_img, 'PNG')
                 # reopen sio_img
                 sio_img = StringIO(sio_img.getvalue())
                 sio_uu = StringIO()
                 uuencode(sio_img, sio_uu, name='diff.png')
                 raise AssertionError(
-                    'Image difference detected (%s)'
+                    'Image difference detected (%s)\n'
                     'uu of generated image:\n----\n%s----\n'
                     %(exc.args, sio_uu.getvalue()))
                 
