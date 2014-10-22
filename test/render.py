@@ -28,8 +28,8 @@ class RenderTestCaseBase(TestCase):
             img_filename, codestring = args[:2]
             options = args[2] if len(args)>2 else {}
             render_options = args[3] if len(args)>3 else {}
-            generated = barcode(symbology, codestring, options, **render_options).convert('1')
-            loaded = Image.open(join(img_prefix, img_filename)).convert('1')
+            generated = barcode(symbology, codestring, options, **render_options).convert('L')
+            loaded = Image.open(join(img_prefix, img_filename)).convert('L')
             diff = None
             try:
                 # image size comparison
@@ -44,7 +44,7 @@ class RenderTestCaseBase(TestCase):
                     # if diff exists, generate 3-row diagnostics image
                     lw, lh = loaded.size
                     gw, gh = generated.size
-                    diag = Image.new('1', (max(lw, gw), (lh+gh+max(lh, gh))))
+                    diag = Image.new('L', (max(lw, gw), (lh+gh+max(lh, gh))))
                     diag.paste(loaded, (0, 0, lw, lh))
                     diag.paste(generated, (0, lh, gw, lh+gh))
                     diag.paste(diff, (0, lh+gh, max(lw, gw), (lh+gh+max(lh, gh))))
@@ -52,7 +52,7 @@ class RenderTestCaseBase(TestCase):
                     # else, just write generated image
                     diag = generated
                 sio_img = StringIO()
-                diag.convert('1').save(sio_img, 'PNG')
+                diag.convert('L').save(sio_img, 'PNG')
                 # reopen sio_img
                 sio_img = StringIO(sio_img.getvalue())
                 sio_uu = StringIO()
