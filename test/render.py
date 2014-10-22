@@ -40,7 +40,7 @@ class RenderTestCaseBase(TestCase):
                 self.assertIsNone(diff_bbox)
             except AssertionError as exc:
                 # generate and show diagnostics image
-                if diff_bbox:
+                if diff:
                     # if diff exists, generate 3-row diagnostics image
                     lw, lh = loaded.size
                     gw, gh = generated.size
