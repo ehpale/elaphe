@@ -27,7 +27,7 @@ class RenderTestCaseBase(TestCase):
         for args in self.conf.cases:
             img_filename, codestring = args[:2]
             options = args[2] if len(args)>2 else {}
-            render_options = args[3] if len(args)>3 else {}
+            render_options = dict((args[3] if len(args)>3 else {}), scale=2.0)
             generated = barcode(symbology, codestring, options, **render_options).convert('L')
             loaded = Image.open(join(img_prefix, img_filename)).convert('L')
             diff = None
