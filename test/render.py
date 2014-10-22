@@ -58,8 +58,9 @@ class RenderTestCaseBase(TestCase):
                 sio_uu = StringIO()
                 uuencode(sio_img, sio_uu, name='diff.png')
                 raise AssertionError(
-                    'Image difference detected, uu of generated image:\n----\n%s----\n'
-                    %sio_uu.getvalue())
+                    'Image difference detected (%s)'
+                    'uu of generated image:\n----\n%s----\n'
+                    %(exc.args, sio_uu.getvalue()))
                 
 
 
