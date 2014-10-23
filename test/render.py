@@ -31,10 +31,10 @@ symbologies = [
     'kix',
     'maxicode', 
     'msi', 
-    'onecode', 
+    'onecode',
+    'pdf417', 
     ]
 _unsupported = [
-    'pdf417', 
     'pharmacode', 
     'plessey', 
     'postnet', 
