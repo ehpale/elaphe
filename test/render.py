@@ -4,6 +4,7 @@
 from imp import find_module, load_module
 from unittest import TestCase, TestSuite
 from elaphe import barcode
+from os import makedirs
 from os.path import abspath, dirname, join
 from StringIO import StringIO
 from gzip import GzipFile
@@ -19,6 +20,40 @@ except ImportError:
     from PIL import Image, ImageChops
 
     
+symbologies = [
+    'auspost', 
+    'ean13', 'isbn', 'ean8', 'ean5', 'ean2', 
+    'upca', 'upce',
+    'azteccode', 'rationalizedCodabar', 'code11', 'code128', 'code2of5',
+    
+    ]
+_unsupported = [
+    'codabar', 
+    'code11', 
+    'code128', 
+    'code25', 
+    'code39', 
+    'code93', 
+    'datamatrix', 
+    'i2of5', 
+    'japanpost', 
+    'kix', 
+    'maxicode', 
+    'msi', 
+    'onecode', 
+    'pdf417', 
+    'pharmacode', 
+    'plessey', 
+    'postnet', 
+    'qrcode', 
+    'raw', 
+    'royalmail', 
+    'rss', 
+    'symbol', 
+    'upc', 
+    ]
+
+
 class RenderTestCaseBase(TestCase):
     conf = None
     def runTest(self):
@@ -56,12 +91,11 @@ class RenderTestCaseBase(TestCase):
                 # reopen sio_img
                 sio_img = StringIO(sio_img.getvalue())
                 sio_uu = StringIO()
-                uuencode(sio_img, sio_uu, name='diff.png')
+                uuencode(sio_img, sio_uu, name='diag_%s' %img_filename)
                 raise AssertionError(
                     'Image difference detected (%s)\n'
                     'uu of generated image:\n----\n%s----\n'
                     %(exc.args, sio_uu.getvalue()))
-                
 
 
 def gen_render_test_case(symbology):
@@ -70,38 +104,29 @@ def gen_render_test_case(symbology):
                      (RenderTestCaseBase,), dict(conf=conf_mod))()
     return test_case
 
-symbologies = [
-    'auspost', 
-    ]
-_unsupported = [
-    'azteccode', 
-    'codabar', 
-    'code11', 
-    'code128', 
-    'code25', 
-    'code39', 
-    'code93', 
-    'datamatrix', 
-    'ean', 
-    'i2of5', 
-    'japanpost', 
-    'kix', 
-    'maxicode', 
-    'msi', 
-    'onecode', 
-    'pdf417', 
-    'pharmacode', 
-    'plessey', 
-    'postnet', 
-    'qrcode', 
-    'raw', 
-    'royalmail', 
-    'rss', 
-    'symbol', 
-    'upc', 
-    ]
+
+def gen_test_images(symbology):
+    conf = load_module(symbology, *find_module(symbology, ['test']))
+    img_prefix = join(IMG_ROOT, symbology)
+    try:
+        makedirs(img_prefix)
+    except:
+        pass
+    for args in conf.cases:
+        img_filename, codestring = args[:2]
+        options = args[2] if len(args)>2 else {}
+        render_options = dict((args[3] if len(args)>3 else {}), scale=2.0)
+        generated = barcode(symbology, codestring, options, **render_options).convert('L')
+        generated.save(join(img_prefix, img_filename), 'PNG')
+
 
 suite = TestSuite()
 
 for symbology in symbologies:
     suite.addTest(gen_render_test_case(symbology))
+
+
+if __name__=='__main__':
+    for target in symbologies:
+        gen_test_images(target.strip())
+    
