@@ -19,7 +19,7 @@ try:
 except ImportError:
     from PIL import Image, ImageChops
 
-hof = [    
+symbologies = [
     'auspost', 
     'ean13', 'isbn', 'ean8', 'ean5', 'ean2',
     'upca', 'upce',
@@ -31,9 +31,8 @@ hof = [
     'kix',
     'maxicode', 
     'msi', 
-    ]
-symbologies = [
     'onecode', 
+    ]
     ]
 _unsupported = [
     'pdf417', 
