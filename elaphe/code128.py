@@ -16,7 +16,7 @@ class Code128(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -7 200 72
+    %%BoundingBox: 0 -7 182 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -74,10 +74,10 @@ class Code128(Barcode):
             """
             >>> r = Code128._Renderer({})
             >>> r._code_bbox('^104^102Count^0990123456789^101!')
-            [0, 0, 189, 72.0]
+            [0, 0, 167, 72.0]
             """
             height = self.lookup_option('height')
-            return [0, 0, self._count_chars(codestring)*11+11+13, height*DPI]
+            return [0, 0, self._count_chars(codestring)*11+2, height*DPI]
 
         def _text_bbox(self, codestring):
             """
