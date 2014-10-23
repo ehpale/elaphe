@@ -33,7 +33,6 @@ symbologies = [
     'msi', 
     'onecode', 
     ]
-    ]
 _unsupported = [
     'pdf417', 
     'pharmacode', 
