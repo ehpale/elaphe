@@ -97,7 +97,7 @@ class ISBN(Barcode):
             >>> ISBN._Renderer({}).build_codestring('978 1 56592 479') # '(978-1-56592-479)'
             '<3937382d312d35363539322d343739>'
             """
-            cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in  codestring if c in '0123456789')
+            cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in codestring if c in '0123456789')[:12]
             return super(ISBN._Renderer, self).build_codestring(cs)
     renderer = _Renderer
 
