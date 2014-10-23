@@ -12,7 +12,7 @@ class JapanPost(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 223 12
+    %%BoundingBox: 0 0 220 12
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -40,13 +40,13 @@ class JapanPost(Barcode):
         @property
         def code_bbox(self):
             height = self.lookup_option('height')
-            return [0, 0, (21*3+4)*(1.44+1.872)+1.44, height*DPI]
+            return [0, 0, (21*3+3)*(1.44+1.872)+1.44, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = JapanPost._Renderer({})
             >>> r._text_bbox('LE28HS9Z')
-            [0, -7, 223.34400000000002, 3]
+            [0, -7, 220.032, 3]
             """
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')

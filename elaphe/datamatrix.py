@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import print_function
-import itertools
+import itertools, re
 from .base import Barcode, MatrixCodeRenderer, DPI
 from .util import cap_unescape
 

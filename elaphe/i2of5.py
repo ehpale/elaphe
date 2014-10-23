@@ -12,7 +12,7 @@ class Interleaved2of5(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -7 136 72
+    %%BoundingBox: 0 0 136 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -61,8 +61,12 @@ class Interleaved2of5(Barcode):
         
         def build_params(self, codestring):
             params = super(Interleaved2of5._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+            cbbox = self._code_bbox(codestring)
+            if self.lookup_option('includetext'):
+                tbbox = self._text_bbox(codestring)
+            else:
+                tbbox = cbbox
+            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 

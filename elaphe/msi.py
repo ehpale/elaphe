@@ -45,7 +45,7 @@ class MsiModifiedPlessey(Barcode):
             """
             height = self.lookup_option('height')
             if self.lookup_option('includecheck'):
-                return [0, 0, 3+(len(codestring)+1)*12+4, height*DPI]
+                return [0, 0, 3+(len(codestring)+2)*12+4, height*DPI]
             else:
                 return [0, 0, 3+(len(codestring))*12+4, height*DPI]
 

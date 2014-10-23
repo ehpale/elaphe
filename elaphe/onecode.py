@@ -33,7 +33,7 @@ class OneCode(Barcode):
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
-            height=0.175, textyoffset=-7, textsize=12)
+            height=0.175, textyoffset=-9, textsize=12)
 
         @property
         def code_bbox(self):
@@ -44,7 +44,6 @@ class OneCode(Barcode):
         def text_bbox(self):
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')
-            
             if self.lookup_option('includetext'):
                 return [0, textyoffset, (12-1)*7+8+textsize*0.6, textyoffset+textsize]
             else:

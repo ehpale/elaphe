@@ -19,28 +19,23 @@ try:
 except ImportError:
     from PIL import Image, ImageChops
 
-    
-symbologies = [
+hof = [    
     'auspost', 
-    'ean13', 'isbn', 'ean8', 'ean5', 'ean2', 
+    'ean13', 'isbn', 'ean8', 'ean5', 'ean2',
     'upca', 'upce',
     'azteccode', 'rationalizedCodabar', 'code11', 'code128', 'code2of5',
-    
-    ]
-_unsupported = [
-    'codabar', 
-    'code11', 
-    'code128', 
-    'code25', 
-    'code39', 
-    'code93', 
+    'code39', 'code93',
     'datamatrix', 
     'i2of5', 
     'japanpost', 
-    'kix', 
+    'kix',
     'maxicode', 
     'msi', 
+    ]
+symbologies = [
     'onecode', 
+    ]
+_unsupported = [
     'pdf417', 
     'pharmacode', 
     'plessey', 
@@ -50,7 +45,6 @@ _unsupported = [
     'royalmail', 
     'rss', 
     'symbol', 
-    'upc', 
     ]
 
 

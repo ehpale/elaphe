@@ -12,7 +12,7 @@ class Kix(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 147 12
+    %%BoundingBox: 0 0 143 12
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -42,16 +42,16 @@ class Kix(Barcode):
             """
             >>> r = Kix._Renderer({})
             >>> r._code_bbox('5956439111ABA 9')
-            [0, 0, 200.16000000000003, 12.6]
+            [0, 0, 196.848, 12.6]
             """
             height = self.lookup_option('height')
-            return [0, 0, 4*len(codestring)*(1.44+1.872)+1.44, height*DPI]
+            return [0, 0, 4*len(codestring)*(1.44+1.872)-1.872, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = Kix._Renderer({})
             >>> r._text_bbox('LE28HS9Z')
-            [0, -7, 107.424, 3]
+            [0, -7, 104.11200000000001, 3]
             """
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')
