@@ -11,7 +11,7 @@ class PostNet(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 0 206 9
+    %%BoundingBox: 0 0 203 9
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -40,17 +40,17 @@ class PostNet(Barcode):
             """
             >>> r = PostNet._Renderer({})
             >>> r._code_bbox('0123456789')
-            [0, 0, 190.22400000000002, 9.0]
+            [0, 0, 186.912, 9.0]
             """
             height = self.lookup_option('height')
             codelen = 7+len(codestring)*5
-            return [0, 0, codelen*(1.44+1.872)+1.44, height*DPI]
+            return [0, 0, codelen*(1.44+1.872)-1.872, height*DPI]
 
         def _text_bbox(self, codestring):
             """
             >>> r = PostNet._Renderer({})
             >>> r._text_bbox('0123456789')
-            [0, -7, 190.22400000000002, 3]
+            [0, -7, 186.912, 3]
             """
             textyoffset = self.lookup_option('textyoffset')
             textsize = self.lookup_option('textsize')

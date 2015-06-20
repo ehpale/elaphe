@@ -20,11 +20,9 @@ except ImportError:
     from PIL import Image, ImageChops
 
 symbologies = [
-    'auspost', 
-    'ean13', 'isbn', 'ean8', 'ean5', 'ean2',
-    'upca', 'upce',
-    'azteccode', 'rationalizedCodabar', 'code11', 'code128', 'code2of5',
-    'code39', 'code93',
+    'auspost', 'azteccode', 
+    'ean2', 'ean5', 'ean8', 'ean13', 'isbn', 
+    'code11', 'code128', 'code2of5', 'code39', 'code93',
     'datamatrix', 
     'i2of5', 
     'japanpost', 
@@ -32,13 +30,17 @@ symbologies = [
     'maxicode', 
     'msi', 
     'onecode',
-    'pdf417', 
-    ]
-_unsupported = [
+    'pdf417',
     'pharmacode', 
     'plessey', 
+    'rationalizedCodabar',
+    'upca', 'upce',
     'postnet', 
+    ]
+symbologies = [
     'qrcode', 
+    ]
+_unsupported = [
     'raw', 
     'royalmail', 
     'rss', 

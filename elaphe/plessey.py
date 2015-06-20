@@ -11,7 +11,7 @@ class Plessey(Barcode):
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps
-    %%BoundingBox: 0 -7 265 72
+    %%BoundingBox: 0 0 265 72
     %%LanguageLevel: 2
     %%EndComments
     ...
@@ -68,8 +68,10 @@ class Plessey(Barcode):
         
         def build_params(self, codestring):
             params = super(Plessey._Renderer, self).build_params(codestring)
+            text_bbox = (self._text_bbox(codestring) if self.lookup_option('includetext')==True
+                         else [0, 0, 0, 0])
             params['bbox'] = "%d %d %d %d" %self._boundingbox(
-                self._code_bbox(codestring), self._text_bbox(codestring))
+                self._code_bbox(codestring), text_bbox)
             return params
     renderer = _Renderer
 
