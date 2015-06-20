@@ -37,10 +37,8 @@ symbologies = [
     'upca', 'upce',
     'postnet', 
     ]
-symbologies = [
-    'qrcode', 
-    ]
 _unsupported = [
+    'qrcode', 
     'raw', 
     'royalmail', 
     'rss', 
