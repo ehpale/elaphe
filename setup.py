@@ -15,7 +15,7 @@ long_description = '\n'.join([
 sys.path.extend(['./elaphe', './test'])
                 
 setup_params = dict(
-    name="elaphe",
+    name="elaphe3",
     version=version,
     packages=['elaphe'],
     exclude_package_data={
