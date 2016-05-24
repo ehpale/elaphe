@@ -1,12 +1,12 @@
 # coding: utf-8
-import itertools, math
+import math
 from .base import Barcode, MatrixCodeRenderer, DPI
 from .util import zf_bin, cap_unescape
-        
+
 
 AZTEC_CODE_METRICS = [
     # frmt      mlyr icap ncws  bpcw
-    ["rune",    0,   0,   0,    6], # Special metric for rune symbols
+    ["rune",    0,   0,   0,    6],  # Special metric for rune symbols
     ["compact", 1,   1,   17,   6],
     ["full",    1,   1,   21,   6],
     ["compact", 2,   0,   40,   6],
@@ -89,31 +89,33 @@ class AztecCode(Barcode):
     """
     codetype = 'azteccode'
     aliases = ('aztec code', 'aztec-code', 'aztec_code', 'aztec')
+
     class _Renderer(MatrixCodeRenderer):
         default_options = dict(
             MatrixCodeRenderer.default_options,
             readerinit=False, layers=-1, eclevel=23, ecaddchars=3,
             format=None, parse=False, raw=False, dontdraw=False)
+
         def _code_bbox(self, codestring):
             format_ = self.lookup_option('format')
             raw = self.lookup_option('raw')
             parse = self.lookup_option('parse')
-            if parse==True:
+            if parse:
                 codestring = cap_unescape(codestring)
             msgbits = ''
-            if format_!='rune':
-                if raw==True:
+            if format_ != 'rune':
+                if raw:
                     msgbits = codestring
                 else:
                     barlen = len(codestring)
-                    if barlen<32:
+                    if barlen < 32:
                         cc = zf_bin(barlen, 5)
                     else:
                         cc = zf_bin(barlen-31, 16)
                     msgbits = '11111'
                     msgbits += cc
                     for ch in codestring:
-                        msgbits+=zf_bin(ord(ch), 8)
+                        msgbits += zf_bin(ord(ch), 8)
             readerinit = self.lookup_option('readerinit')
             layers = self.lookup_option('layers')
             eclevel = self.lookup_option('eclevel')
@@ -121,16 +123,16 @@ class AztecCode(Barcode):
             for frmt, mlyr, icap, ncws, bpcw in AZTEC_CODE_METRICS:
                 ok = True
                 numecw = int(math.ceil(ncws*eclevel/100.0+ecaddchars))
-                if len(msgbits)==0:
+                if len(msgbits) == 0:
                     numecw = 0
                 numdcw = ncws-numecw
-                if format_ and format_!=frmt:
+                if format_ and format_ != frmt:
                     ok = False
-                if readerinit and icap!=1:
+                if readerinit and icap != 1:
                     ok = False
-                if layers!=-1 and layers!=mlyr:
+                if layers != -1 and layers != mlyr:
                     ok = False
-                if math.ceil(len(msgbits)/bpcw)>numdcw:
+                if math.ceil(len(msgbits)/bpcw) > numdcw:
                     ok = False
                 if ok:
                     break
@@ -139,8 +141,8 @@ class AztecCode(Barcode):
             layers = mlyr
             format_ = frmt
             size = 0
-            
-            if format_=='full':
+
+            if format_ == 'full':
                 size = ((13+layers*4)+2)+int((layers+10.5)/7.5-1)*2
             else:
                 size = ((9+layers*4)+2)
@@ -159,12 +161,11 @@ class AztecCode(Barcode):
             """
             params = super(AztecCode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
-            params['bbox'] = '%d %d %d %d' %(self._boundingbox(cbbox, cbbox))
+            params['bbox'] = '%d %d %d %d' % (self._boundingbox(cbbox, cbbox))
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
-

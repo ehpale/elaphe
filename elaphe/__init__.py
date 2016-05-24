@@ -4,6 +4,8 @@
 from .base import Barcode
 from .__version__ import VERSION
 
+__all__ = ['barcode', 'Barcode', 'VERSION']
+
 DEFAULT_PLUGINS = [
     'elaphe.ean', 'elaphe.upc', 'elaphe.code128', 'elaphe.code39',
     'elaphe.code93', 'elaphe.i2of5', 'elaphe.rss', 'elaphe.pharmacode',
@@ -13,9 +15,9 @@ DEFAULT_PLUGINS = [
     'elaphe.symbol', 'elaphe.pdf417', 'elaphe.datamatrix', 'elaphe.qrcode',
     'elaphe.maxicode', 'elaphe.azteccode']
 
-if __name__=="__main__":
+if __name__ == "__main__":
     DEFAULT_PLUGINS = [s.replace('elaphe.', '') for s in DEFAULT_PLUGINS]
-    
+
 
 def load_plugins():
     for PL in DEFAULT_PLUGINS:
@@ -23,7 +25,7 @@ def load_plugins():
             __import__(PL, fromlist=[PL])
         except ImportError as e:
             import sys
-            sys.stdout.write(u'Warning: %s\n' %e)
+            sys.stdout.write(u'Warning: %s\n' % e)
     Barcode.update_codetype_registry()
 load_plugins()
 
@@ -35,38 +37,38 @@ def barcode(codetype, codestring, options=None, **kw):
     Traceback (most recent call last):
     ...
     ValueError: No renderer for codetype nonexistent
-    >>> barcode('qrcode', 'Hello Barcode Writer In Pure PostScript.', 
+    >>> barcode('qrcode', 'Hello Barcode Writer In Pure PostScript.',
     ...         options=dict(version=9, eclevel='M'), margin=10, data_mode='8bits') # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('code128', '^104^102Count^0990123456789^101!', 
+    >>> barcode('code128', '^104^102Count^0990123456789^101!',
     ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('pdf417', '^453^178^121^239', 
+    >>> barcode('pdf417', '^453^178^121^239',
     ...         options=dict(columns=2, rows=10), margin=1, scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('upca', '78858101497', 
+    >>> barcode('upca', '78858101497',
     ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
-    >>> barcode('upce', '0123456', 
+    >>> barcode('upce', '0123456',
     ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('royalmail', 'LE28HS9Z', 
+    >>> barcode('royalmail', 'LE28HS9Z',
     ...         options=dict(includetext=False), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('datamatrix', '^142^164^186', 
+    >>> barcode('datamatrix', '^142^164^186',
     ...         options=dict(columns=32, rows=32), margin=1, scale=2.0) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('code11', '0123456789', 
+    >>> barcode('code11', '0123456789',
     ...         options=dict(includetext=True), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
-    >>> barcode('code25', '0123456789', 
+    >>> barcode('code25', '0123456789',
     ...         options=dict(includetext=False, includecheck=False), scale=2, margin=1) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ...>
     >>> # _.show()
@@ -147,9 +149,9 @@ def barcode(codetype, codestring, options=None, **kw):
     renderer = Barcode.resolve_codetype(codetype)
     if renderer:
         return renderer().render(codestring, options=options, **kw)
-    raise ValueError(u'No renderer for codetype %s' %codetype)
+    raise ValueError(u'No renderer for codetype %s' % codetype)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

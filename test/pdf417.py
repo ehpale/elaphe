@@ -6,4 +6,3 @@ cases = [
     ('004.png', 'Strong error correction', dict(columns=2, eclevel=5)),
     ('005.png', '^453^178^121^239', dict(raw=True, columns=2)),
     ]
-

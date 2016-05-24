@@ -32,6 +32,7 @@ class Interleaved2of5(Barcode):
     codetype = 'interleaved2of5'
     aliases = ('interleaved_2_of_5', 'interleaved 2of5', 'interleaved_2of5',
                'interleaved 2 of 5', 'interleaved-2of5', 'i2of5', 'i-2of5')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -52,13 +53,12 @@ class Interleaved2of5(Barcode):
             >>> r._text_bbox('THIS IS CODE39')
             [0, -7, 136.0, 3]
             """
-            hidestars = self.lookup_option('hidestars', False)
             textyoffset = self.lookup_option('textyoffset', 0)
             textsize = self.lookup_option('textsize', 10)
             textmaxy = textyoffset + textsize
             textmaxx = 9*len(codestring)+4+0.6*textsize
             return [0, textyoffset, textmaxx, textmaxy]
-        
+
         def build_params(self, codestring):
             params = super(Interleaved2of5._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -66,11 +66,11 @@ class Interleaved2of5(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

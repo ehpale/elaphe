@@ -44,6 +44,7 @@ class AusPost(Barcode):
             height=0.175,
             includetext=False, textyoffset=-7, textsize=10,
             custinfoenc='character')
+
         def _code_length(self, codestring):
             head = codestring[:2]
             if head in ['11', '45']:
@@ -55,7 +56,7 @@ class AusPost(Barcode):
             else:
                 raise ValueError('Invalid code header.')
             return codelen
-        
+
         def _code_bbox(self, codestring):
             """
             >>> r = AusPost._Renderer({})
@@ -83,10 +84,10 @@ class AusPost(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

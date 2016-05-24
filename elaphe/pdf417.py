@@ -1,8 +1,9 @@
 # coding: utf-8
 from __future__ import print_function
-import itertools, math
+import math
 from .base import Barcode, MatrixCodeRenderer, DPI
 from .util import cap_unescape
+
 
 class Pdf417(Barcode):
     """
@@ -44,16 +45,17 @@ class Pdf417(Barcode):
     >>> bc.render('^453^178^121^239', options=dict(raw=True, columns=2), scale=2) # doctest: +ELLIPSIS
     <PIL.EpsImagePlugin.EpsImageFile ... at ...>
     >>> # _.show()
-    
+
     """
     codetype = 'pdf417'
     aliases = ('pdf-417', 'pdf_417', 'pdf 417')
+
     class _Renderer(MatrixCodeRenderer):
         default_options = dict(
             MatrixCodeRenderer.default_options,
             dontdraw=False, compact=False, eclevel=-1, columns=2, rows=0, rowmult=3,
             ccc=False, raw=False, parse=False)
-            
+
         def _code_bbox(self, codestring):
             compact = self.lookup_option('compact')
             columns = self.lookup_option('columns')
@@ -63,40 +65,40 @@ class Pdf417(Barcode):
             raw = self.lookup_option('raw')
             codestring = cap_unescape(codestring)
             m = 0
-            if raw==False:
+            if not raw:
                 blen = len(codestring)
-                if blen%6==0:
+                if blen % 6 == 0:
                     m = (blen/6)*5+1
                 else:
-                    m = ((blen-blen%6)/6)*5+blen%6+1
+                    m = ((blen-blen % 6)/6)*5+blen % 6+1
             else:
                 m = len(codestring)
-            if eclevel==-1:
-                if m<=40:
+            if eclevel == -1:
+                if m <= 40:
                     eclevel = 2
-                elif 41<=m<=160:
+                elif 41 <= m <= 160:
                     eclevel = 3
-                elif 161<=m<=320:
+                elif 161 <= m <= 320:
                     eclevel = 4
-                else: # m>=321
+                else:  # m>=321
                     eclevel = 5
             maxeclevel = int(math.log(928-1-m)/math.log(2))-1
-            if eclevel>maxeclevel:
+            if eclevel > maxeclevel:
                 eclevel = maxeclevel
             k = 2**(eclevel+1)
-            if columns==0:
+            if columns == 0:
                 columns = int(round(math.sqrt((m+k)/3)))
-            if 1<=columns<=30:
+            if 1 <= columns <= 30:
                 c = columns
             else:
-                raise ValueError(u'Column out of bound: %d.' %(columns))
+                raise ValueError(u'Column out of bound: %d.' % (columns))
             r = int(math.ceil((m+k+1)/(1.0*columns)))
-            if r<rows and rows<=90:
+            if r < rows and rows <= 90:
                 r = rows
-            if r<3:
+            if r < 3:
                 r = 3
             maxeclevel = int(math.log(c*r-1-m)/math.log(2))-1
-            if maxeclevel>eclevel:
+            if maxeclevel > eclevel:
                 eclevel = maxeclevel
                 k = 2**(eclevel+1)
             if compact:
@@ -118,12 +120,11 @@ class Pdf417(Barcode):
             """
             params = super(Pdf417._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
-            params['bbox'] = '%d %d %d %d' %self._boundingbox(cbbox, cbbox)
+            params['bbox'] = '%d %d %d %d' % self._boundingbox(cbbox, cbbox)
             return params
     renderer = _Renderer
-    
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
-

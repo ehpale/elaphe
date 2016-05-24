@@ -5,7 +5,9 @@ from .base import Barcode, LinearCodeRenderer, DPI
 
 
 CODE128_ESCAPE_RE = re.compile(r'\^\d{3}')
-CODE128_CHARS =" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+CODE128_CHARS = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+
+
 class Code128(Barcode):
     """
     >>> bc = Code128()
@@ -35,10 +37,11 @@ class Code128(Barcode):
     """
     codetype = 'code128'
     aliases = ('code_128', 'code-128', 'code 128')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
-            height=1, includetext=False, 
+            height=1, includetext=False,
             textyoffset=-7, textsize=10)
 
         def _count_chars(self, codestring):
@@ -50,12 +53,12 @@ class Code128(Barcode):
             mode = -1
             idx = 0
             count = 0
-            while idx<len(codestring):
+            while idx < len(codestring):
                 if codestring[idx] == '^':
                     code_i = int(codestring[idx+1:idx+4])
                     idx += 4
                 else:
-                    if mode==2:
+                    if mode == 2:
                         code_i = int(codestring[idx:idx+2])
                         idx += 2
                     else:
@@ -67,9 +70,9 @@ class Code128(Barcode):
                     mode = 1
                 elif code_i in (99, 105):
                     mode = 2
-                count+=1
+                count += 1
             return count
-            
+
         def _code_bbox(self, codestring):
             """
             >>> r = Code128._Renderer({})
@@ -90,7 +93,7 @@ class Code128(Barcode):
             textmaxy = textyoffset + textsize
             textmaxx = 11*self._count_chars(codestring)+0.6*textsize
             return [0, textyoffset, textmaxx, textmaxy]
-        
+
         def build_params(self, codestring):
             params = super(Code128._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -98,12 +101,12 @@ class Code128(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
 
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

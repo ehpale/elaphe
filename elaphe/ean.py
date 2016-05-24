@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import print_function
-from .base import *
+from .base import Barcode, LinearCodeRenderer, DPI
 
 
 class Ean13(Barcode):
@@ -79,6 +79,7 @@ class ISBN(Barcode):
     codetype = 'isbn'
     aliases = ()
     default_options = dict(textyoffset=-4)
+
     class _Renderer(LinearCodeRenderer):
         code_bbox = [0, 0, 13*7+4, DPI]
 
@@ -91,13 +92,14 @@ class ISBN(Barcode):
                 return [-10, textyoffset-textsize/2.0, (12-1)*7+8+textsize*0.5, textmaxh]
             else:
                 return self.code_bbox
+
         def build_codestring(self, codestring):
             """
             Allows to accept digit-only notation.
             >>> ISBN._Renderer({}).build_codestring('978 1 56592 479') # '(978-1-56592-479)'
             '<3937382d312d35363539322d343739>'
             """
-            cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" %tuple(c for c in codestring if c in '0123456789')[:12]
+            cs = "%s%s%s-%s-%s%s%s%s%s-%s%s%s" % tuple(c for c in codestring if c in '0123456789')[:12]
             return super(ISBN._Renderer, self).build_codestring(cs)
     renderer = _Renderer
 
@@ -130,11 +132,13 @@ class Ean8(Barcode):
     """
     codetype = 'ean8'
     aliases = ('ean_8', 'ean-8', 'ean 8')
+
     class _Renderer(LinearCodeRenderer):
         code_bbox = [0, 0, 8*7+4, DPI]
         default_options = dict(
             LinearCodeRenderer.default_options,
             includetext=False, textsize=12, textyoffset=-4, height=1)
+
         @property
         def text_bbox(self):
             textyoffset = self.lookup_option('textyoffset')
@@ -175,6 +179,7 @@ class Ean5(Barcode):
     """
     codetype = 'ean5'
     aliases = ('ean_5', 'ean-5', 'ean 5')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -228,6 +233,7 @@ class Ean2(Barcode):
     """
     codetype = 'ean2'
     aliases = ('ean_2', 'ean-2', 'ean 2')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -253,6 +259,6 @@ class Ean2(Barcode):
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

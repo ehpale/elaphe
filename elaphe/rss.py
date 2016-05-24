@@ -34,6 +34,7 @@ class Rss14(Barcode):
     """
     codetype = 'databaromni'
     aliases = ('rss14', 'rss-14', 'rss_14', 'rss 14')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -51,8 +52,6 @@ class Rss14(Barcode):
                 cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
                 textyoffset = self.lookup_option('textyoffset')
                 textsize = self.lookup_option('textsize')
-                textminy = textyoffset
-                textmaxy = textyoffset + textsize
                 cbox_center = (cminx+cmaxx)/2.0
                 textminx = min(cminx, cbox_center-(len(codestring))*textsize*0.6/2.0)
                 textmaxx = max(cmaxx, cbox_center+(len(codestring))*textsize*0.6/2.0)
@@ -71,10 +70,10 @@ class Rss14(Barcode):
 
         def build_params(self, codestring):
             params = super(Rss14._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(
                 self._code_bbox(codestring), self._text_bbox(codestring))
             return params
-        
+
     renderer = _Renderer
 
 
@@ -107,6 +106,7 @@ class RssLimited(Barcode):
     codetype = 'databarlimited'
     aliases = ('rsslimited', 'rss limited', 'rss_limited', 'rss-limited',
                'rss14limited', 'rss14 limited', 'rss14_limited', 'rss14-limited',)
+
     class _Renderer(Rss14._Renderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -146,9 +146,11 @@ class RssExpanded(Barcode):
     codetype = 'databarexpanded'
     aliases = ('rssexpanded', 'rss expanded', 'rss_expanded', 'rss-expanded',
                'rss14expanded', 'rss14 expanded', 'rss14_expanded', 'rss14-expanded',)
+
     class _Renderer(Rss14._Renderer):
         default_options = dict(
             LinearCodeRenderer.default_options, height=34/72.0)
+
         def _code_bbox(self, codestring):
             """
             >>> r = RssExpanded._Renderer({})
@@ -161,6 +163,6 @@ class RssExpanded(Barcode):
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

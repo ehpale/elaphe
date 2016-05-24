@@ -31,6 +31,7 @@ class RationalizedCodabar(Barcode):
     """
     codetype = 'rationalizedCodabar'
     aliases = ('rationalized codabar')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -61,7 +62,7 @@ class RationalizedCodabar(Barcode):
             textsize = self.lookup_option('textsize', 10)
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             return [cminx, textyoffset, cmaxx, textyoffset+textsize]
-        
+
         def build_params(self, codestring):
             params = super(RationalizedCodabar._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -69,11 +70,11 @@ class RationalizedCodabar(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

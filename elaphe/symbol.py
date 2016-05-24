@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class Symbol(Barcode):
     """
     >>> bc = Symbol()
@@ -30,6 +31,7 @@ class Symbol(Barcode):
     """
     codetype = 'symbol'
     aliases = ('symbols', 'fimsymbols', 'fim symbols', 'fim-symbols', 'fim_symbols')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(LinearCodeRenderer.default_options)
         _widths = dict(
@@ -48,14 +50,12 @@ class Symbol(Barcode):
 
         def build_params(self, codestring):
             params = super(Symbol._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(
                 self._code_bbox(codestring), self._code_bbox(codestring))
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
-
-

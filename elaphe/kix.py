@@ -65,11 +65,11 @@ class Kix(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
-        
+
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

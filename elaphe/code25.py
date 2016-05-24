@@ -33,6 +33,7 @@ class Code2of5(Barcode):
     aliases = ('code_2_of_5', 'code 2of5', 'code_2of5',
                'code 2 of 5', 'code-2of5', 'c2of5', 'c-2of5',
                'code25', 'code 25', 'code_25', 'code-25')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -63,7 +64,7 @@ class Code2of5(Barcode):
             textsize = self.lookup_option('textsize')
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             return [cminx, textyoffset, cmaxx, textyoffset+textsize]
-        
+
         def build_params(self, codestring):
             params = super(Code2of5._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -71,11 +72,11 @@ class Code2of5(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

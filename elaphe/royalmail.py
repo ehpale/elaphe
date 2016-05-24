@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class RoyalMail(Barcode):
     """
     >>> bc = RoyalMail()
@@ -30,6 +31,7 @@ class RoyalMail(Barcode):
     """
     codetype = 'royalmail'
     aliases = ('royal mail', 'royal-mail', 'royal_mail', 'rm4scc')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -53,7 +55,6 @@ class RoyalMail(Barcode):
             [0, 0, 127.296, 12.6]
             """
             if self.lookup_option('includetext'):
-                textyoffset = self.lookup_option('textyoffset')
                 textsize = self.lookup_option('textsize')
                 cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
                 return [cminx, cminy-textsize, cmaxx, cmaxy]
@@ -62,11 +63,11 @@ class RoyalMail(Barcode):
 
         def build_params(self, codestring):
             params = super(RoyalMail._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(
                 self._code_bbox(codestring), self._text_bbox(codestring))
             return params
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

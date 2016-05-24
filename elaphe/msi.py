@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class MsiModifiedPlessey(Barcode):
     """
     >>> bc = MsiModifiedPlessey()
@@ -30,6 +31,7 @@ class MsiModifiedPlessey(Barcode):
     """
     codetype = 'msi'
     aliases = ('msi-plessey', 'msi plessey', 'msi_plessey', 'msiplessey')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -59,7 +61,7 @@ class MsiModifiedPlessey(Barcode):
             textsize = self.lookup_option('textsize')
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             return [cminx, textyoffset, cmaxx, textyoffset+textsize]
-        
+
         def build_params(self, codestring):
             params = super(MsiModifiedPlessey._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -67,11 +69,11 @@ class MsiModifiedPlessey(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
