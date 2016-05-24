@@ -156,7 +156,7 @@ class RssExpanded(Barcode):
             [0, 0, 105, 34]
             """
             height = self.lookup_option('height')
-            return [0, 0, int(DPI*15*(len(codestring)/8+3)/72.0), int(height*DPI)]
+            return [0, 0, int(DPI*15*(len(codestring)//8+3)/72.0), int(height*DPI)]
         _text_bbox = _code_bbox
     renderer = _Renderer
 

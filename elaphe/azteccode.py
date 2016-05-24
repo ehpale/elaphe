@@ -50,7 +50,7 @@ class AztecCode(Barcode):
     >>> bc = AztecCode()
     >>> bc # doctest: +ELLIPSIS
     <....AztecCode object at ...>
-    >>> print bc.render_ps_code('00100111001000000101001101111000010100111100101000000110', options=dict(raw=True)) # doctest: +ELLIPSIS
+    >>> print(bc.render_ps_code('00100111001000000101001101111000010100111100101000000110', options=dict(raw=True))) # doctest: +ELLIPSIS
     %!PS-Adobe-2.0
     %%Pages: (attend)
     %%Creator: Elaphe powered by barcode.ps

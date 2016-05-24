@@ -98,7 +98,15 @@ def ps_hex_str(s):
      474657374746573742074657374200a207364666f6a736f64666a206f696a2033323430
      393837753039387275736970646a66393438333235752074657374>
     """
-    return TextWrapper(subsequent_indent=' ', width=72).fill('<'+hexlify(s)+'>')
+    try:
+        hexlified = hexlify(s)
+    except TypeError:
+        hexlified = hexlify(s.encode('utf8'))
+
+    if isinstance(hexlified, bytes):
+        hexlified = hexlified.decode('ascii')
+    wrapped = '<{0}>'.format(hexlified)
+    return TextWrapper(subsequent_indent=' ', width=72).fill(wrapped)
 
 
 def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',

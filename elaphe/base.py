@@ -1,15 +1,7 @@
 # coding: utf-8
 
 from __future__ import print_function
-try:
-    # 2.7
-    import cStringIO as io
-except ImportError:
-    # 3.x
-    try:
-        import io as StringIO
-    except ImportError:
-        import io
+import io
 from PIL.EpsImagePlugin import EpsImageFile
 from . import util
 
@@ -157,7 +149,11 @@ class Renderer(object):
         <PIL.EpsImagePlugin.EpsImageFile ... at ...>
         """
         ps_code_buf = self.render_ps_code(codestring)
-        return EpsImageFile(io.StringIO(ps_code_buf))
+        try:
+            f = io.BytesIO(ps_code_buf)
+        except TypeError:
+            f = io.BytesIO(ps_code_buf.encode('utf8'))
+        return EpsImageFile(f)
 
 
 class LinearCodeRenderer(Renderer):

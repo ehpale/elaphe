@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import print_function
 import codecs, itertools
+import re
 from .base import Barcode, MatrixCodeRenderer, DPI
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -149,8 +150,20 @@ QRCODE_METRIC = [
 def alphanumeric_or_raise(s):
     """raises ValueError if s is not alphanumeric.
     """
-    if s.translate(None, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:'):
+    try:
+        match = re.match(r'[0-9A-Z $%*+./:].*', s)
+    except TypeError:
+        match = re.match(br'[0-9A-Z $%*+./:].*', s)
+    if not match:
         raise ValueError
+
+
+def kanji_decode(s):
+    sjis = codecs.lookup('sjis').decode
+    try:
+        return sjis(s)
+    except TypeError:
+        return sjis(s.encode('utf8'))
 
 def qrcode_metric(msgbits, encoding=None, format_='full', eclevel=None, version=None):
     """
@@ -166,7 +179,7 @@ def qrcode_metric(msgbits, encoding=None, format_='full', eclevel=None, version=
         for enc, assertion, exc in [
             ('numeric', int, ValueError),
             ('alphanumeric', alphanumeric_or_raise, ValueError),
-            ('kanji', codecs.lookup('sjis').decode, UnicodeDecodeError)]:
+            ('kanji', kanji_decode, UnicodeDecodeError)]:
             try:
                 assertion(msgbits)
                 encoding = enc
@@ -395,7 +408,7 @@ class QrCode(Barcode):
             r"""
             >>> import pprint
             >>> bits = '000100000010000000001100010101100110000110000'
-            >>> pprint.pprint(QrCode._Renderer({}).build_params(bits))
+            >>> pprint.pprint(QrCode._Renderer({}).build_params(bits), width=131)
             {'bbox': '0 0 50 50',
              'codestring': '<30303031303030303030313030303030303030303131303030313031303131303031313\n 0303030313130303030>',
              'codetype': {},
