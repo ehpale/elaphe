@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class Plessey(Barcode):
     """
     >>> bc = Plessey()
@@ -36,6 +37,7 @@ class Plessey(Barcode):
     """
     codetype = 'plessey'
     aliases = ()
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -50,7 +52,6 @@ class Plessey(Barcode):
             [0, 0, 325, 72.0]
             """
             height = self.lookup_option('height')
-            includecheck = self.lookup_option('includecheck')
             unidirectional = self.lookup_option('unidirectional')
             endchar = 8 if unidirectional else 25
             return [0, 0, 20+(len(codestring)+2)*20+endchar, height*DPI]
@@ -65,17 +66,17 @@ class Plessey(Barcode):
             textsize = self.lookup_option('textsize')
             cminx, cminy, cmaxx, cmaxy = self._code_bbox(codestring)
             return [cminx, textyoffset, cmaxx, textyoffset+textsize]
-        
+
         def build_params(self, codestring):
             params = super(Plessey._Renderer, self).build_params(codestring)
-            text_bbox = (self._text_bbox(codestring) if self.lookup_option('includetext')==True
+            text_bbox = (self._text_bbox(codestring) if self.lookup_option('includetext')
                          else [0, 0, 0, 0])
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(
                 self._code_bbox(codestring), text_bbox)
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

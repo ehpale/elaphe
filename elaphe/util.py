@@ -22,11 +22,13 @@ def _bin(n):
     >>> _bin(0), _bin(1), _bin(63), _bin(4096)
     ('0', '1', '111111', '1000000000000')
     """
-    return str(n) if n<=1 else _bin(n>>1) + str(n&1)
+    return str(n) if n <= 1 else _bin(n >> 1) + str(n & 1)
 try:
     bin
 except NameError:
-    bin = lambda n: '0b'+_bin(n)
+    def bin(n):
+        return '0b' + _bin(n)
+
 
 def zf_bin(n, width):
     """Zero-filled bin() of specified width.
@@ -42,17 +44,19 @@ def zf_bin(n, width):
 
 
 _cap_escape_re = re.compile(r'^\^\d\d\d')
+
+
 def cap_unescape(msg):
     """
     >>> cap_unescape('This is ^065ztec Code')
     'This is Aztec Code'
-    
+
     """
     bits = []
     while msg:
         if _cap_escape_re.search(msg):
             oct_ord, msg = msg[1:4], msg[4:]
-            bits.append(chr(int(oct_ord, 10)%256))
+            bits.append(chr(int(oct_ord, 10) % 256))
         else:
             bits.append(msg[0])
             msg = msg[1:]
@@ -74,10 +78,10 @@ def to_ps(obj, parlen=False):
     'foo bar baz'
     >>> to_ps('foo bar baz', parlen=True)
     '(foo bar baz)'
-    
+
     """
     if isinstance(obj, str):
-        ret = '%s' %obj
+        ret = '%s' % obj
         if parlen:
             ret = '(%s)' % ret
     elif isinstance(obj, bool):
@@ -91,7 +95,7 @@ def to_ps(obj, parlen=False):
 
 def ps_hex_str(s):
     """
-    
+
     >>> print(ps_hex_str('test testtesttesttest test test testtesttest test \\n'
     ...                  ' sdfojsodfj oij 3240987u098rusipdjf948325u test'))
     <74657374207465737474657374746573747465737420746573742074657374207465737
@@ -146,8 +150,8 @@ def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',
         return none_(d)
     elif d:
         ret = ' '.join(
-            (key + {True: '', False:'=%s' % to_ps(value)}[value is True])
-            for key, value in list(d.items()) if not value is False)
+            (key + {True: '', False: '=%s' % to_ps(value)}[value is True])
+            for key, value in list(d.items()) if value is not False)
         if raw:
             return '('+ret+')'
         else:
@@ -196,6 +200,7 @@ grestore
 showpage
 """
 
+
 def init_ps_code_template(epsf_dsc_template=DEFAULT_EPSF_DSC_TEMPLATE,
                           render_command_template=DEFAULT_RENDER_COMMAND_TEMPLATE,
                           ps_code_distiller=distill_ps_code):
@@ -208,7 +213,6 @@ BARCODE_PS_CODE_PATH = distill_ps_code()
 PS_CODE_TEMPLATE = init_ps_code_template()
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
-

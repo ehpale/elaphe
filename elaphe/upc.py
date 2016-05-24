@@ -31,6 +31,7 @@ class UpcA(Barcode):
     """
     codetype = 'upca'
     aliases = ('upc_a', 'upc-a', 'upc a')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -81,6 +82,7 @@ class UpcE(Barcode):
     """
     codetype = 'upce'
     aliases = ('upc_e', 'upc-e', 'upc e')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -103,6 +105,6 @@ class UpcE(Barcode):
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

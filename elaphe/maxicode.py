@@ -1,7 +1,7 @@
 # coding: utf-8
 from __future__ import print_function
-import itertools
-from .base import Barcode, MatrixCodeRenderer, DPI
+from .base import Barcode, MatrixCodeRenderer
+
 
 class MaxiCode(Barcode):
     """
@@ -55,17 +55,18 @@ class MaxiCode(Barcode):
     """
     codetype = 'maxicode'
     aliases = ('maxi-code', 'maxi code', 'maxi_code', 'maxi')
+
     class _Renderer(MatrixCodeRenderer):
-        default_options=dict(
+        default_options = dict(
             MatrixCodeRenderer.default_options,
             mode=4, sam=-1)
 
         @property
         def code_bbox(self):
             col, row = [v*2.4945 for v in (29+0.5*2, 32*0.8661+0.5774*2)]
-            return (0, 0, col, row) 
+            return (0, 0, col, row)
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

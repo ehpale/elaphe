@@ -5,4 +5,3 @@ cases = [
     ('003.png', 'Fixed size', dict(rows=48, columns=48)),
     ('004.png', 'Rectangular', dict(rows=16, columns=48)),
     ]
-

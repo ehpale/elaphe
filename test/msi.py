@@ -6,4 +6,3 @@ cases = [
     ('003.png', '0123456785', dict(includecheck=True, checktype='mod11', includetext=True,
                                    badmod11=True, includecheckintext=True)),
     ]
-

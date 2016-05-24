@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class OneCode(Barcode):
     """
     >>> bc = OneCode()
@@ -30,6 +31,7 @@ class OneCode(Barcode):
     """
     codetype = 'onecode'
     aliases = ('usps onecode', 'uspsonecode', 'usps-onecode', 'usps_onecode')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -50,6 +52,6 @@ class OneCode(Barcode):
                 return self.code_bbox
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

@@ -12,4 +12,3 @@ cases = [
                  'UPSN^02906X610^029159^0291234567^0291/1^029^029Y^029634 '
                  'ALPHA DR^029PITTSBURGH^029PA^029^004'), dict(mode=2, parse=True)),
     ]
-

@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class Raw(Barcode):
     """
     >>> bc = Raw()
@@ -31,6 +32,7 @@ class Raw(Barcode):
     """
     codetype = 'raw'
     aliases = ()
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -47,12 +49,12 @@ class Raw(Barcode):
 
         def build_params(self, codestring):
             params = super(Raw._Renderer, self).build_params(codestring)
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(
                 self._code_bbox(codestring), self._code_bbox(codestring))
             return params
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

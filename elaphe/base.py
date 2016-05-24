@@ -5,8 +5,10 @@ import io
 from PIL.EpsImagePlugin import EpsImageFile
 from . import util
 
-__all__=['DPI', 'Renderer', 'LinearCodeRenderer',
-         'MatrixCodeRenderer', 'Barcode']
+__all__ = [
+    'DPI', 'Renderer', 'LinearCodeRenderer',
+    'MatrixCodeRenderer', 'Barcode',
+]
 
 DPI = 72.0
 
@@ -19,7 +21,7 @@ def fb_lookup(dic, keys, default):
             return dic[key]
     else:
         return default
-    
+
 
 class Renderer(object):
     """Base renderer implementation.
@@ -108,13 +110,13 @@ class Renderer(object):
 
     def build_codestring(self, codestring):
         return util.ps_hex_str(codestring)
-        
+
     def build_options_string(self, options):
         return util.dict_to_optstring(options, raw=False)
 
     def build_params(self, codestring):
         params = {}
-        params['bbox'] = "%d %d %d %d" %self.boundingbox
+        params['bbox'] = "%d %d %d %d" % self.boundingbox
         params['codestring'] = self.build_codestring(codestring)
         params['options'] = self.build_options_string(self.options)
         params['xscale'], params['yscale'] = self.x_scale, self.y_scale
@@ -141,7 +143,7 @@ class Renderer(object):
         showpage
         <BLANKLINE>
         """
-        return util.PS_CODE_TEMPLATE %(self.build_params(codestring))
+        return util.PS_CODE_TEMPLATE % (self.build_params(codestring))
 
     def render(self, codestring):
         """
@@ -204,7 +206,7 @@ class LinearCodeRenderer(Renderer):
         spaceratio=1,
         )
 
-    
+
 class MatrixCodeRenderer(Renderer):
     default_options = dict(
         Renderer.default_options,
@@ -239,6 +241,7 @@ class Barcode(object):
     aliases = ()
     registry = {}
     renderer = Renderer
+
     @classmethod
     def update_codetype_registry(cls):
         # update registry
@@ -267,8 +270,8 @@ class Barcode(object):
     def _get_build_params(self, codestring='', options=None, **kw):
         renderer = self.get_renderer(options, **kw)
         return renderer.build_params(codestring)
-        
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

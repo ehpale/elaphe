@@ -7,7 +7,6 @@ from elaphe import barcode
 from os import makedirs
 from os.path import abspath, dirname, join
 from StringIO import StringIO
-from gzip import GzipFile
 from uu import encode as uuencode
 
 
@@ -20,41 +19,42 @@ except ImportError:
     from PIL import Image, ImageChops
 
 symbologies = [
-    'auspost', 'azteccode', 
-    'ean2', 'ean5', 'ean8', 'ean13', 'isbn', 
+    'auspost', 'azteccode',
+    'ean2', 'ean5', 'ean8', 'ean13', 'isbn',
     'code11', 'code128', 'code2of5', 'code39', 'code93',
-    'datamatrix', 
-    'i2of5', 
-    'japanpost', 
+    'datamatrix',
+    'i2of5',
+    'japanpost',
     'kix',
-    'maxicode', 
-    'msi', 
+    'maxicode',
+    'msi',
     'onecode',
     'pdf417',
-    'pharmacode', 
-    'plessey', 
+    'pharmacode',
+    'plessey',
     'rationalizedCodabar',
     'upca', 'upce',
-    'postnet', 
+    'postnet',
     ]
 _unsupported = [
-    'qrcode', 
-    'raw', 
-    'royalmail', 
-    'rss', 
-    'symbol', 
+    'qrcode',
+    'raw',
+    'royalmail',
+    'rss',
+    'symbol',
     ]
 
 
 class RenderTestCaseBase(TestCase):
     conf = None
+
     def runTest(self):
         symbology = self.conf.symbology
         img_prefix = join(IMG_ROOT, symbology)
         for args in self.conf.cases:
             img_filename, codestring = args[:2]
-            options = args[2] if len(args)>2 else {}
-            render_options = dict((args[3] if len(args)>3 else {}), scale=2.0)
+            options = args[2] if len(args) > 2 else {}
+            render_options = dict((args[3] if len(args) > 3 else {}), scale=2.0)
             generated = barcode(symbology, codestring, options, **render_options).convert('L')
             loaded = Image.open(join(img_prefix, img_filename)).convert('L')
             diff = None
@@ -83,11 +83,11 @@ class RenderTestCaseBase(TestCase):
                 # reopen sio_img
                 sio_img = StringIO(sio_img.getvalue())
                 sio_uu = StringIO()
-                uuencode(sio_img, sio_uu, name='diag_%s' %img_filename)
+                uuencode(sio_img, sio_uu, name='diag_%s' % img_filename)
                 raise AssertionError(
                     'Image difference detected (%s)\n'
                     'uu of generated image:\n----\n%s----\n'
-                    %(exc.args, sio_uu.getvalue()))
+                    % (exc.args, sio_uu.getvalue()))
 
 
 def gen_render_test_case(symbology):
@@ -106,8 +106,8 @@ def gen_test_images(symbology):
         pass
     for args in conf.cases:
         img_filename, codestring = args[:2]
-        options = args[2] if len(args)>2 else {}
-        render_options = dict((args[3] if len(args)>3 else {}), scale=2.0)
+        options = args[2] if len(args) > 2 else {}
+        render_options = dict((args[3] if len(args) > 3 else {}), scale=2.0)
         generated = barcode(symbology, codestring, options, **render_options).convert('L')
         generated.save(join(img_prefix, img_filename), 'PNG')
 
@@ -118,7 +118,6 @@ for symbology in symbologies:
     suite.addTest(gen_render_test_case(symbology))
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     for target in symbologies:
         gen_test_images(target.strip())
-    

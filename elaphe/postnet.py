@@ -2,6 +2,7 @@
 from __future__ import print_function
 from .base import Barcode, LinearCodeRenderer, DPI
 
+
 class PostNet(Barcode):
     """
     >>> bc = PostNet()
@@ -30,6 +31,7 @@ class PostNet(Barcode):
     """
     codetype = 'postnet'
     aliases = ('post net', 'post-net', 'post_net', 'us-postnet', 'us postnet', 'us_postnet')
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -64,10 +66,10 @@ class PostNet(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
     renderer = _Renderer
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()

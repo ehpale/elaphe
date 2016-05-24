@@ -1,7 +1,8 @@
 # coding: utf-8
 from __future__ import print_function
-import re, math
-from .base import Barcode, LinearCodeRenderer, DPI
+import math
+from .base import Barcode, LinearCodeRenderer
+
 
 class Phamacode(Barcode):
     """
@@ -32,6 +33,7 @@ class Phamacode(Barcode):
     """
     codetype = 'pharmacode'
     aliases = ()
+
     class _Renderer(LinearCodeRenderer):
         default_options = dict(
             LinearCodeRenderer.default_options,
@@ -58,7 +60,7 @@ class Phamacode(Barcode):
             textsize = self.lookup_option('textsize')
             textyoffset = self.lookup_option('textyoffset')
             return [cminx, textyoffset, cmaxx, textyoffset+textsize]
-        
+
         def build_params(self, codestring):
             params = super(Phamacode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
@@ -66,12 +68,12 @@ class Phamacode(Barcode):
                 tbbox = self._text_bbox(codestring)
             else:
                 tbbox = cbbox
-            params['bbox'] = "%d %d %d %d" %self._boundingbox(cbbox, tbbox)
+            params['bbox'] = "%d %d %d %d" % self._boundingbox(cbbox, tbbox)
             return params
 
     renderer = _Renderer
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     from doctest import testmod
     testmod()
