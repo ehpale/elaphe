@@ -129,7 +129,7 @@ class DataMatrix(Barcode):
                         cw_length+=2
                         residue = residue[1:]
             elif encoding in ['c40', 'text', 'x12']:
-                enc_props = dict(
+                enc_types = dict(
                     c40=dict(
                         mode=230, eightbits=True,
                         charmap=(
@@ -164,6 +164,7 @@ class DataMatrix(Barcode):
                             '1d1e1f2021222324252627ffffffffff'
                             'ffffffffffffffffffffffffffffffff'
                             'ffffffffffffffffffffffffffffffff')))
+                enc_props = enc_types.get(encoding)
                 parsefnc = enc_props.get('parsefnc', parsefnc)
                 mode = enc_props.get('mode')
                 eightbits = enc_props.get('eightbits')
