@@ -105,14 +105,24 @@ def dict_to_optstring(d, none=lambda x: '<>', empty=lambda x: '<>',
                       raw_none=lambda x: '()', raw_empty=lambda x: '()',
                       raw=True):
     """Converts dictionary into ps string in barcode.ps specific format.
-
-    >>> dict_to_optstring(dict(purpose='seekagrail', color='yellow', spam=True, egg=False), raw=True)
+    >>> from collections import OrderedDict as odict
+    >>> dict_to_optstring(odict([
+    ...     ('color','yellow'),
+    ...     ('purpose', 'seekagrail'),
+    ...     ('spam', True),
+    ...     ('egg', False),
+    ... ]), raw=True)
     '(color=yellow purpose=seekagrail spam)'
     >>> dict_to_optstring(dict(), raw=True)
     '()'
     >>> dict_to_optstring(None, raw=True)
     '()'
-    >>> dict_to_optstring(dict(purpose='seekagrail', color='yellow', spam=True, egg=False), raw=False)
+    >>> dict_to_optstring(odict([
+    ...     ('color','yellow'),
+    ...     ('purpose', 'seekagrail'),
+    ...     ('spam', True),
+    ...     ('egg', False),
+    ... ]), raw=False)
     '<636f6c6f723d79656c6c6f7720707572706f73653d7365656b61677261696c207370616\\n d>'
     >>> dict_to_optstring(dict(), raw=False)
     '<>'

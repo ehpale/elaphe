@@ -215,8 +215,14 @@ class DataMatrix(Barcode):
 
         def build_params(self, codestring):
             """
-            >>> DataMatrix._Renderer(()).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 24 24', 'codetype': (), 'xscale': 1.0, 'options': '<>'}
+            >>> import pprint
+            >>> pprint.pprint(DataMatrix._Renderer(()).build_params('abcd'))
+            {'bbox': '0 0 24 24',
+             'codestring': '<61626364>',
+             'codetype': (),
+             'options': '<>',
+             'xscale': 1.0,
+             'yscale': 1.0}
             """
             params = super(DataMatrix._Renderer, self).build_params(codestring)
             params['bbox'] = '%d %d %d %d' %(self._boundingbox(

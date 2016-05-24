@@ -392,10 +392,16 @@ class QrCode(Barcode):
             return (0, 0, int(size*2*DPI/72.0), int(size*2*DPI/72.0))
 
         def build_params(self, codestring):
-            """
-            >>> QrCode._Renderer({}).build_params(
-            ...   '000100000010000000001100010101100110000110000')
-            {'yscale': 1.0, 'codestring': '<30303031303030303030313030303030303030303131303030313031303131303031313\\n 0303030313130303030>', 'bbox': '0 0 50 50', 'codetype': {}, 'xscale': 1.0, 'options': '<>'}
+            r"""
+            >>> import pprint
+            >>> bits = '000100000010000000001100010101100110000110000'
+            >>> pprint.pprint(QrCode._Renderer({}).build_params(bits))
+            {'bbox': '0 0 50 50',
+             'codestring': '<30303031303030303030313030303030303030303131303030313031303131303031313\n 0303030313130303030>',
+             'codetype': {},
+             'options': '<>',
+             'xscale': 1.0,
+             'yscale': 1.0}
             """
             params = super(QrCode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

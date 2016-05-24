@@ -107,8 +107,14 @@ class Pdf417(Barcode):
 
         def build_params(self, codestring):
             """
-            >>> Pdf417._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 103 21', 'codetype': {}, 'xscale': 1.0, 'options': '<>'}
+            >>> import pprint
+            >>> pprint.pprint(Pdf417._Renderer({}).build_params('abcd'))
+            {'bbox': '0 0 103 21',
+             'codestring': '<61626364>',
+             'codetype': {},
+             'options': '<>',
+             'xscale': 1.0,
+             'yscale': 1.0}
             """
             params = super(Pdf417._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)

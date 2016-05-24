@@ -148,8 +148,14 @@ class AztecCode(Barcode):
 
         def build_params(self, codestring):
             """
-            >>> AztecCode._Renderer({}).build_params('abcd')
-            {'yscale': 1.0, 'codestring': '<61626364>', 'bbox': '0 0 30 30', 'codetype': {}, 'xscale': 1.0, 'options': '<>'}
+            >>> import pprint
+            >>> pprint.pprint(AztecCode._Renderer({}).build_params('abcd'))
+            {'bbox': '0 0 30 30',
+             'codestring': '<61626364>',
+             'codetype': {},
+             'options': '<>',
+             'xscale': 1.0,
+             'yscale': 1.0}
             """
             params = super(AztecCode._Renderer, self).build_params(codestring)
             cbbox = self._code_bbox(codestring)
