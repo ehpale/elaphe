@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
-import imp, sys, os
-from os.path import abspath, dirname, join as pathjoin
+import io
+import os
+
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
 
-version = imp.load_source('_mod', abspath('elaphe/__version__.py')).VERSION
-version = '.'.join(map(str, version))
-install_requires = ['setuptools', 'Pillow']
-extra_requires = {}
-long_description = '\n'.join([
-    open(pathjoin(dirname(abspath(__file__)), 'README')).read(),
-    ])
 
-sys.path.extend(['./elaphe', './test'])
-                
-setup_params = dict(
+def read(*names, **kwargs):
+    with io.open(
+        os.path.join(os.path.dirname(__file__), *names),
+        encoding=kwargs.get('encoding', 'utf8'),
+    ) as fp:
+        return fp.read()
+
+readme = open('README.rst').read()
+history = open('CHANGES.rst').read().replace('.. :changelog:', '')
+
+
+setup(
     name="elaphe3",
-    version=version,
+    version='0.1.1.dev0',
     packages=['elaphe'],
     exclude_package_data={
         'elaphe': ['postscriptbarcode']},
@@ -24,8 +26,7 @@ setup_params = dict(
         'elaphe': ['postscriptbarcode/barcode.ps',
                    'postscriptbarcode/LICENSE']},
     zip_safe=False,
-    install_requires = install_requires,
-    extras_require=extra_requires,
+    install_requires=['pillow'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
@@ -35,14 +36,14 @@ setup_params = dict(
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    author = "Yasushi Masuda",
-    author_email = "whosaysni at gmail dot com",
-    description = "Generates various barcodes using barcode.ps and PIL.",
-    long_description=long_description,
-    license = "New BSD",
-    keywords = "barcode convert postscript image graphics",
-    url = "http://bitbucket.org/whosaysni/elaphe/",
-    test_suite = 'test.suite',
+    author="Yasushi Masuda",
+    author_email="whosaysni@gmail.com",
+    maintainer='Thomas Grainger',
+    maintainer_email='elaphe3@graingert.co.uk',
+    description="Generates various barcodes using barcode.ps and pillow.",
+    long_description=readme + '\n\n' + history,
+    license="New BSD",
+    keywords="barcode convert postscript image graphics",
+    url="https://github.com/graingert/elaphe",
+    test_suite='test.suite',
 )
-
-setup(**setup_params)

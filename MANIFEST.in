@@ -1,4 +1,8 @@
-recursive-include *.txt *.py README LICENSE
-prune elaphe/postscriptbarcode
 include elaphe/postscriptbarcode/LICENSE
 include elaphe/postscriptbarcode/barcode.ps
+
+include CHANGES.rst
+include README.rst
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

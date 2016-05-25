@@ -2,9 +2,8 @@
 """elaphe -- A Python binding for Barcode Writer In Pure Postscrpt.
 """
 from .base import Barcode
-from .__version__ import VERSION
 
-__all__ = ['barcode', 'Barcode', 'VERSION']
+__all__ = ['barcode', 'Barcode']
 
 DEFAULT_PLUGINS = [
     'elaphe.ean', 'elaphe.upc', 'elaphe.code128', 'elaphe.code39',
