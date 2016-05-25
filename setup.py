@@ -18,7 +18,7 @@ history = open('CHANGES.rst').read().replace('.. :changelog:', '')
 
 setup(
     name="elaphe3",
-    version='0.1.1',
+    version='0.1.2.dev0',
     packages=['elaphe'],
     exclude_package_data={
         'elaphe': ['postscriptbarcode']},
