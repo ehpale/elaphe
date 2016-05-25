@@ -1,7 +1,8 @@
 0.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix packaging.
+- Switch to zest.releaser.
 
 
 0.1.0 (2016-05-24)
