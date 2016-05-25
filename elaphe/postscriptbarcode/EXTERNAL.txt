@@ -1,2 +1,0 @@
-This version of postscriptbarcode is the latest release available here :
-https://github.com/terryburton/postscriptbarcode/releases/tag/2013-11-11

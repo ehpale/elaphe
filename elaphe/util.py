@@ -169,12 +169,12 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     <BLANKLINE>
     <BLANKLINE>
     %% --BEGIN RESOURCE preamble--
-    %%%%BeginResource: Category uk.co.terryburton.bwipp 0.0 0 0 0
-    %%%%BeginData:          5 ASCII Lines
+    %%%%BeginResource: Category uk.co.terryburton.bwipp 0.0 ...
+    %%%%BeginData:          ... ASCII Lines
     ...
     %%%%EndData
     %%%%EndResource
-    %% --END ENCODER hibccodablockf--
+    %% --END ENCODER hibc...--
     <BLANKLINE>
     <BLANKLINE>
     """
