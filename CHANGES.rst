@@ -1,7 +1,7 @@
 0.1.2 (unreleased)
 ------------------
 
-- Update to BWIPP to 2016-04-21.
+- Update to BWIPP to 2017-04-04.
 
 
 0.1.1 (2016-05-25)
