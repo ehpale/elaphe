@@ -6,7 +6,7 @@ from unittest import TestCase, TestSuite
 from elaphe import barcode
 from os import makedirs
 from os.path import abspath, dirname, join
-from StringIO import StringIO
+from io import BytesIO
 from uu import encode as uuencode
 
 
@@ -78,11 +78,11 @@ class RenderTestCaseBase(TestCase):
                 else:
                     # else, just write generated image
                     diag = generated
-                sio_img = StringIO()
+                sio_img = BytesIO()
                 diag.convert('L').save(sio_img, 'PNG')
                 # reopen sio_img
-                sio_img = StringIO(sio_img.getvalue())
-                sio_uu = StringIO()
+                sio_img = BytesIO(sio_img.getvalue())
+                sio_uu = BytesIO()
                 uuencode(sio_img, sio_uu, name='diag_%s' % img_filename)
                 raise AssertionError(
                     'Image difference detected (%s)\n'
@@ -112,10 +112,12 @@ def gen_test_images(symbology):
         generated.save(join(img_prefix, img_filename), 'PNG')
 
 
-suite = TestSuite()
+def collect(ts):
+    for symbology in symbologies:
+        ts.addTest(gen_render_test_case(symbology))
 
-for symbology in symbologies:
-    suite.addTest(gen_render_test_case(symbology))
+
+suite = collect(TestSuite())
 
 
 if __name__ == '__main__':

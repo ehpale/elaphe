@@ -1,5 +1,6 @@
 from unittest import TestSuite
 from doctest import DocTestSuite
+from . import render
 
 module_names = [
     'elaphe',
@@ -38,3 +39,6 @@ suite = TestSuite()
 # doctests
 for module_name in module_names:
     suite.addTest(DocTestSuite(module_name))
+
+
+render.collect(suite)
