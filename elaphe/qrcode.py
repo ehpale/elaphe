@@ -264,7 +264,7 @@ def qrcode_metric(msgbits, encoding=None, format_='full', eclevel=None, version=
         n_msgbits = len(mid)+cclen+n_msgbits
 
     # logging.debug('enc=%s fmt=%s eclv=%s ver=%s' % (encoding, format_, eclevel, version))
-    ecval = 'LHQM'.index(eclevel)
+    ecval = 'LMQH'.index(eclevel)
     if version:
         version = str(version)
     for frmt, vers, size, asp2, asp3, nmod, ecws_list, ecb_list in QRCODE_METRIC:
