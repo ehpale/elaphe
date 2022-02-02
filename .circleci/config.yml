@@ -67,7 +67,7 @@ references:
   python-top-and-bottom-version-matrix: &python-top-and-bottom-version-matrix
     matrix:
       parameters:
-        version: ["3.6", "3.9"]
+        version: ["3.6", "3.7"]
 
 executors:
   python:
