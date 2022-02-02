@@ -53,11 +53,11 @@ references:
   python-full-version-matrix: &python-full-version-matrix
     matrix:
       parameters:
-        version: ["2.7", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9"]
+        version: ["3.6", "3.7", "3.8", "3.9"]
   python-top-and-bottom-version-matrix: &python-top-and-bottom-version-matrix
     matrix:
       parameters:
-        version: ["2.7", "3.4", "3.9"]
+        version: ["3.6", "3.9"]
 
 executors:
   python:
