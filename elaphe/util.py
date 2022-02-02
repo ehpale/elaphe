@@ -178,8 +178,8 @@ def distill_ps_code(path_to_ps_code=DEFAULT_PS_CODE_PATH,
     <BLANKLINE>
     <BLANKLINE>
     """
-    return distill_regexp.findall(
-        open(path_to_ps_code, 'r').read())[0].replace('%', '%%')
+    with open(path_to_ps_code, 'r') as f:
+        return distill_regexp.findall(f.read())[0].replace('%', '%%')
 
 
 DEFAULT_EPSF_DSC_TEMPLATE = """%%!PS-Adobe-2.0
