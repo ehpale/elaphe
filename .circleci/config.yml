@@ -20,6 +20,7 @@ references:
 
         declare -a FILES=(
           "setup.py"
+          "tox.ini"
           "all-requirements.txt"
         )
         for f in ${FILES[@]}
@@ -43,6 +44,15 @@ references:
       key: deps-1-py<< parameters.version >>-{{ checksum ".checksum" }}
       paths:
         - venv
+  restore-tox-cache: &restore-tox-cache
+    restore_cache:
+      keys:
+        - tox-1-py<< parameters.version >>-{{ checksum ".checksum" }}
+  save-tox-cache: &save-tox-cache
+    save_cache:
+      key: tox-1-py<< parameters.version >>-{{ checksum ".checksum" }}
+      paths:
+        - .tox
   parametrised-python-executor: &parametrised-python-executor
     parameters:
       version:
@@ -78,12 +88,15 @@ jobs:
       - *restore-dependencies-cache
       - *install-dependencies
       - *save-dependencies-cache
+      - *restore-tox-cache
 
       - run:
           name: Run Tests
           command: |
             source venv/bin/activate
             tox -e py$(echo << parameters.version >> | sed s/\\.//)
+
+      - *save-tox-cache
 
   lint:
     <<: *parametrised-python-executor
