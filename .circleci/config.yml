@@ -83,7 +83,7 @@ jobs:
           name: Run Tests
           command: |
             source venv/bin/activate
-            tox
+            tox -e py$(echo << parameters.version >> | sed s/\\.//)
 
   lint:
     <<: *parametrised-python-executor
