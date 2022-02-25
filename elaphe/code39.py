@@ -74,7 +74,7 @@ class Code39(Barcode):
             textmaxy = textyoffset + textsize
             textmaxx = 16*(len(codestring)+1)+0.6*textsize
             if hidestars:
-                textmaxx = 16, textmaxx-16
+                textmaxx = textmaxx - 16
             return [0, textyoffset, textmaxx, textmaxy]
 
         def build_params(self, codestring):
