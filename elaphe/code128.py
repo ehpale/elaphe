@@ -80,7 +80,7 @@ class Code128(Barcode):
             [0, 0, 167, 72.0]
             """
             height = self.lookup_option('height')
-            return [0, 0, self._count_chars(codestring)*11+2, height*DPI]
+            return [0, 0, self._count_chars(codestring)*13+2, height*DPI]
 
         def _text_bbox(self, codestring):
             """
